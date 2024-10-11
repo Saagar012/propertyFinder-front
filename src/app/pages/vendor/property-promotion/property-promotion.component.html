@@ -1,0 +1,64 @@
+<main class="page-wrapper">
+  <!-- Header-->
+  <app-header id="top"></app-header>
+
+ <!-- Page container-->
+ <div class="container mt-5 mb-md-4 py-5">
+  <!-- Title + Breadcrumb-->
+  <app-breadcrumbs [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+  <h1 class="h2 mb-4">Promotion page</h1>
+  <h2 class="h3 pb-2 mb-4">Select your perfect plan to promote your ad</h2>
+  <div class="row">
+    @for(data of promotionData;track $index){
+    <div class="col-sm-6 col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body"><img class="d-block mx-auto mt-2 mb-4" src="{{data.image}}" width="72" alt="Icon">
+          <h2 class="h5 fw-normal text-center py-1 mb-0">{{data.title}}</h2>
+          <div class="d-flex align-items-end justify-content-center mb-4">
+            <div class="h1 mb-0">${{data.price}}</div>
+            <div class="pb-2 ps-2">/month</div>
+          </div>
+          <ul class="list-unstyled d-block mb-0 mx-auto" style="max-width: 16rem;">
+            <li class="d-flex"><i class="fi-check text-primary fs-sm mt-1 me-2"></i><span>{{data.view}}x more views</span></li>
+            <li class="d-flex"><i class="fi-check text-primary fs-sm mt-1 me-2"></i><span>Top ads for {{data.days}} days</span></li>
+            <li class="d-flex" [ngClass]="{'text-muted': data.movingSymbol == 'fi-x fs-xs'}"><i class="{{data.movingSymbol}} mt-2 me-2"></i><span>Moving up the list</span></li>
+            <li class="d-flex" [ngClass]="{'text-muted': data.featuredSymbol == 'fi-x fs-xs'}"><i class="{{data.featuredSymbol}} mt-2 me-2"></i><span>Featured badge in the results</span></li>
+          </ul>
+        </div>
+        <div class="card-footer py-2 border-0">
+          <div class="border-top text-center pt-4 pb-3"><a class="btn {{data.btncolor}}" href="javascript:void(0);">Choose plan</a></div>
+        </div>
+      </div>
+    </div>
+  }
+
+  </div>
+  <h2 class="h3 pt-4 pt-md-5 mb-4">Other services</h2>
+  <div class="card card-hover card-body px-4 mb-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="checkAll" id="ad-option-1" value="35" checked (change)="onCheckboxChange($event)">
+      <label class="form-check-label d-sm-flex align-items-center justify-content-between" for="ad-option-1"><span class="d-block px-1"><span class="d-block h6 mb-2">Check and certify my ad by Finder experts</span><span class="d-block mb-2 mb-sm-0">Ads with Certified badge get <strong>10x</strong> more views</span></span><span class="d-block h4 mb-0">$35</span></label>
+    </div>
+  </div>
+  <div class="card card-hover card-body px-4 mb-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="checkAll" id="ad-option-2" value="20" (change)="onCheckboxChange($event)">
+      <label class="form-check-label d-sm-flex align-items-center justify-content-between" for="ad-option-2"><span class="d-block px-1"><span class="d-block h6 mb-2">10 lifts to the top of the list (daily, 7 days)</span><span class="d-block mb-2 mb-sm-0">Your ad will be seen by as many people as possible</span></span><span class="d-block h4 mb-0">$20</span></label>
+    </div>
+  </div>
+  <div class="card card-hover card-body px-4 mb-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="checkAll" id="ad-option-3" value="15" (change)="onCheckboxChange($event)">
+      <label class="form-check-label d-sm-flex align-items-center justify-content-between" for="ad-option-3"><span class="d-block px-1"><span class="d-block h6 mb-2">Featured ad for 7 days</span><span class="d-block mb-2 mb-sm-0">Ads with Featured badge get <strong>5x</strong> more views  </span></span><span class="d-block h4 mb-0">$15</span></label>
+    </div>
+  </div>
+  <div class="text-end pt-4">
+    <div class="h4 mb-4">Total: ${{result}}</div>
+    <button class="btn btn-outline-secondary btn-lg me-2" type="button">Do not promote</button>
+    <button class="btn btn-primary btn-lg" type="button">Submit</button>
+  </div>
+</div>
+  </main>
+
+  <!-- Footer-->
+<app-footer></app-footer>

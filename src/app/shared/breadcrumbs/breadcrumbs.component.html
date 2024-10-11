@@ -1,0 +1,15 @@
+<nav class="mb-4 pt-md-3" aria-label="Breadcrumb">
+  <ol class="breadcrumb">
+    @for(item of breadcrumbItems;track $index){
+    <ng-container>
+      <li class="breadcrumb-item" [ngClass]="{'active': item.active == true}">
+         @if(item.active == true){
+        <span>{{ item.label }}</span>
+         } @else{
+          <a routerLink="{{item.link}}">{{ item.label }}</a>
+         }
+      </li>
+    </ng-container>
+  }
+  </ol>
+</nav>

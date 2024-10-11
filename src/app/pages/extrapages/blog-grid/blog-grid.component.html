@@ -1,0 +1,106 @@
+<main class="page-wrapper">
+  <!-- Header-->
+  <app-header id="top"></app-header>
+  <!-- Page container-->
+  <div class="container mt-5 mb-md-4 py-5">
+    <!-- Title + Breadcrumb-->
+    <app-breadcrumbs [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+    <h1 class="d-flex align-items-end justify-content-between mb-4">Real estate news</h1>
+
+    <div class="pb-5 pt-2">
+      <ngx-slick-carousel [config]="config">
+        @for(data of newsData;track $index){
+        <div class="swiper-slide" ngxSlickItem>
+          <div class="p-4">
+            <article class="row">
+              <div class="col-md-7 col-lg-8 mb-lg-0 mb-3 mb-md-0">
+                <a class="d-block position-relative" routerLink="/pages/single-blog">
+                  <span class="badge bg-success position-absolute top-0 end-0 m-3 fs-sm">Sponsored</span>
+                  <img class="rounded-3" src="{{data.image}}" alt="Post image">
+                </a>
+              </div>
+              <div class="col-md-5 col-lg-4"><a class="fs-sm text-uppercase text-decoration-none" href="javascript:void(0);">{{data.sub_title}}</a>
+                <h2 class="h5 pt-1"><a class="nav-link" routerLink="/pages/single-blog">{{data.title}}</a></h2>
+                <p class="d-md-none d-xl-block mb-4">{{data.content}}</p>
+                <a class="d-flex align-items-center text-decoration-none" href="javascript:void(0);">
+                  <img class="rounded-circle" src="{{data.profile}}" width="48" alt="Kristin Watson">
+                  <div class="ps-2">
+                    <h6 class="fs-base text-nav lh-base mb-1">{{data.name}}</h6>
+                    <div class="d-flex text-body fs-sm"><span class="me-2 pe-1"><i class="fi-calendar-alt opacity-60 mt-n1 me-1"></i>{{data.date}}</span><span><i class="fi-chat-circle opacity-60 mt-n1 me-1"></i>{{data.comments}} comments</span></div>
+                  </div>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+        }
+      </ngx-slick-carousel>
+    </div>
+
+    <!-- Search bar + filters-->
+    <div class="row gy-3 mb-4 pb-2">
+      <div class="col-md-4 order-md-1 order-2">
+        <div class="position-relative">
+          <input class="form-control pe-5" type="text" placeholder="Search articles by keywords..." [(ngModel)]="term"><i class="fi-search position-absolute top-50 end-0 translate-middle-y me-3"></i>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-8 offset-lg-2 order-md-2 order-1">
+        <div class="row gy-3">
+          <div class="col-6 d-flex flex-sm-row flex-column align-items-sm-center">
+            <label class="d-inline-block me-sm-2 mb-sm-0 mb-2 text-nowrap" for="categories"><i class="fi-align-left mt-n1 me-2 align-middle opacity-70"></i>Category:</label>
+            <select class="form-select" id="categories" (click)="CategorySearch();">
+              <option value="">All</option>
+              <option value="Home">Home</option>
+              <option value="Inspiration">Inspiration</option>
+              <option value="Tips">Tips &amp; Advice</option>
+              <option value="Industry News">Industry News</option>
+              <option value="Market Analysis">Market Analysis</option>
+            </select>
+          </div>
+          <div class="col-6 d-flex flex-sm-row flex-column align-items-sm-center">
+            <label class="d-inline-block me-sm-2 mb-sm-0 mb-2 text-nowrap" for="sortby"><i class="fi-arrows-sort mt-n1 me-2 align-middle opacity-70"></i>Sort by:</label>
+            <select class="form-select" id="sortby" (click)="SortFilter();">
+              <option value="">Select Title</option>
+              <option value="Atitle">Newest</option>
+              <option value="Dtitle">Oldest</option>
+              <option value="Asub_title">Popular</option>
+              <option value="Dsub_title">Sponsored</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Articles grid-->
+    <div class="row row-cols-md-2 row-cols-1 gy-md-5 gy-4 mb-lg-5 mb-4">
+      <!-- Article-->
+      @for(data of blogsDatas;track $index){
+      <article class="col pb-2 pb-md-1 {{sortBy}}">
+        <a class="d-block position-relative mb-3" routerLink="/pages/single-blog">
+          <span class="badge {{data.btn_color}} position-absolute top-0 end-0 m-3 fs-sm">{{data.btn}}</span>
+          <img class="d-block rounded-3" src="{{data.image}}" alt="Article image">
+        </a>
+        <a class="fs-sm text-uppercase text-decoration-none" href="javascript:void(0);">{{data.sub_title}}</a>
+        <h3 class="h5 mb-2 pt-1"><a class="nav-link" routerLink="/pages/single-blog">{{data.title}}</a></h3>
+        <p class="mb-3">{{data.content}}</p>
+        <article class="d-flex align-items-center text-decoration-none" href="javascript:void(0);"><img class="rounded-circle" src="{{data.profile}}" width="48" alt="Cody Fisher">
+          <div class="ps-2">
+            <h6 class="fs-base text-nav lh-base mb-1">{{data.name}}</h6>
+            <div class="d-flex text-body fs-sm"><span class="me-2 pe-1"><i class="fi-calendar-alt opacity-70 mt-n1 me-1 align-middle"></i>{{data.date}}</span><span><i class="fi-chat-circle opacity-70 mt-n1 me-1 align-middle"></i>{{data.comments}} comments</span></div>
+          </div>
+        </article>
+      </article>
+      }
+
+    </div>
+    <!-- Pagination-->
+    <nav class="pt-4 pb-2 border-top" aria-label="Blog pagination">
+      <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize"></ngb-pagination>
+    </nav>
+
+  </div>
+
+</main>
+<!-- Footer-->
+<app-footer></app-footer>

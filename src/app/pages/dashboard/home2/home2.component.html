@@ -1,0 +1,487 @@
+<!-- Header-->
+<app-header id="top"></app-header>
+
+<!-- Hero-->
+<section class="container-fluid my-5 pt-5 pb-lg-4 px-xxl-4">
+  <div class="jarallax card align-items-center justify-content-center border-0 p-md-5 p-4 bg-secondary overflow-hidden mt-n3" style="min-height: 65vh; background-image: url(assets/img/real-estate/hero-image-v2.jpg);background-position: bottom;background-size: cover;background-attachment: fixed;" data-jarallax data-speed="0.5"><span class="img-overlay opacity-40"></span>
+    <div class="content-overlay" style="max-width: 856px;">
+      <h1 class="display-5 mb-5 pb-md-3 px-md-3 text-white text-center">Easy way to find a perfect property</h1>
+      <form class="form-group d-block">
+        <div class="row g-0">
+          <div class="col-md-10 d-sm-flex align-items-center">
+            <div class="dropdown w-sm-50 border-end-sm" data-bs-toggle="select" ngbDropdown>
+              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown" ngbDropdownToggle><i class="fi-home me-2"></i><span class="dropdown-toggle-label rent">For rent</span></button>
+              <input type="hidden">
+              <ul class="dropdown-menu" ngbDropdownMenu id="rent-content">
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">For rent</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">For sale</span></a></li>
+              </ul>
+            </div>
+            <hr class="d-sm-none my-2">
+            <div class="dropdown w-sm-50 border-end-sm" data-bs-toggle="select" ngbDropdown>
+              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown" ngbDropdownToggle><i class="fi-map-pin me-2"></i><span class="dropdown-toggle-label location">Location</span></button>
+              <input type="hidden">
+              <ul class="dropdown-menu" ngbDropdownMenu id="location-content">
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">New York</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Chicago</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Los Angeles</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">San Diego</span></a></li>
+              </ul>
+            </div>
+            <hr class="d-sm-none my-2">
+            <div class="dropdown w-sm-50" data-bs-toggle="select" ngbDropdown>
+              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown" ngbDropdownToggle><i class="fi-list me-2"></i><span class="dropdown-toggle-label property">Property type</span></button>
+              <input type="hidden">
+              <ul class="dropdown-menu" ngbDropdownMenu id="property-content">
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Houses</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Apartments</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Commercial</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Daily rental</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">New buildings</span></a></li>
+              </ul>
+            </div>
+          </div>
+          <hr class="d-md-none mt-2">
+          <div class="col-md-2 d-sm-flex align-items-center pt-3 pt-md-0">
+            <button class="btn btn-lg btn-icon btn-primary px-3 w-100" type="button">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Features-->
+<section class="container mb-5 pb-lg-4">
+  <div class="row">
+    <div class="col-lg-6 col-md-7">
+      <div class="row gy-4">
+        <div class="col-md-5 col-sm-6">
+          <h2 class="h3 mb-0">We are the best in the housing market</h2>
+        </div>
+        <div class="col-sm-6 offset-md-1">
+          <p class="mb-0">Viverra a, mauris elit, pretium senectus ut sagittis malesuada lacus. Egestas risus lorem lectus nunc. Aliquet ultrices risus lobortis cursus vel blandit magna. Eu donec hendrerit morbi tortor.</p>
+        </div>
+      </div>
+      <div class="py-3">
+        <hr class="my-4">
+      </div>
+      <div class="row row-cols-md-3 row-cols-1 gy-4 gx-lg-5 gx-3 text-center px-lg-4">
+        <div class="col"><img class="d-block mx-auto mb-3" src="assets/img/real-estate/brands/trustpilot.svg" alt="Trustpilot">
+          <h5 class="mb-1">Excellent</h5><span class="fs-sm">4.8 out of 5</span>
+        </div>
+        <div class="col">
+          <h5 class="h2 mb-2">1.2M+</h5><span class="fs-sm">Property listings worldwide</span>
+        </div>
+        <div class="col">
+          <h5 class="h2 mb-2">$3.8K</h5><span class="fs-sm">Average annual earnings per landlord</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 offset-lg-1"><img class="d-block mx-auto" src="assets/img/real-estate/illustrations/find-alt.svg" alt="Illustration"></div>
+  </div>
+</section>
+
+<!-- Newly listed properties-->
+<section class="container mt-n3 mt-md-0 mb-4 pb-3 pb-lg-4">
+  <div class="d-flex align-items-end justify-content-between mb-4 pb-md-2">
+    <h2 class="h3 mb-0">Newly listed properties</h2><a class="btn btn-link fw-normal ms-2 p-0" routerLink="/catalog/sale">View all<i class="fi-arrow-long-right ms-2"></i></a>
+  </div>
+  <!-- Carousel-->
+  <ngx-slick-carousel [config]="config">
+    @for(data of propertiesData;track $index){
+    <div class="swiper-slide" ngxSlickItem>
+      <div class="row m-0">
+        <div class="col-lg-8 col-md-7 mb-md-0 mb-3">
+          <div class="position-relative pe-lg-5">
+            <div class="position-absolute top-0 start-0 zindex-1 m-3 p-1"><span class="badge fs-sm me-2 {{data.btn_color}}">{{data.btn}}</span><span class="badge bg-success fs-sm me-2">{{data.verified_btn}}</span></div><img class="rounded-3 zindex-5" src="{{data.image}}" alt="Article image">
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-5"><span class="d-inline-block fs-sm text-uppercase text-primary mb-2 from-top">{{data.sale}}</span>
+          <div class="from-start delay-2">
+            <h3 class="h4 mb-2">{{data.title}}</h3>
+            <p class="mb-md-4 mb-3 fs-sm">{{data.sub_title}}</p>
+            <ul class="d-flex mb-md-4 mb-3 list-unstyled">
+              <li class="me-3 pe-3 border-end"><b class="me-1">{{data.bad}}</b><i class="fi-bed mt-n1 lead align-middle text-muted"></i></li>
+              <li class="me-3 pe-3 border-end"><b class="me-1">{{data.bath}}</b><i class="fi-bath mt-n1 lead align-middle text-muted"></i></li>
+              <li class="me-3 pe-3 border-end"><b class="me-1">{{data.car}}</b><i class="fi-car mt-n1 lead align-middle text-muted"></i></li>
+              <li><b>{{data.sqm}} </b>sq.m</li>
+            </ul>
+            <p class="mb-4 pb-md-2">{{data.content}}</p>
+          </div>
+          <div class="btn-group btn-group-lg scale-up delay-3" role="group" aria-label="Buy now or add to wishlist"><a class="btn btn-primary" routerLink="/catalog/single-v2">Sale for {{data.price}}</a>
+            <button class="btn btn-primary px-3 border-start border-light" data-bs-toggle="tooltip" placement="top" ngbTooltip="Add to Wishlist"><i class="fi-heart fs-5"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </ngx-slick-carousel>
+</section>
+
+<!-- Discover locations-->
+<section class="container mb-5 pb-lg-5 pb-4">
+  <div class="d-flex align-items-start justify-content-between mb-3 mb-md-4 pb-md-2">
+    <div class="d-flex flex-md-row flex-column align-items-center">
+      <h2 class="h3 mb-4 mb-md-0">Discover locations</h2>
+      <ul ngbNav #locations="ngbNav" [activeId]="1" class="nav nav-tabs mb-0 ms-md-4 ms-n3 ps-lg-2">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>
+            <span class="d-none d-sm-block">For rent</span>
+          </a>
+          <ng-template ngbNavContent>
+            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-3">
+              <div class="col">
+                <div class="card card-hover border-0 shadow-sm h-100 p-2">
+                  <div class="card-body icon-box p-4">
+                    <div class="icon-box-media mb-3" style="width: 5rem; height: 5rem; background-image: url(assets/img/real-estate/locations/usa.svg);"></div>
+                    <h4 class="h5 icon-box-title lh-1">Popular locations</h4><span class="fs-sm text-muted">Tempor id sed suspendisse nulla.</span>
+                    <hr class="my-4">
+                    <ul class="nav flex-column mb-0">
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">New York</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Los Angeles</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Houston</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Phoenix</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Philadelphia</a></li>
+                      <li class="nav-item"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Chicago</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card card-hover border-0 shadow-sm h-100 p-2">
+                  <div class="card-body icon-box p-4">
+                    <div class="icon-box-media mb-3" style="width: 5rem; height: 5rem; background-image: url(assets/img/real-estate/locations/city.svg);"></div>
+                    <h4 class="h5 icon-box-title lh-1">In the city</h4><span class="fs-sm text-muted">Aenean in vitae lectus nunc. Dictum nunc enim.</span>
+                    <hr class="my-4">
+                    <ul class="nav flex-column mb-0">
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">San Antonio</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">San Diego</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Austin</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">San Jose</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Columbus</a></li>
+                      <li class="nav-item"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Dallas</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card card-hover border-0 shadow-sm h-100 p-2">
+                  <div class="card-body icon-box p-4">
+                    <div class="icon-box-media mb-3" style="width: 5rem; height: 5rem; background-image: url(assets/img/real-estate/locations/field.svg);"></div>
+                    <h4 class="h5 icon-box-title lh-1">Rural and countryside</h4><span class="fs-sm text-muted">Leo vel sit velit, nam volutpat tincidunt orci.</span>
+                    <hr class="my-4">
+                    <ul class="nav flex-column mb-0">
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Bar Harbor</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Gatlinburg</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Sedona</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Monterey</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Telluride</a></li>
+                      <li class="nav-item"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Sonoma</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>
+            <span class="d-none d-sm-block">For sale</span>
+          </a>
+          <ng-template ngbNavContent>
+            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-3">
+              <div class="col">
+                <div class="card card-hover border-0 shadow-sm h-100 p-2">
+                  <div class="card-body icon-box p-4">
+                    <div class="icon-box-media mb-3" style="width: 5rem; height: 5rem; background-image: url(assets/img/real-estate/locations/usa.svg);"></div>
+                    <h4 class="h5 icon-box-title lh-1">Popular locations</h4><span class="fs-sm text-muted">Tempor id sed suspendisse nulla.</span>
+                    <hr class="my-4">
+                    <ul class="nav flex-column mb-0">
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">New York</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Los Angeles</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Houston</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Phoenix</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Philadelphia</a></li>
+                      <li class="nav-item"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Chicago</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card card-hover border-0 shadow-sm h-100 p-2">
+                  <div class="card-body icon-box p-4">
+                    <div class="icon-box-media mb-3" style="width: 5rem; height: 5rem; background-image: url(assets/img/real-estate/locations/city.svg);"></div>
+                    <h4 class="h5 icon-box-title lh-1">In the city</h4><span class="fs-sm text-muted">Aenean in vitae lectus nunc. Dictum nunc enim.</span>
+                    <hr class="my-4">
+                    <ul class="nav flex-column mb-0">
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">San Antonio</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">San Diego</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Austin</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">San Jose</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Columbus</a></li>
+                      <li class="nav-item"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Dallas</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card card-hover border-0 shadow-sm h-100 p-2">
+                  <div class="card-body icon-box p-4">
+                    <div class="icon-box-media mb-3" style="width: 5rem; height: 5rem; background-image: url(assets/img/real-estate/locations/field.svg);"></div>
+                    <h4 class="h5 icon-box-title lh-1">Rural and countryside</h4><span class="fs-sm text-muted">Leo vel sit velit, nam volutpat tincidunt orci.</span>
+                    <hr class="my-4">
+                    <ul class="nav flex-column mb-0">
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Bar Harbor</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Gatlinburg</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Sedona</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Monterey</a></li>
+                      <li class="nav-item mb-2 pb-1"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Telluride</a></li>
+                      <li class="nav-item"><a class="nav-link p-0 fw-normal" href="javascript:void(0);">Sonoma</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+    </div><a class="btn btn-link fw-normal ms-2 p-0" routerLink="/catalog/rent">View all<i class="fi-arrow-long-right ms-2"></i></a>
+  </div>
+  <!-- Carousel-->
+  <div [ngbNavOutlet]="locations"></div>
+</section>
+
+<!-- Top properties-->
+<section class="container-fluid px-xxl-4 mb-5 pb-lg-4">
+  <h2 class="h3 mb-4 pb-2 text-center">Top properties on Finder</h2>
+  <!-- Carousel-->
+  <!-- Carousel custom controls-->
+  <!-- <div class="tns-carousel-controls justify-content-center pt-md-2 mt-4" id="carousel-controls-tp">
+    <button class="me-3" type="button"><i class="fi-chevron-left fs-xs"></i></button>
+    <button type="button"><i class="fi-chevron-right fs-xs"></i></button>
+  </div> -->
+  <ngx-slick-carousel [config]="Finder">
+    @for(data of finderData;track $index){
+    <div class="swiper-slide" ngxSlickItem>
+      <div class="row m-0 g-4">
+        <div class="col-lg-7">
+          <div class="card h-100">
+            <a class="text-decoration-none text-light card bg-size-cover bg-position-center border-0 overflow-hidden h-100" routerLink="/catalog/single-v1" style="background-image: url({{data.image}}); min-height: 10.75rem;">
+              <span class="img-gradient-overlay"></span>
+              <div class="card-body content-overlay pb-0"></div>
+              <div class="card-footer content-overlay border-0 pt-0 pb-4">
+                <div class="d-sm-flex justify-content-between align-items-end pt-5 mt-2 mt-sm-5">
+                  <div class="pe-2">
+                    <div class="fs-sm text-uppercase pt-2 mb-1">{{data.sale}}</div>
+                    <h3 class="h5 text-light mb-1">{{data.title}}</h3>
+                    <div class="fs-sm opacity-70"><i class="fi-map-pin me-1"></i>{{data.location}}</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card mb-4">
+            <a class="text-decoration-none text-light card bg-size-cover bg-position-center border-0 overflow-hidden" routerLink="/catalog/single-v1" style="background-image: url({{data.image}}); min-height: 10.75rem;">
+              <span class="img-gradient-overlay"></span>
+              <div class="card-body content-overlay pb-0"></div>
+              <div class="card-footer content-overlay border-0 pt-0 pb-4">
+                <div class="d-sm-flex justify-content-between align-items-end pt-5 mt-2 mt-sm-5">
+                  <div class="pe-2">
+                    <div class="fs-sm text-uppercase pt-2 mb-1">{{data.sale}}</div>
+                    <h3 class="h5 text-light mb-1">{{data.title}}</h3>
+                    <div class="fs-sm opacity-70"><i class="fi-map-pin me-1"></i>{{data.location}}</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="card">
+            <a class="text-decoration-none text-light card bg-size-cover bg-position-center border-0 overflow-hidden" routerLink="/catalog/single-v1" style="background-image: url({{data.image}}); min-height: 10.75rem;">
+              <span class="img-gradient-overlay"></span>
+              <div class="card-body content-overlay pb-0"></div>
+              <div class="card-footer content-overlay border-0 pt-0 pb-4">
+                <div class="d-sm-flex justify-content-between align-items-end pt-5 mt-2 mt-sm-5">
+                  <div class="pe-2">
+                    <div class="fs-sm text-uppercase pt-2 mb-1">{{data.sale}}</div>
+                    <h3 class="h5 text-light mb-1">{{data.title}}</h3>
+                    <div class="fs-sm opacity-70"><i class="fi-map-pin me-1"></i>{{data.location}}</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </ngx-slick-carousel>
+</section>
+
+<!-- Find your agent-->
+<section class="container mb-5 pb-lg-5 pb-md-4">
+  <div class="card py-lg-5 py-4 border-0 bg-secondary">
+    <div class="card-body p-4 text-center">
+      <h2>Find your agent</h2>
+      <p class="mx-auto mb-md-5 mb-4 pb-lg-3" style="max-width: 53.125rem;">We have the most comprehensive directory of estate agents to help you with all your property needs. Whether buying, selling or renting start your search to find the right local expertise.</p>
+      <!-- Agent ava's-->
+      <div class="d-flex align-items-center justify-content-center flex-wrap mb-md-5 mb-4 pb-lg-3 ps-3 pt-4">
+        @for(data of agentData;track $index){
+        <div class="border border-5 border-white rounded-circle bg-white ms-n3 mt-n4">
+          <img class="rounded-circle" src="{{data.image}}" width="110" alt="Avatar">
+        </div>
+        }
+      </div><a class="btn btn-lg btn-primary w-sm-auto w-100" href="javascript:void(0);">Find agent<i class="fi-chevron-right ms-2"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Blog recent-->
+<section class="container mb-5 pb-lg-5 pb-4">
+  <h2 class="h3 mb-4 pb-2 text-md-start text-center">Latest property news</h2>
+  <div class="row gy-5">
+    <div class="col-lg-7">
+      <!-- Blog item-->
+      <article class="card border-0 shadow-sm card-hover card-horizontal mb-4"><a class="card-img-top" href="javascript:void(0);" style="background-image: url(assets/img/real-estate/blog/05.jpg);"></a>
+        <div class="card-body"><a class="fs-xs text-uppercase text-decoration-none" routerLink="/pages/single-blog">Inspiration</a>
+          <h3 class="fs-base pt-1 mb-2"><a class="nav-link" routerLink="/pages/single-blog">How Real Estate Drone Photography Can Elevate</a></h3>
+          <p class="fs-sm text-muted">Augue diam malesuada vitae id nisl. Fringilla egestas id proin quis consequat nibh quam sed. Ac vitae lectus...</p><a class="d-flex align-items-center text-decoration-none" href="javascript:void(0);"><img class="rounded-circle" src="assets/img/avatars/10.jpg" width="44" alt="Avatar">
+            <div class="ps-2">
+              <h6 class="fs-sm text-nav lh-base mb-1">Annette Black</h6>
+              <div class="d-flex text-body fs-xs"><span class="me-2 pe-1"><i class="fi-calendar-alt opacity-70 me-1"></i>Dec 3</span><span><i class="fi-chat-circle opacity-70 me-1"></i>1 comment</span></div>
+            </div>
+          </a>
+        </div>
+      </article>
+      <!-- Blog item-->
+      <article class="card border-0 shadow-sm card-hover card-horizontal mb-4"><a class="card-img-top" routerLink="/pages/single-blog" style="background-image: url(assets/img/real-estate/blog/06.jpg);"></a>
+        <div class="card-body"><a class="fs-xs text-uppercase text-decoration-none" href="javascript:void(0);">Industry Views</a>
+          <h3 class="fs-base pt-1 mb-2"><a class="nav-link" routerLink="/pages/single-blog">7 Tips for Achieving Maximum Coziness</a></h3>
+          <p class="fs-sm text-muted">Eget eu nunc aenean at imperdiet. Pellentesque in massa tincidunt congue. Nulla congue egestas mi volutpat varius...</p><a class="d-flex align-items-center text-decoration-none" href="javascript:void(0);"><img class="rounded-circle" src="assets/img/avatars/08.jpg" width="44" alt="Avatar">
+            <div class="ps-2">
+              <h6 class="fs-sm text-nav lh-base mb-1">Darrell Steward</h6>
+              <div class="d-flex text-body fs-xs"><span class="me-2 pe-1"><i class="fi-calendar-alt opacity-70 me-1"></i>Dec 27</span><span><i class="fi-chat-circle opacity-70 me-1"></i>3 comment</span></div>
+            </div>
+          </a>
+        </div>
+      </article>
+      <div class="pt-2"><a class="btn btn-lg btn-outline-primary w-sm-auto w-100" routerLink="/pages/blog-grid">More blog posts</a></div>
+    </div>
+    <div class="col-1 d-lg-block d-none">
+      <hr class="hr-vertical mx-auto">
+    </div>
+    <div class="col-lg-4">
+      <div class="row row-cols-lg-1 row-cols-md-2 row-cols-1 gy-5 text-md-start text-center">
+        <!-- Mail subscription-->
+        <div class="col pb-lg-2">
+          <h3 class="h5">Sign up for our newsletter</h3>
+          <p class="mb-4">Enter your email to receive the latest news and updates from Finder.</p>
+          <form class="form-group mx-auto" style="max-width: 26rem;">
+            <div class="input-group"><span class="input-group-text text-muted"><i class="fi-mail"></i></span>
+              <input class="form-control" type="email" placeholder="Your Email">
+            </div>
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </form>
+        </div>
+        <!-- Following-->
+        <div class="col">
+          <h3 class="h5">Follow us</h3>
+          <p class="mb-4">Get the latest news and inspiration about the housing market.</p>
+          <div class="ms-n2 mt-n2"><a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle ms-2 mt-2" href="javascript:void(0);"><i class="fi-instagram"></i></a><a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle ms-2 mt-2" href="javascript:void(0);"><i class="fi-twitter"></i></a><a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle ms-2 mt-2" href="javascript:void(0);"><i class="fi-whatsapp"></i></a><a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle ms-2 mt-2" href="javascript:void(0);"><i class="fi-telegram"></i></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pager-->
+<section class="container mb-5 pb-lg-5">
+  <div class="row row-cols-md-3 row-cols-1 gy-3">
+    <!-- Pager item-->
+    @for(data of pagerData;track $index){
+    <div class="col">
+      <div class="card card-hover h-100 border-0 bg-faded-{{data.bg_color}} position-relative">
+        <div class="card-body pb-2">
+          <h5 class="mb-2 pb-1">{{data.title}}</h5>
+          <p class="mb-0">{{data.contant}}</p>
+        </div>
+        <div class="card-footer py-1 border-0">
+          <ng-template [ngIf]="data.link == 'javascript:void(0);'">
+            <a class="stretched-link btn btn-link mb-3 px-0 {{data.text_color}}" href="{{data.link}}" (click)="openModal(content)" data-bs-toggle="modal">{{data.sub_title}}</a>
+          </ng-template>
+          <ng-template [ngIf]="data.link == '/pages/help-center' || data.link == '/pages/about'">
+            <a class="stretched-link btn btn-link mb-3 px-0 {{data.text_color}}" href="{{data.link}}">{{data.sub_title}}</a>
+          </ng-template>
+
+        </div>
+      </div>
+    </div>
+  }
+  </div>
+</section>
+
+<!-- Property cost calculator modal-->
+<ng-template #content role="document" let-modal>
+  <div class="modal-header d-block position-relative border-0 px-sm-5 px-4">
+    <h3 class="h4 modal-title mt-4 text-center">Explore your property’s value</h3>
+    <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body px-sm-5 px-4">
+    <form class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label class="form-label fw-bold mb-2" for="property-city">Property location</label>
+        <select class="form-control form-select" id="property-city" required>
+          <option value="" selected disabled hidden>Choose city</option>
+          <option value="Chicago">Chicago</option>
+          <option value="Dallas">Dallas</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="New York">New York</option>
+          <option value="San Diego">San Diego</option>
+        </select>
+        <div class="invalid-feedback">Please choose the city.</div>
+      </div>
+      <div class="mb-3">
+        <select class="form-control form-select" id="property-district" required>
+          <option value="" selected disabled hidden>Choose district</option>
+          <option value="Brooklyn">Brooklyn</option>
+          <option value="Manhattan">Manhattan</option>
+          <option value="Staten Island">Staten Island</option>
+          <option value="The Bronx">The Bronx</option>
+          <option value="Queens">Queens</option>
+        </select>
+        <div class="invalid-feedback">Please choose the district.</div>
+      </div>
+      <div class="pt-2 mb-3">
+        <label class="form-label fw-bold mb-2" for="property-address">Address</label>
+        <input class="form-control" type="text" id="property-address" placeholder="Enter your address" required>
+        <div class="invalid-feedback">Please enter your property's address.</div>
+      </div>
+      <div class="pt-2 mb-3">
+        <label class="form-label fw-bold mb-2">Number of rooms</label>
+        <div class="btn-group" role="group" aria-label="Choose number of rooms">
+          <input class="btn-check" type="radio" id="rooms-1" name="rooms">
+          <label class="btn btn-outline-secondary" for="rooms-1">1</label>
+          <input class="btn-check" type="radio" id="rooms-2" name="rooms">
+          <label class="btn btn-outline-secondary" for="rooms-2">2</label>
+          <input class="btn-check" type="radio" id="rooms-3" name="rooms">
+          <label class="btn btn-outline-secondary" for="rooms-3">3</label>
+          <input class="btn-check" type="radio" id="rooms-4" name="rooms">
+          <label class="btn btn-outline-secondary" for="rooms-4">4</label>
+          <input class="btn-check" type="radio" id="rooms-5" name="rooms">
+          <label class="btn btn-outline-secondary" for="rooms-5">5+</label>
+        </div>
+      </div>
+      <div class="pt-2 mb-4">
+        <label class="form-label fw-bold mb-2" for="property-area">Total area, sq.m.</label>
+        <input class="form-control" type="text" id="property-area" placeholder="Enter your area" required>
+        <div class="invalid-feedback">Please enter your property's area.</div>
+      </div>
+      <button class="btn btn-primary d-block w-100 mb-4" type="submit"><i class="fi-calculator me-2"></i>Calculate</button>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Footer-->
+<app-footer></app-footer>
