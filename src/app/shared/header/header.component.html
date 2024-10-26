@@ -129,17 +129,21 @@
         </div>
         <form class="needs-validation" novalidate (ngSubmit)="formSubmit()" [formGroup]="signUpform">
           <div class="mb-4">
-            <label class="form-label" for="signup-name">Full name</label>
-            <input class="form-control" type="text" id="signup-name" placeholder="Enter your full name" required [ngClass]="{'is-invalid': formsubmit && formData['name'].errors}">
+            <label class="form-label" for="signup-name">First Name</label>
+            <input class="form-control" type="text" id="signup-first-name" placeholder="Enter your First Name" required formControlName="firstName" [ngClass]="{'is-invalid': submit && form['firstName'].errors}">
+          </div>
+          <div class="mb-4">
+            <label class="form-label" for="signup-name">Last Name</label>
+            <input class="form-control" type="text" id="signup-last-name" placeholder="Enter your Last Name" required formControlName="lastName" [ngClass]="{'is-invalid': submit && form['lastName'].errors}">
           </div>
           <div class="mb-4">
             <label class="form-label" for="signup-email">Email address</label>
-            <input class="form-control" type="email" id="signup-email" placeholder="Enter your email" required [ngClass]="{'is-invalid': formsubmit && formData['email'].errors}">
+            <input class="form-control" type="email" id="signup-email" placeholder="Enter your email" formControlName = "email" required>
           </div>
           <div class="mb-4">
             <label class="form-label" for="signup-password">Password <span class='fs-sm text-muted'>min. 8 char</span></label>
             <div class="password-toggle">
-              <input class="form-control" [type]="signupPassfield ? 'text' : 'password'" id="signup-password" minlength="8" required [ngClass]="{'is-invalid': formsubmit && formData['password'].errors}">
+              <input class="form-control" [type]="signupPassfield ? 'text' : 'password'" id="signup-password" minlength="8" formControlName = "password" required [ngClass]="{'is-invalid': formsubmit && formData['password'].errors}">
               <label class="password-toggle-btn" aria-label="Show/hide password">
                 <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator" [ngClass]="{'mdi-eye-off-outline': !signupPassfield, 'mdi-eye-outline': signupPassfield
                 }" (click)="toggleSignUpPassField()"></span>
@@ -149,7 +153,7 @@
           <div class="mb-4">
             <label class="form-label" for="signup-password-confirm">Confirm password</label>
             <div class="password-toggle">
-              <input class="form-control" [type]="signupCPassfield ? 'text' : 'password'" id="signup-password-confirm" minlength="8" required>
+              <input class="form-control" [type]="signupCPassfield ? 'text' : 'password'" id="signup-password-confirm" formControlName = "confirmPassword" minlength="8" required>
               <label class="password-toggle-btn" aria-label="Show/hide password">
                 <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator" [ngClass]="{'mdi-eye-off-outline': !signupCPassfield, 'mdi-eye-outline': signupCPassfield
                 }" (click)="toggleSignUpCPassField()"></span>

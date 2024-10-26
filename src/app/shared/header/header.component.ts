@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -29,10 +30,12 @@ export class HeaderComponent implements OnInit {
   signUpform!: UntypedFormGroup;
   submit!: boolean;
   formsubmit!: boolean;
+  errorMessage: string = '';  // Store errors if any
+
 
   @ViewChild('sideMenu') sideMenu!: ElementRef;
 
-  constructor(private router: Router,private modalService: NgbModal, private eventService: EventService, private formBuilder: UntypedFormBuilder) {
+  constructor(private router: Router,private modalService: NgbModal, private eventService: EventService, private authService: AuthService,  private formBuilder: UntypedFormBuilder) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.activateMenu();
@@ -44,18 +47,21 @@ export class HeaderComponent implements OnInit {
     /**
      * Bootstrap validation form data
      */
-     this.validationform = this.formBuilder.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-    });
+    //  this.validationform = this.formBuilder.group({
+    //   email: ['', [Validators.required]],
+    //   password: ['', [Validators.required]],
+    // });
 
     /**
      * Bootstrap validation form data
      */
      this.signUpform = this.formBuilder.group({
-      name: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
+
     });
 
     // Menu Items
@@ -253,7 +259,25 @@ export class HeaderComponent implements OnInit {
    * Bootstrap tooltip form validation submit method
    */
    formSubmit() {
-    this.formsubmit = true;
+    // this.formsubmit = true;
+    // if (this.signUpform.invalid) {
+    //   return;
+    // }
+
+    const formData = this.signUpform.value;
+    console.log("this is the form data", formData);
+
+    // Call the signup service
+    // this.authService.signup(formData).subscribe({
+    //   next: (response) => {
+    //     alert('Signup successful!');
+    //   },
+    //   error: (error) => {
+    //     console.error('Signup failed:', error);
+    //     this.errorMessage = 'Signup failed. Please try again.';
+    //     alert(this.errorMessage);
+    //   }
+    // });
   }
 
   /**
