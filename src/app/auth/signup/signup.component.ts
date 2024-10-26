@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -18,18 +19,21 @@ export class SignupComponent implements OnInit {
   validationform!: UntypedFormGroup;
   submit!: boolean;
   formsubmit!: boolean;
+  errorMessage: string = '';  // Store errors if any
 
-  constructor(private formBuilder: UntypedFormBuilder) { }
+
+  constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
     /**
      * Bootstrap validation form data
      */
      this.validationform = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      cpassword: ['', [Validators.required]],
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]],
     });
 
     document.body.classList.add('bg-secondary');
@@ -55,7 +59,25 @@ export class SignupComponent implements OnInit {
   */
     validSubmit() {
       this.submit = true;
+      if (this.validationform.invalid) {
+        return;
+      }
+
+      const formData = this.validationform.value;
+  
+      // Call the signup service
+      this.authService.signup(formData).subscribe({
+        next: (response) => {
+          alert('Signup successful!');
+        },
+        error: (error) => {
+          console.error('Signup failed:', error);
+          this.errorMessage = 'Signup failed. Please try again.';
+          alert(this.errorMessage);
+        }
+      });
     }
+  
 
     /**
    * Returns form

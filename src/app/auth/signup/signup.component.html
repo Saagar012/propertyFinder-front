@@ -20,8 +20,12 @@
           </div>
           <form class="needs-validation" novalidate (ngSubmit)="validSubmit()" [formGroup]="validationform">
             <div class="mb-4">
-              <label class="form-label" for="signup-name">Full name</label>
-              <input class="form-control" type="text" id="signup-name" placeholder="Enter your full name" required formControlName="name" [ngClass]="{'is-invalid': submit && form['name'].errors}">
+              <label class="form-label" for="signup-name">First Name</label>
+              <input class="form-control" type="text" id="signup-first-name" placeholder="Enter your First Name" required formControlName="firstName" [ngClass]="{'is-invalid': submit && form['firstName'].errors}">
+            </div>
+            <div class="mb-4">
+              <label class="form-label" for="signup-name">Last Name</label>
+              <input class="form-control" type="text" id="signup-last-name" placeholder="Enter your Last Name" required formControlName="lastName" [ngClass]="{'is-invalid': submit && form['lastName'].errors}">
             </div>
             <div class="mb-4">
               <label class="form-label" for="signup-email">Email address</label>
