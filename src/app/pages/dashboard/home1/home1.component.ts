@@ -9,6 +9,7 @@ import { Options } from 'ngx-slider-v2';
 
 import { topOffer, propertyCity, estateAagents, service, companies } from './home1.model';
 import { topOfferData, cityData, agentsData, servicesData, companiesData } from './data';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-index',
@@ -27,12 +28,17 @@ export class Home1Component implements OnInit {
   servicesData!: service[];
   companiesData!: companies[];
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private authService: AuthService) { }
 
   ngOnInit(): void {
     // Chat Data Get Function
     this._fetchData();
     this.filterredImages = this.list;
+
+
+    
+
+
 
     // Rent Select data
     document.getElementById("rent-content")?.addEventListener("click", function (e) {
@@ -270,6 +276,8 @@ export class Home1Component implements OnInit {
   openModal(content: any) {
     this.modalService.open(content, { centered: true });
   }
+
+
 
 
 }

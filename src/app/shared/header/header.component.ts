@@ -9,6 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { StaticDataService } from 'src/app/core/services/static-data.service';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ import { AuthService } from '../../core/services/auth/auth.service';
  */
 export class HeaderComponent implements OnInit {
   mode: string | undefined;
+  
   loginPassfield!: boolean;
   signupPassfield!: boolean;
   signupCPassfield!: boolean;
@@ -32,10 +34,13 @@ export class HeaderComponent implements OnInit {
   formsubmit!: boolean;
   errorMessage: string = '';  // Store errors if any
 
+  //User's data
+  username: string | null = null;
+
 
   @ViewChild('sideMenu') sideMenu!: ElementRef;
 
-  constructor(private router: Router,private modalService: NgbModal, private eventService: EventService, private authService: AuthService,  private formBuilder: UntypedFormBuilder) {
+  constructor(private router: Router,private modalService: NgbModal, private staticDataService: StaticDataService, private eventService: EventService, private authService: AuthService,  private formBuilder: UntypedFormBuilder) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.activateMenu();
@@ -47,10 +52,10 @@ export class HeaderComponent implements OnInit {
     /**
      * Bootstrap validation form data
      */
-    //  this.validationform = this.formBuilder.group({
-    //   email: ['', [Validators.required]],
-    //   password: ['', [Validators.required]],
-    // });
+     this.validationform = this.formBuilder.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
 
     /**
      * Bootstrap validation form data
@@ -63,9 +68,22 @@ export class HeaderComponent implements OnInit {
       confirmPassword: ['', [Validators.required]],
 
     });
+  
 
     // Menu Items
     this.menuItems = MENU;
+    // this.username = this.authService.getUser();
+    this.authService.user$.subscribe((user) => {
+      this.username = user || null; // Adjust based on your user object
+    });
+
+    this.checkUserInLocalStorage();
+
+  }
+  checkUserInLocalStorage(){
+    if(localStorage.getItem('user')){
+      this.username = localStorage.getItem('user');
+    }
   }
 
    /**
@@ -244,8 +262,26 @@ export class HeaderComponent implements OnInit {
    /**
   * Bootsrap validation form submit method
   */
-    validSubmit() {
+   loginSubmit() {
       this.submit = true;
+       if (this.validationform.invalid) {
+             return;
+      }
+      const formData = this.validationform.value;
+    // Call the login service
+    this.authService.login(formData).subscribe({
+      next: (response) => {
+        this.authService.setUser(response.user.firstName); // Save user data
+        alert('Login successful!'); // needs to get some external module to make the alert attractive
+        console.log(this.username);
+
+      },
+      error: (error) => {
+        this.errorMessage = 'Login failed. Please try again.';
+        alert(this.errorMessage);
+        console.log('username', this.username);
+      }
+    });
     }
 
     /**
@@ -259,27 +295,34 @@ export class HeaderComponent implements OnInit {
    * Bootstrap tooltip form validation submit method
    */
    formSubmit() {
-    // this.formsubmit = true;
-    // if (this.signUpform.invalid) {
-    //   return;
-    // }
+    this.formsubmit = true;
+    if (this.signUpform.invalid) {
+      return;
+    }
 
-    const formData = this.signUpform.value;
-    console.log("this is the form data", formData);
-
+    const formData ={
+        ...this.signUpform.value,
+        userType: this.staticDataService.USER_TYPE.USER
+    }
     // Call the signup service
-    // this.authService.signup(formData).subscribe({
-    //   next: (response) => {
-    //     alert('Signup successful!');
-    //   },
-    //   error: (error) => {
-    //     console.error('Signup failed:', error);
-    //     this.errorMessage = 'Signup failed. Please try again.';
-    //     alert(this.errorMessage);
-    //   }
-    // });
+    this.authService.signup(formData).subscribe({
+      next: (response) => {
+        alert('Signup successful!');
+      },
+      error: (error) => {
+        console.error('Signup failed:', error);
+        this.errorMessage = 'Signup failed. Please try again.';
+        alert(this.errorMessage);
+      }
+    });
   }
-
+    /**
+   * log out
+   */
+  logout() {
+    this.authService.logout();
+    this.username = null;
+  }
   /**
    * returns tooltip validation form
    */
