@@ -1,7 +1,32 @@
 <!-- Navbar-->
 <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top" data-scroll-header (window:scroll)="windowScroll()">
   <div class="container"><a class="navbar-brand me-3 me-xl-4" routerLink=""><img class="d-block" src="assets/img/logo/logo-dark.svg" width="116" alt="Finder"></a>
-    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMobileMenu()"><span class="navbar-toggler-icon"></span></button><a class="btn btn-sm text-primary d-none d-lg-block order-lg-3" href="javascript:void(0);" (click)="toggleModal(toggleFirstModal)" data-bs-toggle="modal"><i class="fi-user me-2"></i>Sign in</a><a class="btn btn-primary btn-sm ms-2 order-lg-3" routerLink="/vendor/add-property"><i class="fi-plus me-2"></i>Add <span class='d-none d-sm-inline'> property</span></a>
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMobileMenu()"><span class="navbar-toggler-icon"></span></button>
+    
+    
+    <a  *ngIf="!username" class="btn btn-sm text-primary d-none d-lg-block order-lg-3" href="javascript:void(0);"
+    
+     (click)="toggleModal(toggleFirstModal)" data-bs-toggle="modal"><i class="fi-user me-2"></i>Sign in</a>
+    
+    <a class="btn btn-sm text-primary d-none d-lg-block order-lg-3" href="javascript:void(0);"
+    
+    *ngIf="username" (click)="toggleModal(toggleFirstModal)" data-bs-toggle="modal"><i class="fi-user me-2"></i>{{ username }}
+  </a>
+  <a *ngIf="username" class="btn btn-danger btn-sm ms-2 order-lg-3" routerLink="/logout" (click)="logout()">
+    <i class="fi-log-out me-2"></i>Log Out
+</a>
+
+    
+    
+    <a *ngIf="username" class="btn btn-primary btn-sm ms-2 order-lg-3" routerLink="/vendor/add-property">
+      <i class="fi-plus me-2">
+
+    </i>Add <span class='d-none d-sm-inline'> property</span></a>
+   
+   
+   
+   
+   
     <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
       <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem;">
         <!-- Demos switcher-->
@@ -83,17 +108,17 @@
           <div class="px-3">Or</div>
           <hr class="w-100">
         </div>
-        <form class="needs-validation" novalidate (ngSubmit)="validSubmit()" [formGroup]="validationform">
+        <form class="needs-validation" novalidate (ngSubmit)="loginSubmit()" [formGroup]="validationform">
           <div class="mb-4">
             <label class="form-label mb-2" for="signin-email">Email address</label>
-            <input class="form-control" type="email" id="signin-email" placeholder="Enter your email" required [ngClass]="{'is-invalid': submit && form['email'].errors}">
+            <input class="form-control" type="email" id="signin-email" placeholder="Enter your email" formControlName="email"  required [ngClass]="{'is-invalid': submit && form['email'].errors}">
           </div>
           <div class="mb-4">
             <div class="d-flex align-items-center justify-content-between mb-2">
               <label class="form-label mb-0" for="signin-password">Password</label><a class="fs-sm" href="javascript:void(0);">Forgot password?</a>
             </div>
             <div class="password-toggle">
-              <input class="form-control" [type]="loginPassfield ? 'text' : 'password'" id="signin-password" placeholder="Enter password" required [ngClass]="{'is-invalid': submit && form['password'].errors}">
+              <input class="form-control" [type]="loginPassfield ? 'text' : 'password'" id="signin-password" formControlName="password" placeholder="Enter password" required [ngClass]="{'is-invalid': submit && form['password'].errors}">
               <label class="password-toggle-btn" aria-label="Show/hide password">
                 <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator" [ngClass]="{'mdi-eye-off-outline': !loginPassfield, 'mdi-eye-outline': loginPassfield
                 }" (click)="toggleLoginPassField()"></span>
