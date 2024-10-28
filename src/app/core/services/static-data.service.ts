@@ -8,5 +8,10 @@ export class StaticDataService {
     ADMIN: '0',
     USER: '1',
   };
+  public readonly CATEGORY = {
+    RENT: 'RENT',
+    SALE: 'SALE',
+  };
+
 }
 
