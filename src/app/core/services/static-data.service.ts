@@ -12,6 +12,12 @@ export class StaticDataService {
     RENT: 'RENT',
     SALE: 'SALE',
   };
+  public readonly  PROPERTY_TYPE = {
+    APPARTMENT: '1',
+    HOUSE: '2',
+    
+  };
+
 
 }
 

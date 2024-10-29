@@ -25,7 +25,7 @@
     title: "Floyd Miles",
     date: "Oct 28, 2020",
     rating: 5,
-    content: "Viverra nunc blandit sapien non imperdiet sit. Purus tempus elementum aliquam eu urna. A aenean duis non egestas at libero porttitor integer eget. Sed dictum lobortis laoreet gravida.",
+    content: "Discover your dream home with us! Our expert team is dedicated to finding the perfect property that fits your lifestyle and budget. Let us guide you through every step of the buying process for a seamless experience.",
     like: "2",
     unlike: "1"
   },

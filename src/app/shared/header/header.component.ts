@@ -60,14 +60,14 @@ export class HeaderComponent implements OnInit {
     /**
      * Bootstrap validation form data
      */
-     this.signUpform = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]],
+      this.signUpform = this.formBuilder.group({
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]],
 
-    });
+      });
   
 
     // Menu Items
@@ -310,7 +310,6 @@ export class HeaderComponent implements OnInit {
         alert('Signup successful!');
       },
       error: (error) => {
-        console.error('Signup failed:', error);
         this.errorMessage = 'Signup failed. Please try again.';
         alert(this.errorMessage);
       }
