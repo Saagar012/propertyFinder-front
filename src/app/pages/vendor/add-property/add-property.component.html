@@ -225,7 +225,7 @@
                   first.<br>The maximum video size is 10 MB. Formats: mp4, mov.</p>
               </div>
             </div>
-            <dropzone [config]="dropconfig"
+            <dropzone [config]="dropconfig"  (change)="onSelect($event)"
               class="file-uploader file-uploader-grid bg-faded-light border-light dropzone_sec"
               [message]="'Click or drag images here to upload'"></dropzone>
           </section>

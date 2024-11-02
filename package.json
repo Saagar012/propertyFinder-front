@@ -30,6 +30,7 @@
     "jquery": "^3.7.1",
     "lottie-web": "^5.12.2",
     "ng2-search-filter": "^0.5.1",
+    "ngx-dropzone": "^3.1.0",
     "ngx-dropzone-wrapper": "^16.0.0",
     "ngx-lightbox": "^3.0.0",
     "ngx-lottie": "^10.0.0",

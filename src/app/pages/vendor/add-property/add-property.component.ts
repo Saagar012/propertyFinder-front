@@ -22,6 +22,9 @@ export class AddPropertyComponent implements OnInit {
   public overviewColleaps = true;
   public amenitiesColleaps = true;
   propertyForm!: UntypedFormGroup;
+  selectedImages: File[] = [];
+
+
 
   constructor(private modalService: NgbModal, private fb: UntypedFormBuilder, private propertyService: PropertyService) { }
 
@@ -78,12 +81,20 @@ export class AddPropertyComponent implements OnInit {
     });
   }
 
-propertySubmit() {
-  if (this.propertyForm.invalid) {
-    return;
+  onSelect(event: any) {
+    // Add selected files to the array
+    this.selectedImages.push(...event.addedFiles);
   }
+
+propertySubmit() {
+  // if (this.propertyForm.invalid) {
+  //   return;
+  // }
       // Call the signup service
-      this.propertyService.createProperty(this.propertyForm.value).subscribe({
+      console.log('property form value', this.propertyForm.value);
+      console.log('property form value images', this.selectedImages);
+
+      this.propertyService.createProperty(this.propertyForm.value, this.selectedImages).subscribe({
         next: (response) => {
           alert('Property Created successfully');
         },
@@ -109,6 +120,7 @@ dropconfig = {
   clickable: true,
   maxFiles: 5, // Set the maximum number of files to upload.
   addRemoveLinks: true,
+  acceptedFiles: 'image/jpeg, image/jpg, image/png'
 };
 uploadedFiles: File[] = [];
 
