@@ -102,8 +102,18 @@ getAmenityIcon(key: string): string {
     iron: 'fi-iron',
     tv: 'fi-tv',
     laundry: 'fi-laundry',
-    securityCameras: 'fi-cctv'
-    // Add more mappings as needed
+    securityCameras: 'fi-cctv',
+    balcony: 'fi-balcony', 
+    bar: 'fi-bar', 
+    breakfast: 'fi-breakfast', 
+    garage: 'fi-garage', 
+    gym: 'fi-gym', 
+    hairDryer: 'fi-hair-dryer', 
+    kitchen: 'fi-kitchen', 
+    linens: 'fi-linens',
+    petsFriendly: 'fi-pets', 
+    pool: 'fi-pool', 
+  
   };
   return iconMap[key] || 'fi-default'; // Provide a default icon class if needed
 }
@@ -120,10 +130,11 @@ formatAmenityName(key: string): string {
   // Data Fetch
   private _fetchData() {
     // Retrieve the 'id' parameter from the URL
+    console.log("this file is loaded");
     const propertyId = this.route.snapshot.paramMap.get('id');
-    if (true) {
+    if (propertyId) {
       // Convert the ID to a number if necessary and fetch property details
-      this.propertyService.fetchPropertyById(7).subscribe(
+      this.propertyService.fetchPropertyById(propertyId).subscribe(
         (response) => {
           console.log("Fetched property by ID:", response);
           this.propertiesData = response.data; // Assign response to propertiesData

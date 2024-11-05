@@ -22,8 +22,8 @@
             <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Basic info</h2>
             <div class="mb-3">
               <label class="form-label" for="ap-title">Title <span class="text-danger">*</span></label>
-              <input class="form-control" formControlName="title" type="text" id="ap-title" placeholder="Title for your property"
-                 required><span class="form-text">48 characters left</span>
+              <input class="form-control" formControlName="title" type="text" id="ap-title"
+                placeholder="Title for your property" required><span class="form-text">48 characters left</span>
             </div>
             <div class="row">
               <div class="col-sm-6 mb-3">
@@ -63,7 +63,7 @@
                   <option value="Thunder Bay" selected>Thunder Bay</option>
                   <option value="Toronto">Toronto</option>
                   <option value="British Colombia">British Colombia</option>
-                  <option value="Vancouver" >Vancouver</option>
+                  <option value="Vancouver">Vancouver</option>
                   <option value="Calgary">Calgary</option>
                 </select>
               </div>
@@ -71,62 +71,73 @@
             <div class="row">
               <div class="col-sm-6 mb-3">
                 <label class="form-label" for="ap-zip">Zip code <span class="text-danger">*</span></label>
-                <input formControlName="zipCode" class="form-control" type="text" id="ap-zip" placeholder="Enter Zip code" required>
+                <input formControlName="zipCode" class="form-control" type="text" id="ap-zip"
+                  placeholder="Enter Zip code" required>
               </div>
               <div class="col-sm-6 mb-3">
                 <label class="form-label" for="ap-address">Street address <span class="text-danger">*</span></label>
-                <input formControlName="streetAddress"  class="form-control" type="text" id="ap-address" required>
+                <input formControlName="streetAddress" class="form-control" type="text" id="ap-address" required>
               </div>
             </div>
 
             <div class="form-label fw-bold pt-3 pb-2">Display on the map</div>
             <google-map [latitude]="latitude" [longitude]="longitude" class="interactive-map rounded-3"
               style="height: 250px;"></google-map>
-          </section>    
+          </section>
           <!-- Property details-->
           <section class="card card-body border-0 shadow-sm p-4 mb-4" id="details" #details>
             <h2 class="h4 mb-4"><i class="fi-edit text-primary fs-5 mt-n1 me-2"></i>Property details</h2>
             <div class="mb-4" style="max-width: 25rem;">
               <label class="form-label" for="ap-area">Total area, sq.m</label>
-              <input formControlName="totalArea"  class="form-control" type="number" id="ap-area" placeholder="Enter your area"
-                required>
+              <input formControlName="totalArea" class="form-control" type="number" id="ap-area"
+                placeholder="Enter your area" required>
             </div>
             <div class="mb-4">
               <label class="form-label d-block fw-bold mb-2 pb-1">Bedrooms</label>
               <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of bedrooms">
                 <input class="btn-check" type="radio" id="studio" name="bedrooms">
                 <label class="btn btn-outline-secondary fw-normal" for="studio">Studio</label>
-                <input class="btn-check" formControlName="bedrooms" type="radio"value="1" id="bedrooms-1" name="bedrooms">
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="1" id="bedrooms-1"
+                  name="bedrooms">
                 <label class="btn btn-outline-secondary fw-normal" for="bedrooms-1">1</label>
-                <input class="btn-check" formControlName="bedrooms" type="radio" value="2" id="bedrooms-2" name="bedrooms">
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="2" id="bedrooms-2"
+                  name="bedrooms">
                 <label class="btn btn-outline-secondary fw-normal" for="bedrooms-2">2</label>
-                <input class="btn-check" formControlName="bedrooms" type="radio" value="3" id="bedrooms-3" name="bedrooms">
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="3" id="bedrooms-3"
+                  name="bedrooms">
                 <label class="btn btn-outline-secondary fw-normal" for="bedrooms-3">3</label>
-                <input class="btn-check" formControlName="bedrooms" type="radio"  value="4" id="bedrooms-4" name="bedrooms" checked>
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="4" id="bedrooms-4"
+                  name="bedrooms" checked>
                 <label class="btn btn-outline-secondary fw-normal" for="bedrooms-4">4</label>
-                <input class="btn-check"formControlName="bedrooms"  type="radio"  value="5" id="bedrooms-5" name="bedrooms">
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="5" id="bedrooms-5"
+                  name="bedrooms">
                 <label class="btn btn-outline-secondary fw-normal" for="bedrooms-5">5+</label>
               </div>
             </div>
             <div class="mb-4">
               <label class="form-label d-block fw-bold mb-2 pb-1">Bathrooms</label>
-              <div class="btn-group btn-group-sm"  role="group" aria-label="Choose number of bathrooms">
-                <input class="btn-check" type="radio" formControlName="bathrooms" value="1" id="bathrooms-1" name="bathrooms">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of bathrooms">
+                <input class="btn-check" type="radio" formControlName="bathrooms" value="1" id="bathrooms-1"
+                  name="bathrooms">
                 <label class="btn btn-outline-secondary fw-normal" for="bathrooms-1">1</label>
-                <input class="btn-check" type="radio" id="bathrooms-2" formControlName="bathrooms" value="2"  name="bathrooms" checked>
+                <input class="btn-check" type="radio" id="bathrooms-2" formControlName="bathrooms" value="2"
+                  name="bathrooms" checked>
                 <label class="btn btn-outline-secondary fw-normal" for="bathrooms-2">2</label>
-                <input class="btn-check" type="radio" id="bathrooms-3"  formControlName="bathrooms" value="3" name="bathrooms">
+                <input class="btn-check" type="radio" id="bathrooms-3" formControlName="bathrooms" value="3"
+                  name="bathrooms">
                 <label class="btn btn-outline-secondary fw-normal" for="bathrooms-3">3</label>
-                <input class="btn-check" type="radio" id="bathrooms-4" formControlName="bathrooms" value="4" name="bathrooms">
+                <input class="btn-check" type="radio" id="bathrooms-4" formControlName="bathrooms" value="4"
+                  name="bathrooms">
                 <label class="btn btn-outline-secondary fw-normal" for="bathrooms-4">4</label>
               </div>
             </div>
             <div class="mb-4">
               <label class="form-label d-block fw-bold mb-2 pb-1">Parking spots</label>
-              <div class="btn-group btn-group-sm"  role="group" aria-label="Choose number of parking spots">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of parking spots">
                 <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-1" name="parking">
                 <label class="btn btn-outline-secondary fw-normal" for="parking-1">1</label>
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-2" name="parking" checked>
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-2" name="parking"
+                  checked>
                 <label class="btn btn-outline-secondary fw-normal" for="parking-2">2</label>
                 <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-3" name="parking">
                 <label class="btn btn-outline-secondary fw-normal" for="parking-3">3</label>
@@ -143,7 +154,8 @@
                     <label class="form-check-label" for="wifi">WiFi</label>
                   </div>
                   <div class="form-check">
-                    <input class="  form-check-input" type="checkbox" id="air-condition" formControlName="airConditioning" checked>
+                    <input class="  form-check-input" type="checkbox" id="air-condition"
+                      formControlName="airConditioning" checked>
                     <label class="form-check-label" for="air-condition">Air conditioning</label>
                   </div>
                   <div class="form-check">
@@ -187,11 +199,12 @@
                     <label class="form-check-label" for="dishwasher">Dishwasher</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" formControlName="kitchen"  type="checkbox" id="kitchen" checked>
+                    <input class="form-check-input" formControlName="kitchen" type="checkbox" id="kitchen" checked>
                     <label class="form-check-label" for="kitchen">Kitchen</label>
                   </div>
                   <div class="form-check">
-                    <input formControlName="securityCameras" class="form-check-input" type="checkbox" id="security-cameras">
+                    <input formControlName="securityCameras" class="form-check-input" type="checkbox"
+                      id="security-cameras">
                     <label class="form-check-label" for="security-cameras">Security cameras</label>
                   </div>
                 </div>
@@ -209,7 +222,8 @@
               <select class="form-select w-25 me-2 mb-2">
                 <option value="CAD">&#36;</option>
               </select>
-              <input formControlName="amount" class="form-control w-100 me-2 mb-2" type="number" id="ap-price" min="200" step="50" required>
+              <input formControlName="amount" class="form-control w-100 me-2 mb-2" type="number" id="ap-price" min="200"
+                step="50" required>
               <select formControlName="timeDuration" class="form-select w-50 mb-2">
                 <option value="MONTHLY" selected>per month</option>
                 <option value="ANNUALLY">per year</option>
@@ -225,23 +239,41 @@
                   first.<br>The maximum video size is 10 MB. Formats: mp4, mov.</p>
               </div>
             </div>
-            <dropzone [config]="dropconfig"  (change)="onSelect($event)"
-              class="file-uploader file-uploader-grid bg-faded-light border-light dropzone_sec"
-              [message]="'Click or drag images here to upload'"></dropzone>
+            <!-- 
+              <dropzone [config]="dropconfig" (change)="onFileSelected($event)"
+                class="file-uploader file-uploader-grid bg-faded-light border-light dropzone_sec"
+                [message]="'Click or drag images here to upload'"></dropzone> -->
+
+                <div class="file-uploader-wrapper">
+                  <input class="file-uploader" id="fileInput" type="file" (change)="onFileSelected($event)" accept="image/*" multiple />
+                  <label for="fileInput" class="file-uploader-label">
+                    <span class="file-uploader-text">Click or drag images here to upload</span>
+                  </label>
+                  <div class="uploaded-files" *ngIf="selectedImages.length > 0">
+                    <h4>Uploaded Files:</h4>
+                    <ul>
+                      <li *ngFor="let file of selectedImages">{{ file.name }}</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                
+
           </section>
           <!-- Contacts-->
-          <section class="card card-body border-0 shadow-sm p-4 mb-4" id="contacts" formGroupName="contactInfo"  #contacts>
+          <section class="card card-body border-0 shadow-sm p-4 mb-4" id="contacts" formGroupName="contactInfo"
+            #contacts>
             <h2 class="h4 mb-4"><i class="fi-phone text-primary fs-5 mt-n1 me-2"></i>Contacts</h2>
             <div class="row">
               <div class="col-sm-6 mb-3">
                 <label class="form-label" for="ap-fn">First name <span class="text-danger">*</span></label>
-                <input class="form-control" formControlName="firstName" type="text" id="ap-fn" placeholder="Enter your first name"
-                  required>
+                <input class="form-control" formControlName="firstName" type="text" id="ap-fn"
+                  placeholder="Enter your first name" required>
               </div>
               <div class="col-sm-6 mb-3">
                 <label class="form-label" for="ap-sn">Second name <span class="text-danger">*</span></label>
-                <input class="form-control" formControlName="lastName"  type="text" id="ap-sn" placeholder="Enter your second name"
-                  required>
+                <input class="form-control" formControlName="lastName" type="text" id="ap-sn"
+                  placeholder="Enter your second name" required>
               </div>
             </div>
             <div class="row">
@@ -252,21 +284,21 @@
               </div>
               <div class="col-sm-6 mb-3">
                 <label class="form-label" for="ap-phone">Phone number <span class="text-danger">*</span></label>
-                <input class="form-control" formControlName="phoneNumber"  type="tel" id="ap-phone" data-format="custom" data-delimiter="-"
-                  data-blocks="3 3 4" placeholder="000-000-0000">
+                <input class="form-control" formControlName="phoneNumber" type="tel" id="ap-phone" data-format="custom"
+                  data-delimiter="-" data-blocks="3 3 4" placeholder="000-000-0000">
               </div>
             </div>
           </section>
           <!-- Action buttons -->
           <!-- <section class="d-sm-flex justify-content-between pt-2"><a class="btn btn-outline-primary btn-lg d-block mb-3 mb-sm-2" href="javascript:void(0);" data-bs-toggle="modal" (click)="openReviewModal(reviewContent)"><i class="fi-eye-on ms-n1 me-2"></i>Preview</a><a class="btn btn-primary btn-lg d-block mb-2" onclick="addProperty()"  routerLink="/vendor/property-promotion">Save and continue</a></section> -->
-          
+
           <section class="d-sm-flex justify-content-between pt-2"><a
               class="btn btn-outline-primary btn-lg d-block mb-3 mb-sm-2" href="javascript:void(0);"
               data-bs-toggle="modal" (click)="openReviewModal(reviewContent)"><i
                 class="fi-eye-on ms-n1 me-2"></i>Preview</a>
-          
-              <button class="btn btn-primary btn-lg d-block mb-2" type="submit">Create Property</button>
-            </section>
+
+            <button class="btn btn-primary btn-lg d-block mb-2" type="submit">Create Property</button>
+          </section>
 
         </form>
       </div>

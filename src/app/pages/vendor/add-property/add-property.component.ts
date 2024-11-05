@@ -22,7 +22,7 @@ export class AddPropertyComponent implements OnInit {
   public overviewColleaps = true;
   public amenitiesColleaps = true;
   propertyForm!: UntypedFormGroup;
-  selectedImages: File[] = [];
+  selectedImages: File[] = []; // Initialize selectedImages
 
 
 
@@ -80,11 +80,14 @@ export class AddPropertyComponent implements OnInit {
       })
     });
   }
-
-  onSelect(event: any) {
-    // Add selected files to the array
-    this.selectedImages.push(...event.addedFiles);
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.selectedImages.push(...Array.from(input.files));
+      console.log('Selected files:', this.selectedImages);
+    }
   }
+
 
 propertySubmit() {
   // if (this.propertyForm.invalid) {
@@ -92,7 +95,12 @@ propertySubmit() {
   // }
       // Call the signup service
       console.log('property form value', this.propertyForm.value);
-      console.log('property form value images', this.selectedImages);
+
+
+      // Append the selected images
+      for (const image of this.selectedImages) {
+        console.log('property form value images', image.name + ", ");  
+      }
 
       this.propertyService.createProperty(this.propertyForm.value, this.selectedImages).subscribe({
         next: (response) => {

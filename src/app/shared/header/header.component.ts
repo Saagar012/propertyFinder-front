@@ -272,8 +272,7 @@ export class HeaderComponent implements OnInit {
     this.authService.login(formData).subscribe({
       next: (response) => {
         this.authService.setUser(response.user.firstName); // Save user data
-        alert('Login successful!'); // needs to get some external module to make the alert attractive
-        console.log(this.username);
+        alert('Login successful!'); 
         this.modalService.dismissAll('Login Successful');
 
       },

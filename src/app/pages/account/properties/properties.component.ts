@@ -59,6 +59,7 @@ export class PropertiesComponent implements OnInit {
   }
   private transformProperty(item: any): properties {
     return {
+      id:item.id,
       propertyImage: item.propertyImage?.[0] || '',
       btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
       btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',

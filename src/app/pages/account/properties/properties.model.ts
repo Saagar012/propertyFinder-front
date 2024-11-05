@@ -12,7 +12,7 @@
   // bad?: string;
   // bath?: string;
   // car?: string;
-
+  id?:string;
   propertyImage?:string;
   btn?: string;
   title?: string;
