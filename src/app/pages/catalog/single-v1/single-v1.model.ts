@@ -43,7 +43,7 @@ export interface propertyById {
   amenities?: { [key: string]: boolean };
   latitude: string;
   longitude: string;
-  propertyImage: string[];  // Assuming it's an array of image URLs
+  images: string[];  // Assuming it's an array of image URLs
   priceAmountPerAnnum?: string | null;
   status: string;
   userId: number;

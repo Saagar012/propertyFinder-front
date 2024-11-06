@@ -38,7 +38,6 @@ export class PropertiesComponent implements OnInit {
 
   // Chat Data Fetch
   private _fetchData() {
-    console.log("fetch data is consoled");
     //  this.propertiesData = propertiesData;
      (this.propertyService.fetchProperties().subscribe(response =>{
       if (response && response.data) { // Check if response has data property
@@ -68,7 +67,9 @@ export class PropertiesComponent implements OnInit {
       priceAmountPerAnnum: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
       bedrooms: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bathrooms: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
-      parkingSpots: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A'
+      parkingSpots: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
+      image : item.images ? item.images[0] : '',
+
     };
 
   }

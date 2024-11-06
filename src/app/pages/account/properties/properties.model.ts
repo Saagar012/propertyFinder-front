@@ -11,7 +11,7 @@
   // price?: string;
   // bad?: string;
   // bath?: string;
-  // car?: string;
+  // car?: str
   id?:string;
   propertyImage?:string;
   btn?: string;
@@ -23,6 +23,7 @@
   bedrooms?:string;
   bathrooms?:string;
   parkingSpots?:string;
+  image?:string;
 
 
   // image: "assets/img/real-estate/catalog/08.jpg",

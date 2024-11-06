@@ -38,7 +38,7 @@ export class SingleV1Component implements OnInit {
   _album: Array<any> = [];
   propertiesData!: propertyById;
   trueAmenities: string[] = [];
-
+  images!:string[];
 
 
   constructor(private modalService: NgbModal, private formBuilder: UntypedFormBuilder, private _lightbox: Lightbox
@@ -139,7 +139,7 @@ formatAmenityName(key: string): string {
           console.log("Fetched property by ID:", response);
           this.propertiesData = response.data; // Assign response to propertiesData
           console.log('successfully fetched data by id', this.propertiesData);
-
+          this.images = response.data.images;
           // Step 1: Filter amenities with `true` values
           this.trueAmenities = Object.keys(this.propertiesData?.amenities || {}).filter(
             (key: string) => this.propertiesData?.amenities?.[key] === true

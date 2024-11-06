@@ -52,7 +52,7 @@
             <!-- Item-->
             @for(data of propertiesData;track $index){
             <div class="card card-hover card-horizontal border-0 shadow-sm mb-4">
-              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url({{data.propertyImage}});">
+              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url('{{data.image}}');">
                 <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-{{data.btn_color}}">{{data.btn}}</span></div>
               </a>
               <div class="card-body position-relative pb-3">
@@ -92,7 +92,7 @@
 
             @for(data of propertiesData;track $index){
             <div class="card card-hover card-horizontal border-0 shadow-sm mb-4">
-              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url({{data.propertyImage}});">
+              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url('{{data.image}}');">
                 <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-{{data.btn_color}}">{{data.btn}}</span></div>
               </a>
               <div class="card-body position-relative pb-3">
@@ -131,7 +131,7 @@
             <!-- Item-->
             @for(data of propertiesData;track $index){
             <div class="card card-hover card-horizontal border-0 shadow-sm mb-4">
-              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url({{data.propertyImage}});">
+              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url('{{data.image}}');">
                 <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-{{data.btn_color}}">{{data.btn}}</span></div>
               </a>
               <div class="card-body position-relative pb-3">
