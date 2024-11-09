@@ -46,52 +46,60 @@
 
 
     <div class="row g-2 g-md-3 gallery" data-thumbnails="true" style="min-width: 30rem;">
-      <!-- @for(image of images;track $index){ -->
+    <!--
+  @for(image of images;track $index){
 
       <div class="col-8">
         <a class="gallery-item rounded rounded-md-3" href="javascript:void(0);" (click)="customOpen(1)">
-          <!-- Dynamically set the background image -->
           <div [style.background-image]="'url(' +images[0] + ')'">
-            <!-- Dynamically set the image source -->
-            <img [src]="images[0]" alt="Gallery thumbnail">
+            <img [src]="image" alt="Gallery thumbnail">
           </div>
         </a>
       </div>
       <div class="col-4">
         <a class="gallery-item rounded rounded-md-3 mb-2 mb-md-3" href="javascript:void(0);" (click)="customOpen(1)">
-          <!-- Dynamically set the background image -->
           <div [style.background-image]="'url(' + images[0] + ')'">
-            <!-- Dynamically set the image source -->
             <img [src]="images[1]" alt="Gallery thumbnail">
           </div>
 
         </a>
         <a class="gallery-item rounded rounded-md-3" href="javascript:void(0);" (click)="customOpen(2)">
-       <!-- Dynamically set the background image -->
        <div [style.background-image]="'url(' + images[0] + ')'">
-        <!-- Dynamically set the image source -->
         <img [src]="images[2]" alt="Gallery thumbnail">
       </div>        
     </a>
       </div>
-      <!-- } -->
-
-      <!-- <div class="col-12">
-        <div class="row g-2 g-md-3">
-          @for(image of images ;track $index){
-          <div class="col">
-            <a class="gallery-item rounded-1 rounded-md-2" href="javascript:void(0);" (click)="open($index)">
-              <img [src]="image.thumb" alt="Gallery thumbnail"> -->
-
-              <!-- <div [style.background-image]="'url(' + image + ')'">
-                 Dynamically set the image source -->
-                <!-- <img [src]="image" alt="Gallery thumbnail"> -->
-              <!-- </div>     -->
-            <!-- </a>
-          </div>
-          }
+      }
+    -->
+      <div *ngFor="let image of images.slice(0,2); let i = index" [ngClass]="{
+        'col-8': i === 0,
+        'col-4': i === 1
+      }">
+      <a class="gallery-item rounded rounded-md-3" href="javascript:void(0);" (click)="customOpen(i)">
+        <!-- Dynamically set the background image -->
+        <div [style.background-image]="'url(' + image + ')'">
+          <!-- Dynamically set the image source -->
+          <img [src]="image" alt="Gallery thumbnail">
         </div>
-      </div> -->
+      </a>
+    </div>
+    
+
+    <div *ngIf="images.length > 3" class="col-12">
+      <div class="row g-2 g-md-3">
+        <div *ngFor="let image of images.slice(4); let j = index" class="col">
+          <a class="gallery-item rounded-1 rounded-md-2" href="javascript:void(0);" (click)="open(j)">
+              <img [src]="image" alt="Gallery thumbnail">
+          
+
+               <div [style.background-image]="'url(' + image + ')'">
+                 <img [src]="image" alt="Gallery thumbnail">  
+                </div>      
+             </a>
+          </div>
+          
+        </div>
+      </div>
     </div>
   </section>
   <!-- Post content-->

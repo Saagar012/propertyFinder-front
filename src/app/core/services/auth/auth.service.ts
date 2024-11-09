@@ -48,7 +48,7 @@ export class AuthService {
   signup(data: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post(`${baseUrl}signup`, data, { headers });
+    return this.http.post(`${baseUrl}auth/signup`, data, { headers });
 
   }
   // Signup method to send data to backend

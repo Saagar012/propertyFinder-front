@@ -52,7 +52,6 @@
                 <label class="form-label" for="ap-country">Country / region <span class="text-danger">*</span></label>
                 <select formControlName="country" class="form-select" id="ap-country" required>
                   <option value="" disabled>Choose country</option>
-                  <option value="United States">United States</option>
                   <option value="Canada">Canada</option>
                 </select>
               </div>
@@ -134,14 +133,14 @@
             <div class="mb-4">
               <label class="form-label d-block fw-bold mb-2 pb-1">Parking spots</label>
               <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of parking spots">
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-1" name="parking">
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-1" value="1" name="parking">
                 <label class="btn btn-outline-secondary fw-normal" for="parking-1">1</label>
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-2" name="parking"
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-2" value="2" name="parking"
                   checked>
                 <label class="btn btn-outline-secondary fw-normal" for="parking-2">2</label>
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-3" name="parking">
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-3" value="3" name="parking">
                 <label class="btn btn-outline-secondary fw-normal" for="parking-3">3</label>
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-4" name="parking">
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-4" value="4" name="parking">
                 <label class="btn btn-outline-secondary fw-normal" for="parking-4">4</label>
               </div>
             </div>
@@ -297,7 +296,7 @@
               data-bs-toggle="modal" (click)="openReviewModal(reviewContent)"><i
                 class="fi-eye-on ms-n1 me-2"></i>Preview</a>
 
-            <button class="btn btn-primary btn-lg d-block mb-2" type="submit">Create Property</button>
+            <button class="btn btn-primary btn-lg d-block mb-2" type="submit" [disabled]="propertyForm.invalid">Create Property</button>
           </section>
 
         </form>

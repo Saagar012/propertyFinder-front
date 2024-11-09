@@ -34,20 +34,20 @@ export class AddPropertyComponent implements OnInit {
      * BreadCrumb
      */
     this.breadCrumbItems = [
-      { label: 'Home', link: '' },
+      { label: 'Home', link: "" },
       { label: 'Add property', active: true }
     ];
     this.propertyForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(48)]],
-      category: ['', Validators.required],
-      propertyType: ['', Validators.required],
-      country: ['', Validators.required],
-      city: ['', Validators.required],
-      zipCode: ['', Validators.required],
-      streetAddress: ['', Validators.required],
-      bedrooms: ['1', Validators.required],  
-      bathrooms: ['1', Validators.required], 
-      parkingSpots: ['1', Validators.required], 
+      title: ["", [Validators.required, Validators.maxLength(48)]],
+      category: ["", Validators.required],
+      propertyType: ["", Validators.required],
+      country: ["", Validators.required],
+      city: ["", Validators.required],
+      zipCode: ["", Validators.required],
+      streetAddress: ["", Validators.required],
+      bedrooms: ["1", Validators.required],
+      bathrooms: ["1", Validators.required],
+      parkingSpots: ["1", Validators.required],
       amenities: this.fb.group({
         wifi: [false],
         petsFriendly: [false],
@@ -63,20 +63,20 @@ export class AddPropertyComponent implements OnInit {
         kitchen: [false],
         securityCameras: [false]
       }),
-      latitude: [''],
-      longitude: [''],
+      latitude: [""],
+      longitude: [""],
       status: ['AVAILABLE'],
-      totalArea: ['',Validators.required],
+      totalArea: ["", Validators.required],
       userId: [1], // Set this dynamically as needed
       contactInfo: this.fb.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        phoneNumber: ['', Validators.required]
+        firstName: ["", Validators.required],
+        lastName: ["", Validators.required],
+        email: ["", [Validators.required]],
+        phoneNumber: ["", Validators.required]
       }),
       price: this.fb.group({
-        amount: ['', [Validators.required, Validators.min(0)]],
-        timeDuration: ['ANNUALLY'] 
+        amount: ["", [Validators.required, Validators.min(0)]],
+        timeDuration: ['ANNUALLY']
       })
     });
   }
@@ -89,47 +89,48 @@ export class AddPropertyComponent implements OnInit {
   }
 
 
-propertySubmit() {
-  // if (this.propertyForm.invalid) {
-  //   return;
-  // }
-      // Call the signup service
-      console.log('property form value', this.propertyForm.value);
+  propertySubmit() {
+    // Call the signup service
+    console.log('property form value', this.propertyForm.value);
+    if (this.propertyForm.invalid) {
+      console.log('property form is invaliod');
+      return;
+    }
 
 
-      // Append the selected images
-      for (const image of this.selectedImages) {
-        console.log('property form value images', image.name + ", ");  
+    // Append the selected images
+    for (const image of this.selectedImages) {
+      console.log('property form value images', image.name + ", ");
+    }
+
+    this.propertyService.createProperty(this.propertyForm.value, this.selectedImages).subscribe({
+      next: (response) => {
+        alert('Property Created successfully');
+      },
+      error: (error) => {
+        console.error('Signup failed:', error);
       }
+    });
 
-      this.propertyService.createProperty(this.propertyForm.value, this.selectedImages).subscribe({
-        next: (response) => {
-          alert('Property Created successfully');
-        },
-        error: (error) => {
-          console.error('Signup failed:', error);
-        }
-      });
-  
-} 
-inView(ele: any) {
-  ele.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
-}
+  }
+  inView(ele: any) {
+    ele.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
+  }
 
-/**
- * Open Review modal
- * @param reviewContent modal content
- */
-openReviewModal(reviewContent: any) {
-  this.modalService.open(reviewContent, { size: 'fullscreen', windowClass: 'modal-holder' });
-}
+  /**
+   * Open Review modal
+   * @param reviewContent modal content
+   */
+  openReviewModal(reviewContent: any) {
+    this.modalService.open(reviewContent, { size: 'fullscreen', windowClass: 'modal-holder' });
+  }
 
-dropconfig = {
-  clickable: true,
-  maxFiles: 5, // Set the maximum number of files to upload.
-  addRemoveLinks: true,
-  acceptedFiles: 'image/jpeg, image/jpg, image/png'
-};
-uploadedFiles: File[] = [];
+  dropconfig = {
+    clickable: true,
+    maxFiles: 5, // Set the maximum number of files to upload.
+    addRemoveLinks: true,
+    acceptedFiles: 'image/jpeg, image/jpg, image/png'
+  };
+  uploadedFiles: File[] = [];
 
 }

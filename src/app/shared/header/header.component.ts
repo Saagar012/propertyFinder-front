@@ -307,6 +307,8 @@ export class HeaderComponent implements OnInit {
     this.authService.signup(formData).subscribe({
       next: (response) => {
         alert('Signup successful!');
+        this.modalService.dismissAll('SignUp Successful');
+
       },
       error: (error) => {
         this.errorMessage = 'Signup failed. Please try again.';
