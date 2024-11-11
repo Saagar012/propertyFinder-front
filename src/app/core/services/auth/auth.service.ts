@@ -36,7 +36,10 @@ export class AuthService {
       return null; // Return null if parsing fails
     }
   }
-
+  // Check if the user is logged in by checking for a token
+    isLoggedIn(): boolean {
+      return !!localStorage.getItem('authToken');
+    }
 
   logout() {
     localStorage.removeItem('user');

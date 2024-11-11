@@ -6,11 +6,13 @@ import { AddPropertyComponent } from "./add-property/add-property.component";
 import { PropertyPromotionComponent } from "./property-promotion/property-promotion.component";
 import { PropertiesComponent } from "./properties/properties.component";
 import { ReviewsComponent } from "./reviews/reviews.component";
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: "add-property",
-    component: AddPropertyComponent
+    component: AddPropertyComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: "property-promotion",
