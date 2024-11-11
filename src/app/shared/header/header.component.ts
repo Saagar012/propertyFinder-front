@@ -10,6 +10,7 @@ import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { StaticDataService } from 'src/app/core/services/static-data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -60,14 +61,14 @@ export class HeaderComponent implements OnInit {
     /**
      * Bootstrap validation form data
      */
-     this.signUpform = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]],
+      this.signUpform = this.formBuilder.group({
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]],
 
-    });
+      });
   
 
     // Menu Items
@@ -272,14 +273,19 @@ export class HeaderComponent implements OnInit {
     this.authService.login(formData).subscribe({
       next: (response) => {
         this.authService.setUser(response.user.firstName); // Save user data
-        alert('Login successful!'); // needs to get some external module to make the alert attractive
-        console.log(this.username);
+        localStorage.setItem('authToken', response.token);
+
+        Swal.fire({
+          title: 'Login Successful!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this.modalService.dismissAll('Login Successful');
 
       },
       error: (error) => {
         this.errorMessage = 'Login failed. Please try again.';
         alert(this.errorMessage);
-        console.log('username', this.username);
       }
     });
     }
@@ -307,10 +313,16 @@ export class HeaderComponent implements OnInit {
     // Call the signup service
     this.authService.signup(formData).subscribe({
       next: (response) => {
-        alert('Signup successful!');
+        Swal.fire({
+          title: 'Sign Up Successful!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+      
+        this.modalService.dismissAll('SignUp Successful');
+
       },
       error: (error) => {
-        console.error('Signup failed:', error);
         this.errorMessage = 'Signup failed. Please try again.';
         alert(this.errorMessage);
       }

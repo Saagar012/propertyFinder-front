@@ -20,10 +20,12 @@ const routes: Routes = [
     path: "single-v1",
     component: SingleV1Component
   },
+
   {
-    path:"single-v2",
+    path: "single-v2",
     component: SingleV2Component
-  }
+  },
+
 ];
 
 @NgModule({

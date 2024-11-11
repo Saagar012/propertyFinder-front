@@ -5,8 +5,11 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 // Light Box
 import { Lightbox } from 'ngx-lightbox';
 
-import { aboutReviews, recently } from './single-v1.model';
+import { aboutReviews, propertyById, recently } from './single-v1.model';
 import { aboutReviewData, recentlyData } from './data';
+import { PropertyService } from 'src/app/core/services/property/property.service';
+import { ActivatedRoute } from '@angular/router';
+import { properties } from '../../dashboard/home2/home2.model';
 
 @Component({
   selector: 'app-single-v1',
@@ -33,9 +36,14 @@ export class SingleV1Component implements OnInit {
   longitude = 20.728218;
   latitude = 52.128973;
   _album: Array<any> = [];
+  propertiesData!: propertyById;
+  trueAmenities: string[] = [];
+  images!:string[];
 
 
-  constructor(private modalService: NgbModal, private formBuilder: UntypedFormBuilder, private _lightbox: Lightbox) {
+  constructor(private modalService: NgbModal, private formBuilder: UntypedFormBuilder, private _lightbox: Lightbox
+    , private propertyService: PropertyService, private route: ActivatedRoute
+  ) {
     for (let i = 4; i <= 8; i++) {
       const src = 'assets/img/city-guide/single/th0' + i + '.jpg';
       const caption = 'Image ' + i + ' caption here';
@@ -48,6 +56,7 @@ export class SingleV1Component implements OnInit {
 
       this._album.push(album);
     }
+
   }
 
   ngOnInit(): void {
@@ -81,13 +90,80 @@ export class SingleV1Component implements OnInit {
     // Data Get Function
     this._fetchData();
   }
+  // Method to return the appropriate icon class for each amenity key
+  
+getAmenityIcon(key: string): string {
+  const iconMap: { [key: string]: string } = {
+    wifi: 'fas fa-wifi',
+    heating: 'fas fa-thermometer-half',
+    dishwasher: 'fas fa-genderless',
+    parking: 'fas fa-parking',
+    airConditioning: 'fas fa-snowflake',
+    iron: 'fas fa-iron',
+    tv: 'fas fa-tv',
+    laundry: 'fas fa-tshirt',
+    securityCameras: 'fas fa-video',
+    balcony: 'fas fa-wind',
+    bar: 'fas fa-cocktail',
+    breakfast: 'fas fa-utensils',
+    garage: 'fas fa-warehouse',
+    gym: 'fas fa-dumbbell',
+    hairDryer: 'fas fa-wind',
+    kitchen: 'fas fa-blender',
+    linens: 'fas fa-bed',
+    petsFriendly: 'fas fa-paw',
+    pool: 'fas fa-swimming-pool'
+  };  
+  return iconMap[key] || 'fi-default'; // Provide a default icon class if needed
+}
+
+// Method to format the amenity name
+formatAmenityName(key: string): string {
+  // Use basic formatting or mapping for more readable names
+  return key
+    .replace(/([A-Z])/g, ' $1') // Add a space before capital letters
+    .replace(/^./, (str) => str.toUpperCase()); // Capitalize the first letter
+}
+
 
   // Data Fetch
   private _fetchData() {
+    // Retrieve the 'id' parameter from the URL
+    const propertyId = this.route.snapshot.paramMap.get('id');
+    if (propertyId) {
+      // Convert the ID to a number if necessary and fetch property details
+      this.propertyService.fetchPropertyById(propertyId).subscribe(
+        (response) => {
+          this.propertiesData = response.data; // Assign response to propertiesData
+          this.images = response.data.images;
+          console.log(this.propertiesData);
+          // Step 1: Filter amenities with `true` values
+          this.trueAmenities = Object.keys(this.propertiesData?.amenities || {}).filter(
+            (key: string) => this.propertiesData?.amenities?.[key] === true
+          );
+          this.updateBreadcrumb();
+        },
+        (error) => {
+          console.error("Error fetching property by ID:", error);
+        }
+      );
+    } else {
+      console.warn("No property ID found in the URL");
+    }
+
     this.aboutReviewData = aboutReviewData;
     this.recentlyData = recentlyData;
+    // fetching the property by id.
+    // this.propertyService.fetchPropertyById();
   }
-
+  updateBreadcrumb() {
+    this.breadCrumbItems = [
+      { label: 'Home', link: '' },
+      { label: this.propertiesData.category, link: '/catalog/rent' },
+      { label: this.propertiesData.title, active: true }
+    ];
+  }
+  
 
   /**
    * Open Review modal
