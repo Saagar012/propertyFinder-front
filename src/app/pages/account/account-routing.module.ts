@@ -8,6 +8,7 @@ import { PropertiesComponent } from "./properties/properties.component";
 import { WishlistComponent } from "./wishlist/wishlist.component";
 import { ReviewsComponent } from "./reviews/reviews.component";
 import { NotificationsComponent } from "./notifications/notifications.component";
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
   },
   {
     path : "properties",
-    component: PropertiesComponent
+    component: PropertiesComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: "wishlist",
