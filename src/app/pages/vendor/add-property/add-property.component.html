@@ -30,7 +30,7 @@
                 <label class="form-label" for="ap-category">Category <span class="text-danger">*</span></label>
                 <select formControlName="category" class="form-select" id="ap-category" required>
                   <option value="" disabled hidden>Choose category</option>
-                  <option value="RENT">For rent</option>
+                  <!-- <option value="RENT">For rent</option> -->
                   <option value="SALE">For sale</option>
                 </select>
               </div>
@@ -73,15 +73,23 @@
                 <input formControlName="zipCode" class="form-control" type="text" id="ap-zip"
                   placeholder="Enter Zip code" required>
               </div>
-              <div class="col-sm-6 mb-3">
-                <label class="form-label" for="ap-address">Street address <span class="text-danger">*</span></label>
-                <input formControlName="streetAddress" class="form-control" type="text" id="ap-address" required>
-              </div>
             </div>
 
-            <div class="form-label fw-bold pt-3 pb-2">Display on the map</div>
-            <google-map [latitude]="latitude" [longitude]="longitude" class="interactive-map rounded-3"
-              style="height: 250px;"></google-map>
+
+            <div class="col-sm-12 mb-3">
+              <label for="location-input">Enter Location:</label>
+              <div class="input-group mb-3">
+                <input type="text" formControlName = "streetAddress" id="location-input" placeholder="Enter a location" class="form-control">
+                <button (click)="searchLocation()" class="btn btn-outline-secondary btn-sm">
+                  <i class="fas fa-search"></i>
+                </button>
+                
+              </div>
+              <div id="map" style="height: 350px;"></div>
+            </div>
+
+
+
           </section>
           <!-- Property details-->
           <section class="card card-body border-0 shadow-sm p-4 mb-4" id="details" #details>
@@ -133,14 +141,17 @@
             <div class="mb-4">
               <label class="form-label d-block fw-bold mb-2 pb-1">Parking spots</label>
               <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of parking spots">
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-1" value="1" name="parking">
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-1" value="1"
+                  name="parking">
                 <label class="btn btn-outline-secondary fw-normal" for="parking-1">1</label>
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-2" value="2" name="parking"
-                  checked>
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-2" value="2"
+                  name="parking" checked>
                 <label class="btn btn-outline-secondary fw-normal" for="parking-2">2</label>
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-3" value="3" name="parking">
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-3" value="3"
+                  name="parking">
                 <label class="btn btn-outline-secondary fw-normal" for="parking-3">3</label>
-                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-4" value="4" name="parking">
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-4" value="4"
+                  name="parking">
                 <label class="btn btn-outline-secondary fw-normal" for="parking-4">4</label>
               </div>
             </div>
@@ -243,20 +254,21 @@
                 class="file-uploader file-uploader-grid bg-faded-light border-light dropzone_sec"
                 [message]="'Click or drag images here to upload'"></dropzone> -->
 
-                <div class="file-uploader-wrapper">
-                  <input class="file-uploader" id="fileInput" type="file" (change)="onFileSelected($event)" accept="image/*" multiple />
-                  <label for="fileInput" class="file-uploader-label">
-                    <span class="file-uploader-text">Click or drag images here to upload</span>
-                  </label>
-                  <div class="uploaded-files" *ngIf="selectedImages.length > 0">
-                    <h4>Uploaded Files:</h4>
-                    <ul>
-                      <li *ngFor="let file of selectedImages">{{ file.name }}</li>
-                    </ul>
-                  </div>
-                </div>
-                
-                
+            <div class="file-uploader-wrapper">
+              <input class="file-uploader" id="fileInput" type="file" (change)="onFileSelected($event)" accept="image/*"
+                multiple />
+              <label for="fileInput" class="file-uploader-label">
+                <span class="file-uploader-text">Click or drag images here to upload</span>
+              </label>
+              <div class="uploaded-files" *ngIf="selectedImages.length > 0">
+                <h4>Uploaded Files:</h4>
+                <ul>
+                  <li *ngFor="let file of selectedImages">{{ file.name }}</li>
+                </ul>
+              </div>
+            </div>
+
+
 
           </section>
           <!-- Contacts-->
@@ -296,7 +308,8 @@
               data-bs-toggle="modal" (click)="openReviewModal(reviewContent)"><i
                 class="fi-eye-on ms-n1 me-2"></i>Preview</a>
 
-            <button class="btn btn-primary btn-lg d-block mb-2" type="submit" [disabled]="propertyForm.invalid">Create Property</button>
+            <button class="btn btn-primary btn-lg d-block mb-2" type="submit" [disabled]="propertyForm.invalid">Create
+              Property</button>
           </section>
 
         </form>

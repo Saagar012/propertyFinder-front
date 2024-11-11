@@ -10,6 +10,7 @@ import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { StaticDataService } from 'src/app/core/services/static-data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -272,7 +273,13 @@ export class HeaderComponent implements OnInit {
     this.authService.login(formData).subscribe({
       next: (response) => {
         this.authService.setUser(response.user.firstName); // Save user data
-        alert('Login successful!'); 
+        localStorage.setItem('authToken', response.token);
+
+        Swal.fire({
+          title: 'Login Successful!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
         this.modalService.dismissAll('Login Successful');
 
       },
@@ -306,7 +313,12 @@ export class HeaderComponent implements OnInit {
     // Call the signup service
     this.authService.signup(formData).subscribe({
       next: (response) => {
-        alert('Signup successful!');
+        Swal.fire({
+          title: 'Sign Up Successful!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+      
         this.modalService.dismissAll('SignUp Successful');
 
       },

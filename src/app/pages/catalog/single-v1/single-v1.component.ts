@@ -94,27 +94,26 @@ export class SingleV1Component implements OnInit {
   
 getAmenityIcon(key: string): string {
   const iconMap: { [key: string]: string } = {
-    wifi: 'fi-wifi',
-    heating: 'fi-thermometer',
-    dishwasher: 'fi-dish',
-    freeParking: 'fi-parking',
-    airConditioning: 'fi-snowflake',
-    iron: 'fi-iron',
-    tv: 'fi-tv',
-    laundry: 'fi-laundry',
-    securityCameras: 'fi-cctv',
-    balcony: 'fi-balcony', 
-    bar: 'fi-bar', 
-    breakfast: 'fi-breakfast', 
-    garage: 'fi-garage', 
-    gym: 'fi-gym', 
-    hairDryer: 'fi-hair-dryer', 
-    kitchen: 'fi-kitchen', 
-    linens: 'fi-linens',
-    petsFriendly: 'fi-pets', 
-    pool: 'fi-pool', 
-  
-  };
+    wifi: 'fas fa-wifi',
+    heating: 'fas fa-thermometer-half',
+    dishwasher: 'fas fa-genderless',
+    parking: 'fas fa-parking',
+    airConditioning: 'fas fa-snowflake',
+    iron: 'fas fa-iron',
+    tv: 'fas fa-tv',
+    laundry: 'fas fa-tshirt',
+    securityCameras: 'fas fa-video',
+    balcony: 'fas fa-wind',
+    bar: 'fas fa-cocktail',
+    breakfast: 'fas fa-utensils',
+    garage: 'fas fa-warehouse',
+    gym: 'fas fa-dumbbell',
+    hairDryer: 'fas fa-wind',
+    kitchen: 'fas fa-blender',
+    linens: 'fas fa-bed',
+    petsFriendly: 'fas fa-paw',
+    pool: 'fas fa-swimming-pool'
+  };  
   return iconMap[key] || 'fi-default'; // Provide a default icon class if needed
 }
 
@@ -130,20 +129,19 @@ formatAmenityName(key: string): string {
   // Data Fetch
   private _fetchData() {
     // Retrieve the 'id' parameter from the URL
-    console.log("this file is loaded");
     const propertyId = this.route.snapshot.paramMap.get('id');
     if (propertyId) {
       // Convert the ID to a number if necessary and fetch property details
       this.propertyService.fetchPropertyById(propertyId).subscribe(
         (response) => {
-          console.log("Fetched property by ID:", response);
           this.propertiesData = response.data; // Assign response to propertiesData
-          console.log('successfully fetched data by id', this.propertiesData);
           this.images = response.data.images;
+          console.log(this.propertiesData);
           // Step 1: Filter amenities with `true` values
           this.trueAmenities = Object.keys(this.propertiesData?.amenities || {}).filter(
             (key: string) => this.propertiesData?.amenities?.[key] === true
           );
+          this.updateBreadcrumb();
         },
         (error) => {
           console.error("Error fetching property by ID:", error);
@@ -158,7 +156,14 @@ formatAmenityName(key: string): string {
     // fetching the property by id.
     // this.propertyService.fetchPropertyById();
   }
-
+  updateBreadcrumb() {
+    this.breadCrumbItems = [
+      { label: 'Home', link: '' },
+      { label: this.propertiesData.category, link: '/catalog/rent' },
+      { label: this.propertiesData.title, active: true }
+    ];
+  }
+  
 
   /**
    * Open Review modal

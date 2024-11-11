@@ -3,6 +3,8 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PropertyService } from 'src/app/core/services/property/property.service';
+import * as L from 'leaflet';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-property',
@@ -14,6 +16,8 @@ import { PropertyService } from 'src/app/core/services/property/property.service
  * AddProperty Component
  */
 export class AddPropertyComponent implements OnInit {
+  private map: any;
+  private marker: any;
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
@@ -27,7 +31,6 @@ export class AddPropertyComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal, private fb: UntypedFormBuilder, private propertyService: PropertyService) { }
-
 
   ngOnInit(): void {
     /**
@@ -48,6 +51,7 @@ export class AddPropertyComponent implements OnInit {
       bedrooms: ["1", Validators.required],
       bathrooms: ["1", Validators.required],
       parkingSpots: ["1", Validators.required],
+      description: ["", [Validators.maxLength(1000)]],
       amenities: this.fb.group({
         wifi: [false],
         petsFriendly: [false],
@@ -79,7 +83,41 @@ export class AddPropertyComponent implements OnInit {
         timeDuration: ['ANNUALLY']
       })
     });
+    this.initializeMap();
+    var map = L.map('map').setView([48.3809, -89.2477], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+
+
   }
+  searchLocation(): void {
+    const location = (document.getElementById('location-input') as HTMLInputElement).value;
+
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          const lat = data[0].lat;
+          const lon = data[0].lon;
+
+          // Remove the existing marker, if any
+          if (this.marker) {
+            this.map.removeLayer(this.marker);
+          }
+
+          // Add the new marker
+          this.marker = L.marker([lat, lon]).addTo(this.map);
+          this.map.setView([lat, lon], 13);
+        } else {
+          alert('Location not found');
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files) {
@@ -88,30 +126,38 @@ export class AddPropertyComponent implements OnInit {
     }
   }
 
+  initializeMap(): void {
+    this.map = L.map('map').setView([48.3809, -89.2477], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(this.map);
+  }
 
   propertySubmit() {
     // Call the signup service
-    console.log('property form value', this.propertyForm.value);
     if (this.propertyForm.invalid) {
-      console.log('property form is invaliod');
       return;
     }
-
-
-    // Append the selected images
-    for (const image of this.selectedImages) {
-      console.log('property form value images', image.name + ", ");
-    }
-
     this.propertyService.createProperty(this.propertyForm.value, this.selectedImages).subscribe({
       next: (response) => {
-        alert('Property Created successfully');
+        Swal.fire({
+          title: 'Property Created successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        window.location.href = `/account/properties`;
       },
       error: (error) => {
-        console.error('Signup failed:', error);
+        Swal.fire({
+          title: 'Error!',
+          text: 'Something went wrong while creating the property.',
+          icon: 'error',
+          confirmButtonText: 'Try Again'
+        });
       }
     });
-
   }
   inView(ele: any) {
     ele.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
@@ -134,3 +180,4 @@ export class AddPropertyComponent implements OnInit {
   uploadedFiles: File[] = [];
 
 }
+

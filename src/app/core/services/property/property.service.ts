@@ -18,27 +18,32 @@ export class PropertyService {
       formData.append('images', image); // Only use 'images' as the key
     });
     
+   // Retrieve the token from localStorage
+    const token = localStorage.getItem('authToken');
 
     formData.append('data', JSON.stringify(data));
-    console.log("formdata" + formData);
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNzI5NjkyOTIwLCJleHAiOjE3Mzc0Njg5MjB9.Lws1r0BI8CVTArK2ufvrnEcJstU76WyiNAgT_3r94Ck`
-    });
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
     return this.http.post(`${baseUrl}property`, formData, { headers });
 
   }
   // Fetch properties method
   fetchProperties(): Observable<any> {
+    const token = localStorage.getItem('authToken');
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNzI5NjkyOTIwLCJleHAiOjE3Mzc0Njg5MjB9.Lws1r0BI8CVTArK2ufvrnEcJstU76WyiNAgT_3r94Ck`
+      'Authorization': `Bearer ${token}`
     });
+  
     return this.http.get(`${baseUrl}property`, { headers });
   }
 
   fetchPropertyById(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+
     const headers = new HttpHeaders({
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNzI5NjkyOTIwLCJleHAiOjE3Mzc0Njg5MjB9.Lws1r0BI8CVTArK2ufvrnEcJstU76WyiNAgT_3r94Ck`
+      'Authorization': `Bearer ${token}`
     });
     return this.http.get(`${baseUrl}property/${id}`, { headers });
   }
