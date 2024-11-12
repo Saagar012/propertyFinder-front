@@ -26,11 +26,7 @@
             <a class="card-nav-link" routerLink="/account/info"><i class="fi-user opacity-60 me-2"></i>Personal Info</a>
             <a class="card-nav-link" routerLink="/account/security"><i class="fi-lock opacity-60 me-2"></i>Password &amp; Security</a>
             <a class="card-nav-link active" routerLink="/account/properties"><i class="fi-home opacity-60 me-2"></i>My Properties</a>
-            <a class="card-nav-link" routerLink="/account/wishlist"><i class="fi-heart opacity-60 me-2"></i>Wishlist</a>
-            <a class="card-nav-link" routerLink="/account/reviews"><i class="fi-star opacity-60 me-2"></i>Reviews</a>
-            <a class="card-nav-link" routerLink="/account/notifications"><i class="fi-bell opacity-60 me-2"></i>Notifications</a>
-            <a class="card-nav-link" routerLink="/pages/help-center"><i class="fi-help opacity-60 me-2"></i>Help</a>
-            <a class="card-nav-link" routerLink="/auth/signin"><i class="fi-logout opacity-60 me-2"></i>Sign Out</a>
+            <a class="card-nav-link" routerLink="/auth/signin"><i class="fi-logout opacity-60 me-2"  (click)="logout()"></i>Sign Out</a>
           </div>
         </div>
       </div>

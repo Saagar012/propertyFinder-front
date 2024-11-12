@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-info',
@@ -15,7 +16,7 @@ export class InfoComponent implements OnInit {
   breadCrumbItems!: Array<{}>;
   public firstColleaps = true;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     /**
@@ -34,7 +35,9 @@ export class InfoComponent implements OnInit {
   SideBarMenu() {
     document.getElementById('account-nav')?.classList.toggle('show');
   }
-
+  logout() {
+    this.authService.logout();
+  }
   dropconfig = {
     clickable: true,
     maxFiles: 5, // Set the maximum number of files to upload.

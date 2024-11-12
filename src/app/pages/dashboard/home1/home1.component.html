@@ -270,38 +270,6 @@
   </ngx-slick-carousel>
 </section>
 
-<!-- Top agents (lnked carousel)-->
-<section class="container mb-5 pb-2 pb-lg-4">
-  <h2 class="h3 mb-4 pb-3 text-center text-md-start">Top real estate agents</h2>
-  <ngx-slick-carousel [config]="agents">
-    @for(data of agentsData;track $index){
-    <div class="swiper-slide" ngxSlickItem>
-      <div class="row align-items-center m-0">
-        <div class="col-xl-4 d-none d-xl-block"><img class="rounded-3" src="{{data.image1}}" alt="Agent picture"></div>
-        <div class="col-xl-4 col-md-5 col-sm-4"><img class="rounded-3" src="{{data.image2}}" alt="Agent picture"></div>
-        <div class="col-xl-4 col-md-7 col-sm-8 px-4 px-sm-3 px-md-0 ms-md-n4 mt-n5 mt-sm-0 py-3">
-          <div class="card border-0 shadow-sm ms-sm-n5">
-            <blockquote class="blockquote card-body">
-              <h4 style="max-width: 22rem;">&quot;{{data.title}}&quot;</h4>
-              <p class="d-sm-none d-lg-block">{{data.cantante}}</p>
-              <footer class="d-flex justify-content-between">
-                <div class="pe-3"><a class="text-decoration-none" routerLink="/vendor/properties">
-                    <h6 class="mb-0">{{data.name}}</h6>
-                    <div class="text-muted fw-normal fs-sm mb-3">{{data.agent}}</div>
-                  </a><a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-2" href="javascript:void(0);"><i class="fi-facebook"></i></a><a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-2" href="javascript:void(0);"><i class="fi-twitter"></i></a><a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-2" href="javascript:void(0);"><i class="fi-linkedin"></i></a></div>
-                <div><span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i></span>
-                  <div class="text-muted fs-sm mt-1">{{data.reviews}} reviews</div>
-                </div>
-              </footer>
-            </blockquote>
-          </div>
-        </div>
-      </div>
-    </div>
-    }
-  </ngx-slick-carousel>
-</section>
-
 <!-- Property cost calculator modal-->
 <ng-template #content role="document" let-modal>
   <div class="modal-header d-block position-relative border-0 px-sm-5 px-4">
