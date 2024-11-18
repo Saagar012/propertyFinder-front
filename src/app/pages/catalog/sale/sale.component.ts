@@ -5,6 +5,8 @@ import { Options } from 'ngx-slider-v2';
 
 import { topOffer } from './sale.model';
 import { topOfferData } from './data';
+import { PropertyService } from 'src/app/core/services/property/property.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sale',
@@ -24,8 +26,24 @@ export class SaleComponent implements OnInit {
   latitude = 52.128973;
   dataCount: any;
   checkedVal: any[] = [];
+  filterForm: FormGroup;
 
-  constructor() { }
+
+  constructor(private propertyService: PropertyService, private fb: FormBuilder) {
+    this.filterForm = this.fb.group({
+      city: [''],
+      country: [''],
+      propertyType: [''],
+      minPrice: [''],
+      maxPrice: [''],
+      bedrooms: [''],
+      bathrooms: [''],
+      // Add fields for amenities
+      parking: [false],
+      pool: [false],
+      gym: [false]
+    });
+  }
 
   ngOnInit(): void {
     /**
@@ -45,6 +63,9 @@ export class SaleComponent implements OnInit {
     this.topOfferData = topOfferData;
     this.topOfferDatas = Object.assign([], this.topOfferData);
     this.dataCount = this.topOfferDatas.length;
+
+
+
   }
 
   /**
@@ -85,13 +106,20 @@ export class SaleComponent implements OnInit {
 
 
   topOfferDatas: any;
-  // Location Filter
-  LocationSearch() {
-    var location = document.getElementById("location") as HTMLInputElement;
-    this.topOfferDatas = this.topOfferData.filter((data: any) => {
-      return data.location === location.value;
+  
+
+  LocationSearch(): void {
+    // Call the signup service
+    this.propertyService.getFilteredProperties(this.filterForm.value).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.topOfferDatas = response;
+        this.dataCount = response.pagination.totalItems;
+      },
+      error: (error) => {
+        console.error('Error fetching properties:', error);
+      }
     });
-    this.dataCount = this.topOfferDatas.length;
   }
 
   // District Filter
@@ -134,11 +162,17 @@ export class SaleComponent implements OnInit {
     floor: 300,
     ceil: 5000
   };
+
+
   valueChange(value: number, boundary: boolean): void {
     if (boundary) {
       this.minValue = value;
+      this.filterForm.patchValue({ minPrice: value });
+
     } else {
       this.maxValue = value;
+      this.filterForm.patchValue({ maxPrice: value });
+
       this.topOfferDatas = this.topOfferData.filter((data: any) => {
         data.price = data.price.replace(/,/g, '')
         return data.price >= this.minValue && data.price <= this.maxValue;
@@ -148,27 +182,27 @@ export class SaleComponent implements OnInit {
   }
 
   // Bed-Rooms  Filter
-  bedrooms(value: any) {
-    if (value > 3) {
-      this.topOfferDatas = this.topOfferData.filter((data: any) => {
-        return data.bad >= value;
-      });
-    }
-    else {
-      this.topOfferDatas = this.topOfferData.filter((data: any) => {
-        return data.bad === value;
-      });
-    }
-    this.dataCount = this.topOfferDatas.length;
-  }
+  // bedrooms(value: any) {
+  //   if (value > 3) {
+  //     this.topOfferDatas = this.topOfferData.filter((data: any) => {
+  //       return data.bad >= value;
+  //     });
+  //   }
+  //   else {
+  //     this.topOfferDatas = this.topOfferData.filter((data: any) => {
+  //       return data.bad === value;
+  //     });
+  //   }
+  //   this.dataCount = this.topOfferDatas.length;
+  // }
 
   // Bed-Rooms  Filter
-  bathrooms(value: any) {
-    this.topOfferDatas = this.topOfferData.filter((data: any) => {
-      return data.bath === value;
-    });
-    this.dataCount = this.topOfferDatas.length;
-  }
+  // bathrooms(value: any) {
+  //   this.topOfferDatas = this.topOfferData.filter((data: any) => {
+  //     return data.bath === value;
+  //   });
+  //   this.dataCount = this.topOfferDatas.length;
+  // }
 
   // Square metres Filter
   minMeters: any | undefined;

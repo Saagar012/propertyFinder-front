@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { baseUrl } from 'src/environments/environment';
@@ -37,6 +37,17 @@ export class PropertyService {
     });
   
     return this.http.get(`${baseUrl}property`, { headers });
+  }
+  getFilteredProperties(filters: any): Observable<any> {
+    let params = new HttpParams();
+
+    // Add each filter to query params
+    Object.keys(filters).forEach((key) => {
+      if (filters[key]) {
+        params = params.append(key, filters[key]);
+      }
+    });
+    return this.http.get(`${baseUrl}property`, { params });
   }
 
   fetchPropertyById(id: string): Observable<any> {
