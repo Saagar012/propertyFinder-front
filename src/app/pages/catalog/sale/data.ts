@@ -24,7 +24,7 @@
       amenities:"air-condition",
       pents:"allow-cats"
   },
-  {
+  { 
     verified_btn: '',
     btn: "New",
     btn_color: "bg-info",

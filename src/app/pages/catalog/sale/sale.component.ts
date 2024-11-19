@@ -6,7 +6,7 @@ import { Options } from 'ngx-slider-v2';
 import { topOffer } from './sale.model';
 import { topOfferData } from './data';
 import { PropertyService } from 'src/app/core/services/property/property.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sale',
@@ -33,8 +33,8 @@ export class SaleComponent implements OnInit {
     this.filterForm = this.fb.group({
       city: [''],
       country: [''],
-      propertyType: [''],
-      minPrice: [''],
+      propertyType: this.fb.array([]),
+       minPrice: [''],
       maxPrice: [''],
       bedrooms: [''],
       bathrooms: [''],
@@ -60,14 +60,39 @@ export class SaleComponent implements OnInit {
 
   // Data Fetch
   private _fetchData() {
-    this.topOfferData = topOfferData;
-    this.topOfferDatas = Object.assign([], this.topOfferData);
-    this.dataCount = this.topOfferDatas.length;
+    //  this.propertiesData = propertiesData;
+    (this.propertyService.fetchProperties().subscribe(response => {
+      if (response && response.data) { // Check if response has data property
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
+        // this.topOfferData = topOfferData;
 
+        this.topOfferDatas = Object.assign([], this.topOfferData);
+        this.dataCount = response.pagination.totalItems;
 
-
+      } else {
+        console.error("No data found in response");
+      }
+    }));
   }
-
+  private transformProperty(item: any): topOffer {
+    return {
+      id: item.id,
+      image: item.images ? item.images[0] : '',
+      verified_btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
+      btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',
+      title: item.title,
+      streetAddress: item.streetAddress,
+      location: item.city,
+      property: item.propertyType,
+      sale: item.category,
+      price: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
+      bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
+      bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
+      car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
+      metres: item.totalAreaInMeterSq
+    };
+  }
   /**
    * Swiper setting
    */
@@ -106,20 +131,19 @@ export class SaleComponent implements OnInit {
 
 
   topOfferDatas: any;
-  
+
 
   LocationSearch(): void {
-    // Call the signup service
-    this.propertyService.getFilteredProperties(this.filterForm.value).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.topOfferDatas = response;
+    (this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = Object.assign([], this.topOfferData);
         this.dataCount = response.pagination.totalItems;
-      },
-      error: (error) => {
-        console.error('Error fetching properties:', error);
+
+      } else {
+        console.error("No data found in response");
       }
-    });
+    }));
   }
 
   // District Filter
@@ -133,21 +157,48 @@ export class SaleComponent implements OnInit {
 
   // Property  Filter
   changeProperty(e: any, type: any) {
+    const propertyTypeArray = this.filterForm.get('propertyType') as FormArray;
+
     if (e.target.checked) {
-      this.checkedVal.push(type);
-      this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.property));
+  // Add type if not already present
+      propertyTypeArray.push(this.fb.control(type));
+
+      // this.checkedVal.push(type);
+      // this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+      // this.topOfferDatas = Object.assign([], this.topOfferData);
+      // this.dataCount = response.pagination.totalItems;
+      // this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.property));
     }
     else {
-      var index = this.checkedVal.indexOf(type);
+      // var index = this.checkedVal.indexOf(type);
+      const index = propertyTypeArray.controls.findIndex((control: any) => control.value === type);
+
       if (index > -1) {
-        this.checkedVal.splice(index, 1);
+        // this.checkedVal.splice(index, 1);
+        propertyTypeArray.removeAt(index);
+
       }
-      this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.property));
+      // this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.property));
     }
-    if (this.checkedVal.length == 0) {
-      this.topOfferDatas = this.topOfferData
-    }
-    this.dataCount = this.topOfferDatas.length;
+    // if (this.checkedVal.length == 0) {
+    //   this.topOfferDatas = this.topOfferData
+    // }
+    // this.dataCount = this.topOfferDatas.length;
+    // this.filterForm.patchValue({ propertyType: propertyTypeArray });
+    console.log("consolign the property type array", propertyTypeArray)
+    console.log("consoling the filter form", this.filterForm.value);
+
+    (this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = Object.assign([], this.topOfferData);
+        this.dataCount = response.pagination.totalItems;
+      } else {
+        console.error("No data found in response");
+      }
+    }));
+
+
   }
 
 

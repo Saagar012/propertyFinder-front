@@ -47,7 +47,7 @@ export class PropertyService {
         params = params.append(key, filters[key]);
       }
     });
-    return this.http.get(`${baseUrl}property`, { params });
+    return this.http.get(`${baseUrl}filteredProperty`, { params });
   }
 
   fetchPropertyById(id: string): Observable<any> {

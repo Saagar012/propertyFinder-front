@@ -13,7 +13,7 @@
   // bath?: string;
   // car?: str
   id?:string;
-  propertyImage?:string;
+    propertyImage?:string;
   btn?: string;
   title?: string;
   btn_color?: string;

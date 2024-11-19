@@ -2,21 +2,25 @@
  * Top Offer List
  */
  export interface topOffer {
+  id?:string;
   verified_btn: string;
   btn?: string;
   btn_color?: string;
-  image?: Array<{
-    img?: string;
-  }>;
+  image?:string;
+
+  // image?: Array<{
+  //   img?: string;
+  // }>;
   sale?: string;
   title?: string;
-  address?: string;
+  streetAddress?: string;
   price?: string;
-  bad?: string;
+  bed?: string;
   bath?: string;
   car?: string;
   location:string;
-  district:string;
-  property:string;
+  // district:string;
+  property?:string;
   metres:string;
+
 }
