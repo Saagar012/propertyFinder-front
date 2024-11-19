@@ -44,7 +44,15 @@ export class PropertyService {
     // Add each filter to query params
     Object.keys(filters).forEach((key) => {
       if (filters[key]) {
-        params = params.append(key, filters[key]);
+        if (Array.isArray(filters[key])) {
+          // If the value is an array, append each value separately with the same key
+          filters[key].forEach((value: string) => {
+            params = params.append(key, value);
+          });
+        } else {
+          // Otherwise, just append the single value
+          params = params.append(key, filters[key]);
+        }
       }
     });
     return this.http.get(`${baseUrl}filteredProperty`, { params });
