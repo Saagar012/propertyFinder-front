@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { filter } from 'lodash';
 import { Observable } from 'rxjs';
 import { baseUrl } from 'src/environments/environment';
 
@@ -55,6 +56,7 @@ export class PropertyService {
         }
       }
     });
+    console.log('Query Params:', params.get('amenities'));
     return this.http.get(`${baseUrl}filteredProperty`, { params });
   }
 

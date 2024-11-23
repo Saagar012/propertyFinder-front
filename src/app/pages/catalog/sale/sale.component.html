@@ -16,8 +16,8 @@
             </div>
             <div class="offcanvas-header d-block border-bottom pt-0 pt-lg-4 px-lg-0">
               <ul class="nav nav-tabs mb-0">
-                <li class="nav-item"><a class="nav-link" routerLink="/catalog/rent"><i
-                      class="fi-rent fs-base me-2"></i>For rent</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" routerLink="/catalog/rent"><i
+                      class="fi-rent fs-base me-2"></i>For rent</a></li> -->
                 <li class="nav-item"><a class="nav-link active" routerLink="/catalog/sale"><i
                       class="fi-home fs-base me-2"></i>For sale</a></li>
               </ul>
@@ -35,29 +35,22 @@
                 </div>
                 <div class="pb-4 mb-2 simplebar-scroll-show">
                   <h3 class="h6">Property type</h3>
-                  <ngx-simplebar style="height: 11rem;" class="overflow-auto">
+                  <ngx-simplebar style="height: 6rem;" class="overflow-auto">
                     <div class="form-check">
-                      
-                      <input class="form-check-input" formControlName="propertyType" value="HOUSE" type="checkbox"
-                        id="house" (change)="changeProperty($event, 'HOUSE')"  
-                          />
+                      <input class="form-check-input" value="HOUSE" type="checkbox" id="house" (change)="changeProperty($event, 'HOUSE')" />
                       <label class="form-check-label fs-sm" for="house">House</label>
-
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" formControlName="propertyType" value="APARTMENT" type="checkbox"
-                        id="apartment" (change)="changeProperty($event, 'APARTMENT')" />
+                      <input class="form-check-input" value="APARTMENT" type="checkbox" id="apartment" (change)="changeProperty($event, 'APARTMENT')" />
                       <label class="form-check-label fs-sm" for="apartment">Apartment</label>
                     </div>
-
-
                     <div class="form-check">
-                      <input class="form-check-input" formControlName="propertyType" value="COMMERCIAL" type="checkbox"
-                        id="commercial" (change)="changeProperty($event, 'COMMERCIAL')" />
+                      <input class="form-check-input" value="COMMERCIAL" type="checkbox" id="commercial" (change)="changeProperty($event, 'COMMERCIAL')" />
                       <label class="form-check-label fs-sm" for="commercial">Commercial</label>
                     </div>
                   </ngx-simplebar>
                 </div>
+                
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Price per month</h3>
                   <div class="range-slider" data-start-min="1100" data-start-max="3000" data-min="200" data-max="5000"
@@ -68,14 +61,14 @@
                     <div class="d-flex align-items-center">
                       <div class="w-50 pe-2">
                         <div class="input-group"><span class="input-group-text fs-base">$</span>
-                          <input class="form-control range-slider-value-min" type="text" value="{{minValue}}"
+                          <input class="form-control range-slider-value-min" type="text"
                             formControlName="minPrice">
                         </div>
                       </div>
                       <div class="text-muted">&mdash;</div>
                       <div class="w-50 ps-2">
                         <div class="input-group"><span class="input-group-text fs-base">$</span>
-                          <input class="form-control range-slider-value-max" type="text" value="{{maxValue}}"
+                          <input class="form-control range-slider-value-max" type="text"
                             formControlName="maxPrice">
                         </div>
                       </div>
@@ -89,24 +82,24 @@
                     <input class="btn-check" type="radio" id="studio" name="bedrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="studio">Studio</label>
                     <input class="btn-check" type="radio" id="bedrooms-1" formControlName="bedrooms" name="bedrooms"
-                      checked>
+                      (change)="onRoomsSelection('1', true)">
                     <label class="btn btn-outline-secondary fw-normal" for="bedrooms-1">1</label>
-                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-2" name="bedrooms">
+                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-2" (change)="onRoomsSelection('2', true)" name="bedrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bedrooms-2">2</label>
-                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-3" name="bedrooms">
+                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-3"  (change)="onRoomsSelection('3', true)" name="bedrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bedrooms-3">3</label>
-                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-4" name="bedrooms">
+                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-4" (change)="onRoomsSelection('4', true)" name="bedrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bedrooms-4">4+</label>
                   </div>
                   <label class="d-block fs-sm pt-2 my-1">Bathrooms</label>
                   <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of bathrooms">
-                    <input class="btn-check" type="radio" id="bathrooms-1" name="bathrooms">
+                    <input class="btn-check" type="radio" id="bathrooms-1" (change)="onRoomsSelection('1', false)" name="bathrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bathrooms-1">1</label>
-                    <input class="btn-check" type="radio" id="bathrooms-2" name="bathrooms">
+                    <input class="btn-check" type="radio" id="bathrooms-2" (change)="onRoomsSelection('2', false)" name="bathrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bathrooms-2">2</label>
-                    <input class="btn-check" type="radio" id="bathrooms-3" name="bathrooms">
+                    <input class="btn-check" type="radio" id="bathrooms-3" (change)="onRoomsSelection('3', false)" name="bathrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bathrooms-3">3</label>
-                    <input class="btn-check" type="radio" id="bathrooms-4" name="bathrooms">
+                    <input class="btn-check" type="radio" id="bathrooms-4" (change)="onRoomsSelection('4', false)" name="bathrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bathrooms-4">4</label>
                   </div>
                 </div>
@@ -114,79 +107,81 @@
                   <h3 class="h6 pt-1">Square metres</h3>
                   <div class="d-flex align-items-center">
                     <input class="form-control w-100" type="number" min="20" max="500" step="10" placeholder="Min"
-                      id="minValue" (keyup)="metresSearch()">
+                      id="minValue" (keyup)="metresSearch()" formControlName="minArea" >
                     <div class="mx-2">&mdash;</div>
-                    <input class="form-control w-100" type="number" min="20" max="500" step="10" placeholder="Max"
+                    <input class="form-control w-100" type="number" min="20" max="500" step="10" placeholder="Max" formControlName="maxArea" 
+
                       id="maxValue" (keyup)="metresSearch()">
                   </div>
                 </div>
+                
                 <div class="pb-4 mb-2 simplebar-scroll-show">
                   <h3 class="h6">Amenities</h3>
                   <ngx-simplebar style="height: 11rem;" class="overflow-auto">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="air-condition"
-                        (click)="AmenitiesFilter($event,'air-condition')">
-                      <label class="form-check-label fs-sm" for="air-condition">Air conditioning</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="balcony"
-                        (click)="AmenitiesFilter($event,'balcony')">
-                      <label class="form-check-label fs-sm" for="balcony">Balcony</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="garage"
-                        (click)="AmenitiesFilter($event,'garage')">
-                      <label class="form-check-label fs-sm" for="garage">Garage</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="gym" (click)="AmenitiesFilter($event,'gym')">
-                      <label class="form-check-label fs-sm" for="gym">Gym</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="parking"
-                        (click)="AmenitiesFilter($event,'parking')">
-                      <label class="form-check-label fs-sm" for="parking">Parking</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="pool"
-                        (click)="AmenitiesFilter($event,'pool')">
-                      <label class="form-check-label fs-sm" for="pool">Pool</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="camera"
-                        (click)="AmenitiesFilter($event,'camera')">
-                      <label class="form-check-label fs-sm" for="camera">Security cameras</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="wifi"
-                        (click)="AmenitiesFilter($event,'wifi')">
-                      <label class="form-check-label fs-sm" for="wifi">WiFi</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="laundry"
-                        (click)="AmenitiesFilter($event,'laundry')">
-                      <label class="form-check-label fs-sm" for="laundry">Laundry</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="dishwasher"
-                        (click)="AmenitiesFilter($event,'dishwasher')">
-                      <label class="form-check-label fs-sm" for="dishwasher">Dishwasher</label>
+                    <div class="form-check" *ngFor="let amenity of amenityKeys">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [checked]="filterForm.get('amenities.' + amenity.key)?.value"
+                        (change)="onAmenityChange(amenity.key,$event)"          
+                      />
+                      <label class="form-check-label fs-sm" [for]="amenity.key">{{ amenity.label }}</label>
                     </div>
                   </ngx-simplebar>
                 </div>
-                <div class="pb-4 mb-2">
-                  <h3 class="h6">Pets</h3>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="allow-cats"
-                      (click)="PentsFilter($event,'allow-cats')">
-                    <label class="form-check-label fs-sm" for="allow-cats">Cats allowed</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="allow-dogs"
-                      (click)="PentsFilter($event,'allow-dogs')">
-                    <label class="form-check-label fs-sm" for="allow-dogs">Dogs allowed</label>
-                  </div>
-                </div>
+                  
+               
+                    <!-- <ngx-simplebar style="height: 11rem;" class="overflow-auto">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="air-condition"
+                          (click)="AmenitiesFilter($event,'air-condition')">
+                        <label class="form-check-label fs-sm" for="air-condition">Air conditioning</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="balcony"
+                          (click)="AmenitiesFilter($event,'balcony')">
+                        <label class="form-check-label fs-sm" for="balcony">Balcony</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="garage"
+                          (click)="AmenitiesFilter($event,'garage')">
+                        <label class="form-check-label fs-sm" for="garage">Garage</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gym" (click)="AmenitiesFilter($event,'gym')">
+                        <label class="form-check-label fs-sm" for="gym">Gym</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="parking"
+                          (click)="AmenitiesFilter($event,'parking')">
+                        <label class="form-check-label fs-sm" for="parking">Parking</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="pool"
+                          (click)="AmenitiesFilter($event,'pool')">
+                        <label class="form-check-label fs-sm" for="pool">Pool</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="camera"
+                          (click)="AmenitiesFilter($event,'camera')">
+                        <label class="form-check-label fs-sm" for="camera">Security cameras</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="wifi"
+                          (click)="AmenitiesFilter($event,'wifi')">
+                        <label class="form-check-label fs-sm" for="wifi">WiFi</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="laundry"
+                          (click)="AmenitiesFilter($event,'laundry')">
+                        <label class="form-check-label fs-sm" for="laundry">Laundry</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="dishwasher"
+                          (click)="AmenitiesFilter($event,'dishwasher')">
+                        <label class="form-check-label fs-sm" for="dishwasher">Dishwasher</label>
+                      </div>
+                    </ngx-simplebar> -->
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Additional options</h3>
                   <div class="form-check">

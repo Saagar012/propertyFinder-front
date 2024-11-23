@@ -27,6 +27,21 @@ export class SaleComponent implements OnInit {
   dataCount: any;
   checkedVal: any[] = [];
   filterForm: FormGroup;
+  amenityKeys = [
+    { key: 'bar', label: 'Bar' },
+    { key: 'gym', label: 'Gym' },
+    { key: 'pool', label: 'Pool' },
+    { key: 'wifi', label: 'WiFi' },
+    { key: 'garage', label: 'Garage' },
+    { key: 'balcony', label: 'Balcony' },
+    { key: 'heating', label: 'Heating' },
+    { key: 'kitchen', label: 'Kitchen' },
+    { key: 'parking', label: 'Parking' },
+    { key: 'dishwasher', label: 'Dishwasher' },
+    { key: 'petsFriendly', label: 'Pets Friendly' },
+    { key: 'airConditioning', label: 'Air Conditioning' },
+    { key: 'securityCameras', label: 'Security Cameras' },
+  ];
 
 
   constructor(private propertyService: PropertyService, private fb: FormBuilder) {
@@ -34,14 +49,29 @@ export class SaleComponent implements OnInit {
       city: [''],
       country: [''],
       propertyType: this.fb.array([]),
-       minPrice: [''],
+      minPrice: [''],
       maxPrice: [''],
       bedrooms: [''],
       bathrooms: [''],
+      minArea: [''],
+      maxArea: [''],
       // Add fields for amenities
-      parking: [false],
-      pool: [false],
-      gym: [false]
+      amenities: this.fb.group({
+        bar: [false], // Amenity: Bar
+        gym: [false], // Amenity: Gym
+        pool: [false], // Amenity: Pool
+        wifi: [false], // Amenity: WiFi
+        garage: [false], // Amenity: Garage
+        balcony: [false], // Amenity: Balcony
+        heating: [false], // Amenity: Heating
+        kitchen: [false], // Amenity: Kitchen
+        parking: [false], // Amenity: Parking
+        dishwasher: [false], // Amenity: Dishwasher
+        petsFriendly: [false], // Amenity: Pets Friendly
+        airConditioning: [false], // Amenity: Air Conditioning
+        securityCameras: [false], // Amenity: Security Cameras
+      }),
+
     });
   }
 
@@ -75,6 +105,8 @@ export class SaleComponent implements OnInit {
       }
     }));
   }
+
+
   private transformProperty(item: any): topOffer {
     return {
       id: item.id,
@@ -160,14 +192,8 @@ export class SaleComponent implements OnInit {
     const propertyTypeArray = this.filterForm.get('propertyType') as FormArray;
 
     if (e.target.checked) {
-  // Add type if not already present
+      // Add type if not already present
       propertyTypeArray.push(this.fb.control(type));
-
-      // this.checkedVal.push(type);
-      // this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
-      // this.topOfferDatas = Object.assign([], this.topOfferData);
-      // this.dataCount = response.pagination.totalItems;
-      // this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.property));
     }
     else {
       // var index = this.checkedVal.indexOf(type);
@@ -178,15 +204,7 @@ export class SaleComponent implements OnInit {
         propertyTypeArray.removeAt(index);
 
       }
-      // this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.property));
     }
-    // if (this.checkedVal.length == 0) {
-    //   this.topOfferDatas = this.topOfferData
-    // }
-    // this.dataCount = this.topOfferDatas.length;
-    // this.filterForm.patchValue({ propertyType: propertyTypeArray });
-    console.log("consolign the property type array", propertyTypeArray)
-    console.log("consoling the filter form", this.filterForm.value);
 
     (this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
       if (response && response.data) {
@@ -218,53 +236,69 @@ export class SaleComponent implements OnInit {
   valueChange(value: number, boundary: boolean): void {
     if (boundary) {
       this.minValue = value;
-      this.filterForm.patchValue({ minPrice: value });
+      this.filterForm.patchValue({ minPrice: this.minValue });
 
     } else {
       this.maxValue = value;
-      this.filterForm.patchValue({ maxPrice: value });
+      this.filterForm.patchValue({ maxPrice: this.maxValue });
 
-      this.topOfferDatas = this.topOfferData.filter((data: any) => {
-        data.price = data.price.replace(/,/g, '')
-        return data.price >= this.minValue && data.price <= this.maxValue;
-      });
+      (this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+        if (response && response.data) {
+          this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+          this.topOfferDatas = [...this.topOfferData];
+          this.dataCount = response.pagination.totalItems;
+
+        } else {
+          console.error("No data found in response");
+        }
+      }));
     }
-    this.dataCount = this.topOfferDatas.length;
+  }
+  onAmenityChange(key: string, event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const amenitiesGroup = this.filterForm.get('amenities') as FormGroup;
+    amenitiesGroup.patchValue({ [key]: target.checked });
+    this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = [...this.topOfferData];
+        this.dataCount = response.pagination.totalItems;
+      } else {
+        console.error("No data found in response");
+      }
+    });
   }
 
-  // Bed-Rooms  Filter
-  // bedrooms(value: any) {
-  //   if (value > 3) {
-  //     this.topOfferDatas = this.topOfferData.filter((data: any) => {
-  //       return data.bad >= value;
-  //     });
-  //   }
-  //   else {
-  //     this.topOfferDatas = this.topOfferData.filter((data: any) => {
-  //       return data.bad === value;
-  //     });
-  //   }
-  //   this.dataCount = this.topOfferDatas.length;
-  // }
 
   // Bed-Rooms  Filter
-  // bathrooms(value: any) {
-  //   this.topOfferDatas = this.topOfferData.filter((data: any) => {
-  //     return data.bath === value;
-  //   });
-  //   this.dataCount = this.topOfferDatas.length;
-  // }
-
-  // Square metres Filter
-  minMeters: any | undefined;
-  maxMeters: any | undefined;
-  metresSearch() {
-    this.minMeters = document.getElementById("minValue") as HTMLAreaElement;
-    this.maxMeters = document.getElementById("maxValue") as HTMLAreaElement;
-    this.topOfferDatas = this.topOfferData.filter((data: any) => {
-      return data.metres >= this.minMeters.value || data.metres <= this.maxMeters.value;
+  onRoomsSelection(value: string, isBedRoom: boolean) {
+    if (isBedRoom) {
+      this.filterForm.patchValue({ bedrooms: value });
+    } else {
+      this.filterForm.patchValue({ bathrooms: value });
+    }
+    this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = [...this.topOfferData];
+        this.dataCount = response.pagination.totalItems;
+      } else {
+        console.error("No data found in response");
+      }
     });
-    this.dataCount = this.topOfferDatas.length;
+  }
+  metresSearch(): void {
+    console.log("consoling the meters search", this.filterForm.value);
+    this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = [...this.topOfferData];
+        console.log("Filtered properties based on area:", this.topOfferDatas);
+        this.dataCount = response.pagination.totalItems;
+      } else {
+        console.error("No data found in response");
+      }
+    });
   }
 
   // Additional options Filter
@@ -302,24 +336,54 @@ export class SaleComponent implements OnInit {
     this.dataCount = this.topOfferDatas.length;
   }
 
-  // Property  Filter
-  AmenitiesFilter(e: any, type: any) {
-    if (e.target.checked) {
-      this.checkedVal.push(type);
-      this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.amenities));
-    }
-    else {
-      var index = this.checkedVal.indexOf(type);
-      if (index > -1) {
-        this.checkedVal.splice(index, 1);
-      }
-      this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.amenities));
-    }
-    if (this.checkedVal.length == 0) {
-      this.topOfferDatas = this.topOfferData
-    }
-    this.dataCount = this.topOfferDatas.length;
+  // // Property  Filter
+  // AmenitiesFilter(e: any, type: any) {
+  //   if (e.target.checked) {
+  //     this.checkedVal.push(type);
+  //     this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.amenities));
+  //   }
+  //   else {
+  //     var index = this.checkedVal.indexOf(type);
+  //     if (index > -1) {
+  //       this.checkedVal.splice(index, 1);
+  //     }
+  //     this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.amenities));
+  //   }
+  //   if (this.checkedVal.length == 0) {
+  //     this.topOfferDatas = this.topOfferData
+  //   }
+  //   this.dataCount = this.topOfferDatas.length;
+  // }
+  AmenitiesFilter(): void {
+    const amenities = this.filterForm.get('amenities')?.value;
+    console.log('Current amenities state:', amenities);
   }
+
+  // AmenitiesFilter(): void {
+  //   const amenities = this.filterForm.get('amenities')?.value;
+  //   console.log('consoling the amenities', amenities);
+  // // Clean the object to include only true values
+  // const filteredAmenities = Object.keys(amenities).reduce((result, key) => {
+  //   if (amenities[key]) {
+  //     result[key] = true;
+  //   }
+  //   return result;
+  // }, {});
+
+  // // Send the filtered amenities to the backend
+  // const payload = { amenities: filteredAmenities };
+
+  // this.propertyService.getFilteredProperties(payload).subscribe(response => {
+  //   if (response && response.data) {
+  //     this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+  //     this.topOfferDatas = [...this.topOfferData];
+  //     console.log("Filtered properties based on amenities:", this.topOfferDatas);
+  //     this.dataCount = response.pagination.totalItems;
+  //   } else {
+  //     console.error("No data found in response");
+  //   }
+  // });
+  // }
 
   // Property  Filter
   PentsFilter(e: any, type: any) {
