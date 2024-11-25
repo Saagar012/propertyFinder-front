@@ -38,8 +38,8 @@ export class PropertyService {
     });
   
     return this.http.get(`${baseUrl}property`, { headers });
-  }
-  getFilteredProperties(filters: any): Observable<any> {
+  } 
+  getFilteredProperties(filters: any, page: number = 1, limit: number = 10): Observable<any> {
     let params = new HttpParams();
 
     // Add each filter to query params
@@ -56,7 +56,10 @@ export class PropertyService {
         }
       }
     });
-    console.log('Query Params:', params.get('amenities'));
+      // Append page and limit
+  params = params.append('page', page.toString());
+  params = params.append('limit', limit.toString());
+
     return this.http.get(`${baseUrl}filteredProperty`, { params });
   }
 

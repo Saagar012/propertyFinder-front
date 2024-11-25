@@ -102,7 +102,6 @@ export class SaleComponent implements OnInit {
 
         propertyTypeArray.forEach((type) => propertyTypeFormArray.push(this.fb.control(type)));
 
-        console.log("consoling the form filter", this.filterForm.value);
         this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
           if (response && response.data) {
             this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
@@ -140,7 +139,6 @@ export class SaleComponent implements OnInit {
       if (response && response.data) { // Check if response has data property
         this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
         console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
-        // this.topOfferData = topOfferData;
 
         this.topOfferDatas = Object.assign([], this.topOfferData);
         this.dataCount = response.pagination.totalItems;
