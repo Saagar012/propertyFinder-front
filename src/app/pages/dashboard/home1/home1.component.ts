@@ -10,6 +10,7 @@ import { Options } from 'ngx-slider-v2';
 import { topOffer, propertyCity, estateAagents, service, companies } from './home1.model';
 import { topOfferData, cityData, agentsData, servicesData, companiesData } from './data';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { PropertyService } from 'src/app/core/services/property/property.service';
 
 @Component({
   selector: 'app-index',
@@ -27,18 +28,14 @@ export class Home1Component implements OnInit {
   agentsData!: estateAagents[];
   servicesData!: service[];
   companiesData!: companies[];
+  // topOfferDatas: any;
+  dataCount: any;
 
-  constructor(private modalService: NgbModal, private authService: AuthService) { }
+  constructor(private modalService: NgbModal, private authService: AuthService, private propertyService: PropertyService) { }
 
   ngOnInit(): void {
     // Chat Data Get Function
     this._fetchData();
-    this.filterredImages = this.list;
-
-
-    
-
-
 
     // Rent Select data
     document.getElementById("rent-content")?.addEventListener("click", function (e) {
@@ -65,7 +62,8 @@ export class Home1Component implements OnInit {
 
   // Chat Data Fetch
   private _fetchData() {
-    this.topOfferData = topOfferData;
+    this.fetchTopofferData();
+    this.activeCategory('APARTMENT'); // default value while loading the page to show some data;
     this.cityData = cityData;
     this.agentsData = agentsData;
     this.servicesData = servicesData;
@@ -186,7 +184,7 @@ export class Home1Component implements OnInit {
   /**
   * Portfolio Modern Data
   */
-  filterredImages: { image: string; verified_btn?: string; btn: string; btn_color: string; sale: string; title: string; location: string; price: string; category: string; }[] | undefined;
+  filterredImages: { image: string; verified_btn?: string; btn: string; btn_color: string; sale: string; title: string; streetAddress: string; price: string; category: string; }[] | undefined;
   galleryFilter = 'Houses';
   list = [{
     image: 'assets/img/real-estate/recent/01.jpg',
@@ -234,7 +232,7 @@ export class Home1Component implements OnInit {
   },
   {
     image: 'assets/img/real-estate/recent/02.jpg',
-    verified_btn: '',
+    verified_btn: '', 
     btn: "New",
     btn_color: "bg-info",
     sale: 'For sale',
@@ -260,13 +258,21 @@ export class Home1Component implements OnInit {
   /***
   * Active all category selected
   */
-  activeCategory(category: string) {
-    this.galleryFilter = category;
-    if (this.galleryFilter === 'Houses') {
-      this.filterredImages = this.list.filter(x => x.category === this.galleryFilter);
-    } else {
-      this.filterredImages = this.list.filter(x => x.category === this.galleryFilter);
-    }
+  activeCategory(type: string) {
+    this.galleryFilter = type;
+    const filters = { propertyType: [type] };
+    console.log("consoling the filters", filters);
+    (this.propertyService.getFilteredProperties(filters,1,4).subscribe(response => {
+      if (response && response.data) { // Check if response has data property
+        this.filterredImages = response.data.map((item: any) => this.transformProperty(item));
+        console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
+
+        this.dataCount = response.pagination.totalItems;
+
+      } else {
+        console.error("No data found in response");
+      }
+    }));
   }
 
   /**
@@ -277,7 +283,38 @@ export class Home1Component implements OnInit {
     this.modalService.open(content, { centered: true });
   }
 
+  private fetchTopofferData() {
+    //  this.propertiesData = propertiesData;
+    (this.propertyService.fetchProperties().subscribe(response => {
+      if (response && response.data) { // Check if response has data property
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
+        // this.topOfferDatas = Object.assign([], this.topOfferData);
+        this.dataCount = response.pagination.totalItems;
 
-
+      } else {
+        console.error("No data found in response");
+      }
+    }));
+  }
+  private transformProperty(item: any): topOffer {
+    return {
+      id: item.id,
+      image: item.images ? item.images[0] : '',
+      verified_btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
+      btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',
+      title: item.title,
+      streetAddress: item.streetAddress,
+      location: item.city,
+      property: item.propertyType,
+      sale: item.category,
+      content:item.description,
+      price: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
+      bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
+      bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
+      car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
+      metres: item.totalAreaInMeterSq
+    };
+  }
 
 }

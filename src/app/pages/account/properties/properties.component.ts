@@ -4,6 +4,7 @@ import { properties } from './properties.model';
 import { propertiesData } from './data';
 import { PropertyService } from 'src/app/core/services/property/property.service';
 import { map, tap } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-properties',
@@ -20,7 +21,7 @@ export class PropertiesComponent implements OnInit {
   breadCrumbItems!: Array<{}>;
   propertiesData!: properties[];
 
-  constructor(private propertyService: PropertyService) { }
+  constructor(private propertyService: PropertyService,private authService: AuthService) { }
 
   ngOnInit(): void {
     /**
@@ -49,7 +50,9 @@ export class PropertiesComponent implements OnInit {
     }));
 
   }
-
+  logout() {
+    this.authService.logout();
+  }
   /**
    * On mobile toggle button clicked
    */

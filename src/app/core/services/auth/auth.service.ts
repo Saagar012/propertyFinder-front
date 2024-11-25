@@ -43,6 +43,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
     this.currentUserSubject.next(null); // Notify subscribers about logout
   }
 

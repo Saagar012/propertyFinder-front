@@ -13,23 +13,39 @@
  * Top Offer List
  */
  export interface topOffer {
+  // verified_btn: string;
+  // btn?: string;
+  // btn_color?: string;
+  // image?: string;
+  // sale?: string;
+  // title?: string;
+  // price?: string;
+  // bad?: string;
+  // bath?: string;
+  // car?: string;
+  id?:string;
   verified_btn: string;
   btn?: string;
   btn_color?: string;
-  image?: string;
+  image?:string;
   sale?: string;
   title?: string;
-  content?: string;
+  streetAddress?: string;
   price?: string;
-  bad?: string;
+  bed?: string;
   bath?: string;
   car?: string;
+  location:string;
+  property?:string;
+  metres:string;
+  content?: string;
+
 }
 
 /**
  * Search property by city
  */
- export interface propertyCity {
+ export interface   propertyCity {
   image?: string;
   title?: string;
   sale_progressbar?: number;

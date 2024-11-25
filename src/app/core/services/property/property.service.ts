@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { filter } from 'lodash';
 import { Observable } from 'rxjs';
 import { baseUrl } from 'src/environments/environment';
 
@@ -37,6 +38,29 @@ export class PropertyService {
     });
   
     return this.http.get(`${baseUrl}property`, { headers });
+  } 
+  getFilteredProperties(filters: any, page: number = 1, limit: number = 10): Observable<any> {
+    let params = new HttpParams();
+
+    // Add each filter to query params
+    Object.keys(filters).forEach((key) => {
+      if (filters[key]) {
+        if (Array.isArray(filters[key])) {
+          // If the value is an array, append each value separately with the same key
+          filters[key].forEach((value: string) => {
+            params = params.append(key, value);
+          });
+        } else {
+          // Otherwise, just append the single value
+          params = params.append(key, filters[key]);
+        }
+      }
+    });
+      // Append page and limit
+  params = params.append('page', page.toString());
+  params = params.append('limit', limit.toString());
+
+    return this.http.get(`${baseUrl}filteredProperty`, { params });
   }
 
   fetchPropertyById(id: string): Observable<any> {

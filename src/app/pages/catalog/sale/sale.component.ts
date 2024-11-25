@@ -5,6 +5,9 @@ import { Options } from 'ngx-slider-v2';
 
 import { topOffer } from './sale.model';
 import { topOfferData } from './data';
+import { PropertyService } from 'src/app/core/services/property/property.service';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sale',
@@ -24,8 +27,55 @@ export class SaleComponent implements OnInit {
   latitude = 52.128973;
   dataCount: any;
   checkedVal: any[] = [];
+  filterForm: FormGroup;
+  category: string | null = null;
+  amenityKeys = [
+    { key: 'bar', label: 'Bar' },
+    { key: 'gym', label: 'Gym' },
+    { key: 'pool', label: 'Pool' },
+    { key: 'wifi', label: 'WiFi' },
+    { key: 'garage', label: 'Garage' },
+    { key: 'balcony', label: 'Balcony' },
+    { key: 'heating', label: 'Heating' },
+    { key: 'kitchen', label: 'Kitchen' },
+    { key: 'parking', label: 'Parking' },
+    { key: 'dishwasher', label: 'Dishwasher' },
+    { key: 'petsFriendly', label: 'Pets Friendly' },
+    { key: 'airConditioning', label: 'Air Conditioning' },
+    { key: 'securityCameras', label: 'Security Cameras' },
+  ];
 
-  constructor() { }
+
+  constructor(private propertyService: PropertyService, private fb: FormBuilder, private route: ActivatedRoute) {
+    this.filterForm = this.fb.group({
+      city: [''],
+      country: [''],
+      propertyType: this.fb.array([]),
+      minPrice: [''],
+      maxPrice: [''],
+      bedrooms: [''],
+      bathrooms: [''],
+      minArea: [''],
+      maxArea: [''],
+      // Add fields for amenities
+      amenities: this.fb.group({
+        bar: [false], // Amenity: Bar
+        gym: [false], // Amenity: Gym
+        pool: [false], // Amenity: Pool
+        wifi: [false], // Amenity: WiFi
+        garage: [false], // Amenity: Garage
+        balcony: [false], // Amenity: Balcony
+        heating: [false], // Amenity: Heating
+        kitchen: [false], // Amenity: Kitchen
+        parking: [false], // Amenity: Parking
+        dishwasher: [false], // Amenity: Dishwasher
+        petsFriendly: [false], // Amenity: Pets Friendly
+        airConditioning: [false], // Amenity: Air Conditioning
+        securityCameras: [false], // Amenity: Security Cameras
+      }),
+
+    });
+  }
 
   ngOnInit(): void {
     /**
@@ -36,17 +86,88 @@ export class SaleComponent implements OnInit {
       { label: 'Property for sale', active: true }
     ];
 
-    // Data Get Function
-    this._fetchData();
-  }
 
+    this._fetchDataFromParams();
+
+  }
+  private _fetchDataFromParams() {
+    // Get the category query parameter
+    this.route.queryParams.subscribe((params) => {
+      const propertyType = params['propertyType'] || null;
+      const city = params['city'] || null;
+      if (propertyType) {
+        const propertyTypeArray = Array.isArray(propertyType) ? propertyType : [propertyType];
+        const propertyTypeFormArray = this.filterForm.get('propertyType') as FormArray;
+        propertyTypeFormArray.clear(); // Clear existing values
+
+        propertyTypeArray.forEach((type) => propertyTypeFormArray.push(this.fb.control(type)));
+
+        this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
+          if (response && response.data) {
+            this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+            this.topOfferDatas = Object.assign([], this.topOfferData);
+            this.dataCount = response.pagination.totalItems;
+          } else {
+            console.error("No data found in response");
+          }
+        });
+      } else if (city){
+        this.filterForm.patchValue({ city:city }); // Add category to the form        
+        
+        console.log("consoling the form filter", this.filterForm.value);
+        this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
+          if (response && response.data) {
+            this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+            this.topOfferDatas = Object.assign([], this.topOfferData);
+            this.dataCount = response.pagination.totalItems;
+          } else {
+            console.error("No data found in response");
+          }
+        });
+      }
+      else {
+        // Data Get Function
+        this._fetchData();
+      }
+    });
+
+  }
   // Data Fetch
   private _fetchData() {
-    this.topOfferData = topOfferData;
-    this.topOfferDatas = Object.assign([], this.topOfferData);
-    this.dataCount = this.topOfferDatas.length;
+    //  this.propertiesData = propertiesData;
+    (this.propertyService.fetchProperties().subscribe(response => {
+      if (response && response.data) { // Check if response has data property
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
+
+        this.topOfferDatas = Object.assign([], this.topOfferData);
+        this.dataCount = response.pagination.totalItems;
+
+      } else {
+        console.error("No data found in response");
+      }
+    }));
   }
 
+
+  private transformProperty(item: any): topOffer {
+    return {
+      id: item.id,
+      image: item.images ? item.images[0] : '',
+      verified_btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
+      btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',
+      title: item.title,
+      streetAddress: item.streetAddress,
+      location: item.city,
+      property: item.propertyType,
+      sale: item.category,
+      price: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
+      bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
+      bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
+      car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
+      metres: item.totalAreaInMeterSq
+    };
+  }
   /**
    * Swiper setting
    */
@@ -85,13 +206,19 @@ export class SaleComponent implements OnInit {
 
 
   topOfferDatas: any;
-  // Location Filter
-  LocationSearch() {
-    var location = document.getElementById("location") as HTMLInputElement;
-    this.topOfferDatas = this.topOfferData.filter((data: any) => {
-      return data.location === location.value;
-    });
-    this.dataCount = this.topOfferDatas.length;
+
+
+  LocationSearch(): void {
+    (this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = Object.assign([], this.topOfferData);
+        this.dataCount = response.pagination.totalItems;
+
+      } else {
+        console.error("No data found in response");
+      }
+    }));
   }
 
   // District Filter
@@ -105,21 +232,34 @@ export class SaleComponent implements OnInit {
 
   // Property  Filter
   changeProperty(e: any, type: any) {
+    const propertyTypeArray = this.filterForm.get('propertyType') as FormArray;
+
     if (e.target.checked) {
-      this.checkedVal.push(type);
-      this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.property));
+      // Add type if not already present
+      propertyTypeArray.push(this.fb.control(type));
     }
     else {
-      var index = this.checkedVal.indexOf(type);
+      // var index = this.checkedVal.indexOf(type);
+      const index = propertyTypeArray.controls.findIndex((control: any) => control.value === type);
+
       if (index > -1) {
-        this.checkedVal.splice(index, 1);
+        // this.checkedVal.splice(index, 1);
+        propertyTypeArray.removeAt(index);
+
       }
-      this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.property));
     }
-    if (this.checkedVal.length == 0) {
-      this.topOfferDatas = this.topOfferData
-    }
-    this.dataCount = this.topOfferDatas.length;
+
+    (this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = Object.assign([], this.topOfferData);
+        this.dataCount = response.pagination.totalItems;
+      } else {
+        console.error("No data found in response");
+      }
+    }));
+
+
   }
 
 
@@ -134,52 +274,94 @@ export class SaleComponent implements OnInit {
     floor: 300,
     ceil: 5000
   };
+
+
   valueChange(value: number, boundary: boolean): void {
     if (boundary) {
       this.minValue = value;
+      this.filterForm.patchValue({ minPrice: this.minValue });
+
     } else {
       this.maxValue = value;
-      this.topOfferDatas = this.topOfferData.filter((data: any) => {
-        data.price = data.price.replace(/,/g, '')
-        return data.price >= this.minValue && data.price <= this.maxValue;
-      });
+      this.filterForm.patchValue({ maxPrice: this.maxValue });
+
+      (this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+        if (response && response.data) {
+          this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+          this.topOfferDatas = [...this.topOfferData];
+          this.dataCount = response.pagination.totalItems;
+
+        } else {
+          console.error("No data found in response");
+        }
+      }));
     }
-    this.dataCount = this.topOfferDatas.length;
   }
+  onAmenityChange(key: string, event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const amenitiesGroup = this.filterForm.get('amenities') as FormGroup;
+    amenitiesGroup.patchValue({ [key]: target.checked });
+
+    // Extract form values
+    const formValues = this.filterForm.value;
+
+    // Build query parameters for amenities
+    const amenitiesParams: Record<string, string> = {};
+    Object.keys(formValues.amenities).forEach((amenityKey) => {
+      if (formValues.amenities[amenityKey]) {
+        amenitiesParams[amenityKey] = 'true';
+      }
+    });
+
+
+    // Merge other form values and amenities into query parameters
+    const queryParams = {
+      ...formValues,
+      ...amenitiesParams, // Include filtered amenities as query params
+    };
+
+
+    this.propertyService.getFilteredProperties(queryParams).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = [...this.topOfferData];
+        this.dataCount = response.pagination.totalItems;
+      } else {
+        console.error("No data found in response");
+      }
+    });
+  }
+
 
   // Bed-Rooms  Filter
-  bedrooms(value: any) {
-    if (value > 3) {
-      this.topOfferDatas = this.topOfferData.filter((data: any) => {
-        return data.bad >= value;
-      });
+  onRoomsSelection(value: string, isBedRoom: boolean) {
+    if (isBedRoom) {
+      this.filterForm.patchValue({ bedrooms: value });
+    } else {
+      this.filterForm.patchValue({ bathrooms: value });
     }
-    else {
-      this.topOfferDatas = this.topOfferData.filter((data: any) => {
-        return data.bad === value;
-      });
-    }
-    this.dataCount = this.topOfferDatas.length;
-  }
-
-  // Bed-Rooms  Filter
-  bathrooms(value: any) {
-    this.topOfferDatas = this.topOfferData.filter((data: any) => {
-      return data.bath === value;
+    this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = [...this.topOfferData];
+        this.dataCount = response.pagination.totalItems;
+      } else {
+        console.error("No data found in response");
+      }
     });
-    this.dataCount = this.topOfferDatas.length;
   }
-
-  // Square metres Filter
-  minMeters: any | undefined;
-  maxMeters: any | undefined;
-  metresSearch() {
-    this.minMeters = document.getElementById("minValue") as HTMLAreaElement;
-    this.maxMeters = document.getElementById("maxValue") as HTMLAreaElement;
-    this.topOfferDatas = this.topOfferData.filter((data: any) => {
-      return data.metres >= this.minMeters.value || data.metres <= this.maxMeters.value;
+  metresSearch(): void {
+    console.log("consoling the meters search", this.filterForm.value);
+    this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+      if (response && response.data) {
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+        this.topOfferDatas = [...this.topOfferData];
+        console.log("Filtered properties based on area:", this.topOfferDatas);
+        this.dataCount = response.pagination.totalItems;
+      } else {
+        console.error("No data found in response");
+      }
     });
-    this.dataCount = this.topOfferDatas.length;
   }
 
   // Additional options Filter
@@ -217,23 +399,9 @@ export class SaleComponent implements OnInit {
     this.dataCount = this.topOfferDatas.length;
   }
 
-  // Property  Filter
-  AmenitiesFilter(e: any, type: any) {
-    if (e.target.checked) {
-      this.checkedVal.push(type);
-      this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.amenities));
-    }
-    else {
-      var index = this.checkedVal.indexOf(type);
-      if (index > -1) {
-        this.checkedVal.splice(index, 1);
-      }
-      this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.amenities));
-    }
-    if (this.checkedVal.length == 0) {
-      this.topOfferDatas = this.topOfferData
-    }
-    this.dataCount = this.topOfferDatas.length;
+  AmenitiesFilter(): void {
+    const amenities = this.filterForm.get('amenities')?.value;
+    console.log('Current amenities state:', amenities);
   }
 
   // Property  Filter

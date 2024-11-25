@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-security',
@@ -23,7 +24,7 @@ export class SecurityComponent implements OnInit {
   submit!: boolean;
   formsubmit!: boolean;
 
-  constructor(private formBuilder: UntypedFormBuilder) { }
+  constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
     /**
@@ -88,5 +89,7 @@ export class SecurityComponent implements OnInit {
     return this.validationform.controls;
   }
 
-
+  logout() {
+    this.authService.logout();
+  }
 }

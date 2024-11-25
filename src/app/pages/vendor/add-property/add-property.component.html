@@ -16,7 +16,7 @@
           <h1 class="h2 mb-0">Add property</h1>
         </div>
         <!-- Basic info-->
-        <form [formGroup]="propertyForm" (ngSubmit)="propertySubmit()">
+        <!-- <form [formGroup]="propertyForm" (ngSubmit)="propertySubmit()"> -->
 
           <section class="card card-body border-0 shadow-sm p-4 mb-4" id="basic-info" #basicinfo>
             <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Basic info</h2>
@@ -38,8 +38,10 @@
                 <label class="form-label" for="ap-type">Property type <span class="text-danger">*</span></label>
                 <select formControlName="propertyType" class="form-select" id="ap-type" required>
                   <option value="" disabled hidden>Choose property type</option>
-                  <option value="1">Apartment</option>
-                  <option value="2">House</option>
+                  <option value="APARTMENT">Apartment</option>
+                  <option value="HOUSE">House</option>
+                  <option value="COMMERCIAL">Commercial</option>
+
                 </select>
               </div>
             </div>
@@ -115,10 +117,7 @@
                 <label class="btn btn-outline-secondary fw-normal" for="bedrooms-3">3</label>
                 <input class="btn-check" formControlName="bedrooms" type="radio" value="4" id="bedrooms-4"
                   name="bedrooms" checked>
-                <label class="btn btn-outline-secondary fw-normal" for="bedrooms-4">4</label>
-                <input class="btn-check" formControlName="bedrooms" type="radio" value="5" id="bedrooms-5"
-                  name="bedrooms">
-                <label class="btn btn-outline-secondary fw-normal" for="bedrooms-5">5+</label>
+                <label class="btn btn-outline-secondary fw-normal" for="bedrooms-4">4+</label>
               </div>
             </div>
             <div class="mb-4">
@@ -312,7 +311,7 @@
               Property</button>
           </section>
 
-        </form>
+        <!-- </form> -->
       </div>
       <!-- Progress of completion-->
     </div>
