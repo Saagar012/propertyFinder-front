@@ -7,6 +7,7 @@ import { topOffer } from './sale.model';
 import { topOfferData } from './data';
 import { PropertyService } from 'src/app/core/services/property/property.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sale',
@@ -27,6 +28,7 @@ export class SaleComponent implements OnInit {
   dataCount: any;
   checkedVal: any[] = [];
   filterForm: FormGroup;
+  category: string | null = null;
   amenityKeys = [
     { key: 'bar', label: 'Bar' },
     { key: 'gym', label: 'Gym' },
@@ -44,7 +46,7 @@ export class SaleComponent implements OnInit {
   ];
 
 
-  constructor(private propertyService: PropertyService, private fb: FormBuilder) {
+  constructor(private propertyService: PropertyService, private fb: FormBuilder, private route: ActivatedRoute) {
     this.filterForm = this.fb.group({
       city: [''],
       country: [''],
@@ -84,10 +86,53 @@ export class SaleComponent implements OnInit {
       { label: 'Property for sale', active: true }
     ];
 
-    // Data Get Function
-    this._fetchData();
-  }
 
+    this._fetchDataFromParams();
+
+  }
+  private _fetchDataFromParams() {
+    // Get the category query parameter
+    this.route.queryParams.subscribe((params) => {
+      const propertyType = params['propertyType'] || null;
+      const city = params['city'] || null;
+      if (propertyType) {
+        const propertyTypeArray = Array.isArray(propertyType) ? propertyType : [propertyType];
+        const propertyTypeFormArray = this.filterForm.get('propertyType') as FormArray;
+        propertyTypeFormArray.clear(); // Clear existing values
+
+        propertyTypeArray.forEach((type) => propertyTypeFormArray.push(this.fb.control(type)));
+
+        console.log("consoling the form filter", this.filterForm.value);
+        this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
+          if (response && response.data) {
+            this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+            this.topOfferDatas = Object.assign([], this.topOfferData);
+            this.dataCount = response.pagination.totalItems;
+          } else {
+            console.error("No data found in response");
+          }
+        });
+      } else if (city){
+        this.filterForm.patchValue({ city:city }); // Add category to the form        
+        
+        console.log("consoling the form filter", this.filterForm.value);
+        this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
+          if (response && response.data) {
+            this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+            this.topOfferDatas = Object.assign([], this.topOfferData);
+            this.dataCount = response.pagination.totalItems;
+          } else {
+            console.error("No data found in response");
+          }
+        });
+      }
+      else {
+        // Data Get Function
+        this._fetchData();
+      }
+    });
+
+  }
   // Data Fetch
   private _fetchData() {
     //  this.propertiesData = propertiesData;
@@ -258,7 +303,27 @@ export class SaleComponent implements OnInit {
     const target = event.target as HTMLInputElement;
     const amenitiesGroup = this.filterForm.get('amenities') as FormGroup;
     amenitiesGroup.patchValue({ [key]: target.checked });
-    this.propertyService.getFilteredProperties(this.filterForm.value).subscribe(response => {
+
+    // Extract form values
+    const formValues = this.filterForm.value;
+
+    // Build query parameters for amenities
+    const amenitiesParams: Record<string, string> = {};
+    Object.keys(formValues.amenities).forEach((amenityKey) => {
+      if (formValues.amenities[amenityKey]) {
+        amenitiesParams[amenityKey] = 'true';
+      }
+    });
+
+
+    // Merge other form values and amenities into query parameters
+    const queryParams = {
+      ...formValues,
+      ...amenitiesParams, // Include filtered amenities as query params
+    };
+
+
+    this.propertyService.getFilteredProperties(queryParams).subscribe(response => {
       if (response && response.data) {
         this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
         this.topOfferDatas = [...this.topOfferData];
@@ -336,54 +401,10 @@ export class SaleComponent implements OnInit {
     this.dataCount = this.topOfferDatas.length;
   }
 
-  // // Property  Filter
-  // AmenitiesFilter(e: any, type: any) {
-  //   if (e.target.checked) {
-  //     this.checkedVal.push(type);
-  //     this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.amenities));
-  //   }
-  //   else {
-  //     var index = this.checkedVal.indexOf(type);
-  //     if (index > -1) {
-  //       this.checkedVal.splice(index, 1);
-  //     }
-  //     this.topOfferDatas = this.topOfferData.filter((data: any) => this.checkedVal.includes(data.amenities));
-  //   }
-  //   if (this.checkedVal.length == 0) {
-  //     this.topOfferDatas = this.topOfferData
-  //   }
-  //   this.dataCount = this.topOfferDatas.length;
-  // }
   AmenitiesFilter(): void {
     const amenities = this.filterForm.get('amenities')?.value;
     console.log('Current amenities state:', amenities);
   }
-
-  // AmenitiesFilter(): void {
-  //   const amenities = this.filterForm.get('amenities')?.value;
-  //   console.log('consoling the amenities', amenities);
-  // // Clean the object to include only true values
-  // const filteredAmenities = Object.keys(amenities).reduce((result, key) => {
-  //   if (amenities[key]) {
-  //     result[key] = true;
-  //   }
-  //   return result;
-  // }, {});
-
-  // // Send the filtered amenities to the backend
-  // const payload = { amenities: filteredAmenities };
-
-  // this.propertyService.getFilteredProperties(payload).subscribe(response => {
-  //   if (response && response.data) {
-  //     this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
-  //     this.topOfferDatas = [...this.topOfferData];
-  //     console.log("Filtered properties based on amenities:", this.topOfferDatas);
-  //     this.dataCount = response.pagination.totalItems;
-  //   } else {
-  //     console.error("No data found in response");
-  //   }
-  // });
-  // }
 
   // Property  Filter
   PentsFilter(e: any, type: any) {

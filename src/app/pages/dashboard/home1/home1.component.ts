@@ -234,7 +234,7 @@ export class Home1Component implements OnInit {
   },
   {
     image: 'assets/img/real-estate/recent/02.jpg',
-    verified_btn: '',
+    verified_btn: '', 
     btn: "New",
     btn_color: "bg-info",
     sale: 'For sale',

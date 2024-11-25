@@ -74,34 +74,38 @@
 <!-- Property categories-->
 <section class="container mb-5">
   <div class="row row-cols-lg-6 row-cols-sm-3 row-cols-2 g-3 g-xl-4">
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/rent">
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/sale"[queryParams]="{ propertyType: 'HOUSE' }"
+      >
         <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-real-estate-house"></i></div>
         <h3 class="icon-box-title fs-base mb-0">Houses</h3>
       </a></div>
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/sale">
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/sale"[queryParams]="{ propertyType: 'APARTMENT' }"
+      >
         <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-apartment"></i></div>
         <h3 class="icon-box-title fs-base mb-0">Apartments</h3>
       </a></div>
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/rent">
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/sale" [queryParams]="{ propertyType: 'COMMERCIAL' }"
+      >
         <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-shop"></i>
         </div>
         <h3 class="icon-box-title fs-base mb-0">Commercial</h3>
       </a></div>
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/sale">
+      <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="#">
         <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-rent"></i>
         </div>
         <h3 class="icon-box-title fs-base mb-0">Daily rental</h3>
       </a></div>
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/rent">
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="#">
         <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-house-chosen"></i></div>
         <h3 class="icon-box-title fs-base mb-0">New buildings</h3>
       </a></div>
+
     <div class="col">
       <div class="dropdown h-100" ngbDropdown><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center" href="javascript: void(0);" data-bs-toggle="dropdown">
           <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto arrow-none" ngbDropdownToggle><i class="fi-dots-horisontal"></i></div>
           <h3 class="icon-box-title fs-base mb-0">More</h3>
         </a>
-        <div class="dropdown-menu dropdown-menu-end my-1" ngbDropdownMenu><a class="dropdown-item fw-bold" routerLink="/catalog/sale"><i class="fi-single-bed fs-base opacity-60 me-2"></i>Room</a><a class="dropdown-item fw-bold" routerLink="/catalog/rent"><i class="fi-computer fs-base opacity-60 me-2"></i>Office</a><a class="dropdown-item fw-bold" routerLink="/catalog/sale"><i class="fi-real-estate-buy fs-base opacity-60 me-2"></i>Land</a><a class="dropdown-item fw-bold" routerLink="/catalog/rent"><i class="fi-parking fs-base opacity-60 me-2"></i>Parking lot</a></div>
+        <div class="dropdown-menu dropdown-menu-end my-1" ngbDropdownMenu><a class="dropdown-item fw-bold" routerLink="#"><i class="fi-computer fs-base opacity-60 me-2"></i>Rooms</a><a class="dropdown-item fw-bold" routerLink="#"><i class="fi-real-estate-buy fs-base opacity-60 me-2"></i>Land</a></div>
       </div>
     </div>
   </div>
@@ -162,7 +166,7 @@
 <section class="container pb-4 pt-1 mb-5">
   <div class="d-flex align-items-end align-items-lg-center justify-content-between mb-4 pb-md-2">
     <div class="d-flex w-100 align-items-center justify-content-between justify-content-lg-start">
-      <h2 class="h3 mb-0 me-md-4">Added today</h2>
+      <h2 class="h3 mb-0 me-md-4">Recently Added</h2>
       <div class="dropdown d-md-none" data-bs-toggle="select">
         <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"><span class="dropdown-toggle-label">Houses</span></button>
         <input type="hidden">
@@ -218,13 +222,13 @@
 <!-- Cities (carousel)-->
 <section class="container mb-5 pb-2">
   <div class="d-flex align-items-center justify-content-between mb-3">
-    <h2 class="h3 mb-0">Search property by city</h2><a class="btn btn-link fw-normal ms-md-3 pb-0" routerLink="/catalog/rent">View all<i class="fi-arrow-long-right ms-2"></i></a>
+    <h2 class="h3 mb-0">Search property by city</h2><a class="btn btn-link fw-normal ms-md-3 pb-0"  routerLink="/catalog/sale" [queryParams]="{ propertyType: 'COMMERCIAL' }">View all <i class="fi-arrow-long-right ms-2"></i></a>
   </div>
 
   <ngx-slick-carousel [config]="config" class="carousel slickSwiper">
     @for(data of cityData;track $index){
     <div class="swiper-slide" ngxSlickItem>
-      <div class="col p-2"><a class="card shadow-sm card-hover border-0" routerLink="/catalog/sale">
+      <div class="col p-2"><a class="card shadow-sm card-hover border-0" routerLink="/catalog/sale"  [queryParams]="{ city: '{{data.title}}' }">
           <div class="card-img-top card-img-hover"><span class="img-overlay opacity-65"></span><img src="{{data.image}}" alt="New York">
             <div class="content-overlay start-0 top-0 d-flex align-items-center justify-content-center w-100 h-100 p-3">
               <div class="w-100 p-1">

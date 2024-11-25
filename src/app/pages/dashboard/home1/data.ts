@@ -7,7 +7,7 @@
       title: "Buy a property",
       content: "Blandit lorem dictum in velit. Et nisi at faucibus mauris pretium enim. Risus sapien nisi aliquam egestas leo dignissim.",
       btn: "Find a home",
-      link: "/catalog/sale"
+      link: "/vendor/add-property"
   },
   {
     image: "assets/img/real-estate/illustrations/sell.svg",
@@ -16,13 +16,13 @@
     btn: "Place an ad",
     link: "#"
   },
-  {
-    image: "assets/img/real-estate/illustrations/rent.svg",
-    title: "Rent a property",
-    content: "Sed sed aliquet sed id purus malesuada congue viverra. Habitant quis lacus, volutpat natoque ipsum iaculis cursus.",
-    btn: "Find a rental",
-    link: "/catalog/rent"
-  }
+  // {
+  //   image: "assets/img/real-estate/illustrations/rent.svg",
+  //   title: "Rent a property",
+  //   content: "Sed sed aliquet sed id purus malesuada congue viverra. Habitant quis lacus, volutpat natoque ipsum iaculis cursus.",
+  //   btn: "Find a rental",
+  //   link: "/catalog/rent"
+  // }
 ];
 
 /**
@@ -102,7 +102,7 @@
  const cityData = [
   {
       image: "assets/img/real-estate/city/new-york.jpg",
-      title: "New York",
+      title: "Thunder Bay",
       sale_progressbar: 30,
       sale_count: "893",
       rent_progressbar: 85,
@@ -110,7 +110,7 @@
   },
   {
     image: "assets/img/real-estate/city/chicago.jpg",
-    title: "Chicago",
+    title: "Toronto",
     sale_progressbar: 30,
     sale_count: "268",
     rent_progressbar: 85,
@@ -118,7 +118,7 @@
   },
   {
     image: "assets/img/real-estate/city/los-angeles.jpg",
-    title: "Los Angeles",
+    title: "British Columbia",
     sale_progressbar: 30,
     sale_count: "2750",
     rent_progressbar: 85,
@@ -126,7 +126,7 @@
   },
   {
     image: "assets/img/real-estate/city/san-diego.jpg",
-    title: "San Diego",
+    title: "Vancouver",
     sale_progressbar: 30,
     sale_count: "1739",
     rent_progressbar: 85,
@@ -134,7 +134,7 @@
   },
   {
     image: "assets/img/real-estate/city/dallas.jpg",
-    title: "Dallas",
+    title: "Calgary",
     sale_progressbar: 30,
     sale_count: "2567",
     rent_progressbar: 85,
