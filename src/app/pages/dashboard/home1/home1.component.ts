@@ -11,6 +11,7 @@ import { topOffer, propertyCity, estateAagents, service, companies } from './hom
 import { topOfferData, cityData, agentsData, servicesData, companiesData } from './data';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PropertyService } from 'src/app/core/services/property/property.service';
+import { StaticDataService } from 'src/app/core/services/static-data.service';
 
 @Component({
   selector: 'app-index',
@@ -30,8 +31,9 @@ export class Home1Component implements OnInit {
   companiesData!: companies[];
   // topOfferDatas: any;
   dataCount: any;
+  propertyStatus: string = '';
 
-  constructor(private modalService: NgbModal, private authService: AuthService, private propertyService: PropertyService) { }
+  constructor(private modalService: NgbModal, private authService: AuthService, private propertyService: PropertyService, private staticDataService: StaticDataService) { }
 
   ngOnInit(): void {
     // Chat Data Get Function
@@ -184,7 +186,7 @@ export class Home1Component implements OnInit {
   /**
   * Portfolio Modern Data
   */
-  filterredImages: { image: string; verified_btn?: string; btn: string; btn_color: string; sale: string; title: string; streetAddress: string; price: string; category: string; }[] | undefined;
+  filterredImages: { image: string; verified_btn?: string; btn: string; btn_color: string; sale: string; title: string; streetAddress: string; price: string; status: string; category: string; }[] | undefined;
   galleryFilter = 'Houses';
   list = [{
     image: 'assets/img/real-estate/recent/01.jpg',
@@ -260,12 +262,10 @@ export class Home1Component implements OnInit {
   */
   activeCategory(type: string) {
     this.galleryFilter = type;
-    const filters = { propertyType: [type] };
-    console.log("consoling the filters", filters);
+    const filters = { propertyType: [type], latestProperty: true  };
     (this.propertyService.getFilteredProperties(filters,1,4).subscribe(response => {
       if (response && response.data) { // Check if response has data property
         this.filterredImages = response.data.map((item: any) => this.transformProperty(item));
-        console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
 
         this.dataCount = response.pagination.totalItems;
 
@@ -284,12 +284,11 @@ export class Home1Component implements OnInit {
   }
 
   private fetchTopofferData() {
-    //  this.propertiesData = propertiesData;
-    (this.propertyService.fetchProperties().subscribe(response => {
+    const filterData = { topOffer: true };
+
+    (this.propertyService.getFilteredProperties(filterData,1,4).subscribe(response => {
       if (response && response.data) { // Check if response has data property
         this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
-        console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
-        // this.topOfferDatas = Object.assign([], this.topOfferData);
         this.dataCount = response.pagination.totalItems;
 
       } else {
@@ -298,11 +297,14 @@ export class Home1Component implements OnInit {
     }));
   }
   private transformProperty(item: any): topOffer {
+
     return {
       id: item.id,
       image: item.images ? item.images[0] : '',
-      verified_btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
-      btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',
+      status: item.status,
+      verified_btn: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'Available' : 'Not Available',
+      btn: "Latest",
+      btn_color: "bg-info",// btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED  ? 'green' : 'red',
       title: item.title,
       streetAddress: item.streetAddress,
       location: item.city,

@@ -12,7 +12,12 @@ export class StaticDataService {
     RENT: 'RENT',
     SALE: 'SALE',
   };
-
+  public readonly PROPERTY_STATUS = {
+    PENDING_VERIFICATION: 'PENDING',
+    VERIFIED: 'VERIFIED',
+    SOLD_OUT: 'SOLD',
+    EXPIRED: 'EXPIRED',
+  };
 
 }
 

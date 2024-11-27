@@ -101,45 +101,27 @@ export class SaleComponent implements OnInit {
         propertyTypeFormArray.clear(); // Clear existing values
 
         propertyTypeArray.forEach((type) => propertyTypeFormArray.push(this.fb.control(type)));
-
-        this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
-          if (response && response.data) {
-            this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
-            this.topOfferDatas = Object.assign([], this.topOfferData);
-            this.dataCount = response.pagination.totalItems;
-          } else {
-            console.error("No data found in response");
-          }
-        });
-      } else if (city){
-        this.filterForm.patchValue({ city:city }); // Add category to the form        
-        
-        console.log("consoling the form filter", this.filterForm.value);
-        this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
-          if (response && response.data) {
-            this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
-            this.topOfferDatas = Object.assign([], this.topOfferData);
-            this.dataCount = response.pagination.totalItems;
-          } else {
-            console.error("No data found in response");
-          }
-        });
+      } else if (city) {
+        this.filterForm.patchValue({ city: city }); // Add category to the form        
       }
-      else {
-        // Data Get Function
-        this._fetchData();
-      }
+      this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
+        if (response && response.data) {
+          this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
+          this.topOfferDatas = Object.assign([], this.topOfferData);
+          this.dataCount = response.pagination.totalItems;
+        } else {
+          console.error("No data found in response");
+        }
+      });
     });
 
   }
   // Data Fetch
   private _fetchData() {
-    //  this.propertiesData = propertiesData;
     (this.propertyService.fetchProperties().subscribe(response => {
       if (response && response.data) { // Check if response has data property
-        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
         console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
-
+        this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
         this.topOfferDatas = Object.assign([], this.topOfferData);
         this.dataCount = response.pagination.totalItems;
 

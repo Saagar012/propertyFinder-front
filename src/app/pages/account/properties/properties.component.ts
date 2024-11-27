@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { properties } from './properties.model';
-import { propertiesData } from './data';
 import { PropertyService } from 'src/app/core/services/property/property.service';
-import { map, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { StaticDataService } from 'src/app/core/services/static-data.service';
 
 @Component({
   selector: 'app-properties',
@@ -21,7 +20,7 @@ export class PropertiesComponent implements OnInit {
   breadCrumbItems!: Array<{}>;
   propertiesData!: properties[];
 
-  constructor(private propertyService: PropertyService,private authService: AuthService) { }
+  constructor(private propertyService: PropertyService,private authService: AuthService, private staticDataService: StaticDataService) { }
 
   ngOnInit(): void {
     /**
@@ -39,11 +38,9 @@ export class PropertiesComponent implements OnInit {
 
   // Chat Data Fetch
   private _fetchData() {
-    //  this.propertiesData = propertiesData;
      (this.propertyService.fetchProperties().subscribe(response =>{
       if (response && response.data) { // Check if response has data property
         this.propertiesData = response.data.map((item: any) => this.transformProperty(item));
-        console.log("Transformed properties data:", this.propertiesData); // Log the transformed data
       } else {
         console.error("No data found in response");
       }
@@ -63,8 +60,8 @@ export class PropertiesComponent implements OnInit {
     return {
       id:item.id,
       propertyImage: item.propertyImage?.[0] || '',
-      btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
-      btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',
+      btn: item.status,
+      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'success' : 'danger',
       category: item.category,
       streetAddress: item.streetAddress,
       priceAmountPerAnnum: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',

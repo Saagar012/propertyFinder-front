@@ -7,10 +7,6 @@
   btn?: string;
   btn_color?: string;
   image?:string;
-
-  // image?: Array<{
-  //   img?: string;
-  // }>;
   sale?: string;
   title?: string;
   streetAddress?: string;
@@ -19,7 +15,6 @@
   bath?: string;
   car?: string;
   location:string;
-  // district:string;
   property?:string;
   metres:string;
 
