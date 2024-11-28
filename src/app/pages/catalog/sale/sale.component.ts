@@ -101,7 +101,8 @@ export class SaleComponent implements OnInit {
         propertyTypeFormArray.clear(); // Clear existing values
 
         propertyTypeArray.forEach((type) => propertyTypeFormArray.push(this.fb.control(type)));
-      } else if (city) {
+      } 
+       if (city) {
         this.filterForm.patchValue({ city: city }); // Add category to the form        
       }
       this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
@@ -136,8 +137,10 @@ export class SaleComponent implements OnInit {
     return {
       id: item.id,
       image: item.images ? item.images[0] : '',
+      
       verified_btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
       btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',
+      
       title: item.title,
       streetAddress: item.streetAddress,
       location: item.city,

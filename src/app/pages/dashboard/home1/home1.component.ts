@@ -12,6 +12,7 @@ import { topOfferData, cityData, agentsData, servicesData, companiesData } from 
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PropertyService } from 'src/app/core/services/property/property.service';
 import { StaticDataService } from 'src/app/core/services/static-data.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -32,8 +33,11 @@ export class Home1Component implements OnInit {
   // topOfferDatas: any;
   dataCount: any;
   propertyStatus: string = '';
+  selectedType: string = 'RENT'; 
+  selectedLocation: string = ''; 
+  selectedPropertyType: string = ''; 
 
-  constructor(private modalService: NgbModal, private authService: AuthService, private propertyService: PropertyService, private staticDataService: StaticDataService) { }
+  constructor(private modalService: NgbModal, private authService: AuthService, private router: Router, private propertyService: PropertyService, private staticDataService: StaticDataService) { }
 
   ngOnInit(): void {
     // Chat Data Get Function
@@ -64,9 +68,9 @@ export class Home1Component implements OnInit {
 
   // Chat Data Fetch
   private _fetchData() {
+    this.cityData = cityData;
     this.fetchTopofferData();
     this.activeCategory('APARTMENT'); // default value while loading the page to show some data;
-    this.cityData = cityData;
     this.agentsData = agentsData;
     this.servicesData = servicesData;
     this.companiesData = companiesData;
@@ -186,7 +190,7 @@ export class Home1Component implements OnInit {
   /**
   * Portfolio Modern Data
   */
-  filterredImages: { image: string; verified_btn?: string; btn: string; btn_color: string; sale: string; title: string; streetAddress: string; price: string; status: string; category: string; }[] | undefined;
+  filterredImages: { id: string ; image: string; verified_btn?: string; btn: string; btn_color: string; sale: string; title: string; streetAddress: string; price: string; status: string; category: string; }[] | undefined;
   galleryFilter = 'Houses';
   list = [{
     image: 'assets/img/real-estate/recent/01.jpg',
@@ -275,6 +279,27 @@ export class Home1Component implements OnInit {
     }));
   }
 
+  updateFilter(value: string, type: string): void {
+    if (type === 'location') {
+      this.selectedLocation = value;
+    } else if (type === 'type') {
+      this.selectedType = value;
+    } else if (type === 'propertyType') {
+      this.selectedPropertyType = value;
+    }
+  }
+
+  
+  onSearch(): void {
+    // Prepare query parameters
+    const queryParams = {
+      type: this.selectedType,
+      city: this.selectedLocation,
+      propertyType: this.selectedPropertyType
+    };
+    // Navigate to the catalog/sale page with query parameters
+    this.router.navigate(['/catalog/sale'], { queryParams });
+  }
   /**
    * Open modal
    * @param content modal content

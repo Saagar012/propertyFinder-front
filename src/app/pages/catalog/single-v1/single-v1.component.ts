@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { properties } from '../../dashboard/home2/home2.model';
 import { HttpClient } from '@angular/common/http';
 import { EmailService } from 'src/app/core/services/email/email.service';
+import { StaticDataService } from 'src/app/core/services/static-data.service';
 
 @Component({
   selector: 'app-single-v1',
@@ -45,7 +46,7 @@ export class SingleV1Component implements OnInit {
 
 
   constructor(private modalService: NgbModal, private http: HttpClient, private formBuilder: UntypedFormBuilder, private _lightbox: Lightbox
-    , private propertyService: PropertyService, private route: ActivatedRoute, private emailService: EmailService
+    , private propertyService: PropertyService, private route: ActivatedRoute, private emailService: EmailService, private staticDataService: StaticDataService
   ) {
     this.validationform = this.formBuilder.group({
       name: ['', Validators.required],
@@ -139,30 +140,74 @@ export class SingleV1Component implements OnInit {
     // Retrieve the 'id' parameter from the URL
     const propertyId = this.route.snapshot.paramMap.get('id');
     if (propertyId) {
-      // Convert the ID to a number if necessary and fetch property details
-      this.propertyService.fetchPropertyById(propertyId).subscribe(
-        (response) => {
-          this.propertiesData = response.data; // Assign response to propertiesData
-          this.images = response.data.images;
-          console.log(this.propertiesData);
-          // Step 1: Filter amenities with `true` values
-          this.trueAmenities = Object.keys(this.propertiesData?.amenities || {}).filter(
-            (key: string) => this.propertiesData?.amenities?.[key] === true
-          );
-          this.updateBreadcrumb();
-        },
-        (error) => {
-          console.error("Error fetching property by ID:", error);
-        }
-      );
-    } else {
-      console.warn("No property ID found in the URL");
-    }
+      const currentUrl = this.route.snapshot.url.map(segment => segment.path).join('/');
+      if (currentUrl.startsWith('my-properties')) {
+        // Convert the ID to a number if necessary and fetch property details
+        this.propertyService.fetchMyPropertyById(propertyId).subscribe(
+          (response) => {
+            this.propertiesData = response.data; // Assign response to propertiesData
+            this.images = response.data.images;
+            // Step 1: Filter amenities with `true` values
+            this.trueAmenities = Object.keys(this.propertiesData?.amenities || {}).filter(
+              (key: string) => this.propertiesData?.amenities?.[key] === true
+            );
+            this.updateBreadcrumb();
+          },
+          (error) => {
+            console.error("Error fetching property by ID:", error);
+          }
+        );
+      }
+      else if (currentUrl.startsWith('properties')) {
+        this.propertyService.fetchPropertyById(propertyId).subscribe(
+          (response) => {
+            this.propertiesData = response.data; // Assign response to propertiesData
+            this.images = response.data.images;
+            // Step 1: Filter amenities with `true` values
+            this.trueAmenities = Object.keys(this.propertiesData?.amenities || {}).filter(
+              (key: string) => this.propertiesData?.amenities?.[key] === true
+            );
+            this.updateBreadcrumb();
+          },
+          (error) => {
+            console.error("Error fetching property by ID:", error);
+          }
+        );
 
-    this.aboutReviewData = aboutReviewData;
-    this.recentlyData = recentlyData;
-    // fetching the property by id.
-    // this.propertyService.fetchPropertyById();
+      } else {
+        console.warn("No property ID found in the URL");
+      }
+
+      this.aboutReviewData = aboutReviewData;
+      this.fetchOtherProperties ();
+    }
+  }
+  private fetchOtherProperties() {
+    const formData = {minArea: 0};
+    
+    (this.propertyService.getFilteredProperties(formData).subscribe(response => {
+      if (response && response.data) { // Check if response has data property
+        this.recentlyData = response.data.map((item: any) => this.transformProperty(item));
+      } else {
+        console.error("No data found in response");
+      }
+    }));
+  }
+  
+  private transformProperty(item: any): recently {
+    return {
+      id: item.id,
+      image: item.images ? item.images[0] : '',
+      status: item.status,
+      verified_btn: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'Available' : 'Not Available',
+      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'danger' : 'danger',
+      title: item.title,
+      sale: item.category,
+      price: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
+      bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
+      bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
+      car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
+    };
   }
   updateBreadcrumb() {
     this.breadCrumbItems = [
@@ -221,12 +266,12 @@ export class SingleV1Component implements OnInit {
   */
   validSubmit() {
     if (this.validationform.valid) {
-      const formData = { 
-        ...this.validationform.value, 
+      const formData = {
+        ...this.validationform.value,
         ownerEmail: this.propertiesData.contactInfo?.email// Replace with the actual owner's email
       };
 
-      console.log("consoling the form data value",formData);
+      console.log("consoling the form data value", formData);
       (this.emailService.propertyRequest(formData).subscribe(response => {
         if (response && response.data) {
           console.log("response data", response.data);

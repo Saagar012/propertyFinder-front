@@ -15,15 +15,17 @@
  * Recently List
  */
  export interface recently {
+  id: number;
   verified_btn: string;
   btn?: string;
+  status?:string;
   btn_color?: string;
   image?: string;
   sale?: string;
   title?: string;
   content?: string;
   price?: string;
-  bad?: string;
+  bed?: string;
   bath?: string;
   car?: string;
 }

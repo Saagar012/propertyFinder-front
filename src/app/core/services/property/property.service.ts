@@ -66,6 +66,14 @@ export class PropertyService {
     return this.http.get(`${baseUrl}property/filtered`, { params });
   }
 
+  fetchMyPropertyById(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${baseUrl}property/details/${id}`, { headers });
+  } 
   fetchPropertyById(id: string): Observable<any> {
     const token = localStorage.getItem('authToken');
 
@@ -73,7 +81,5 @@ export class PropertyService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(`${baseUrl}property/${id}`, { headers });
-  }
-
-
+  } 
 }

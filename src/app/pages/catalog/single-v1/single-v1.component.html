@@ -46,7 +46,7 @@
 
 
     <div class="row g-2 g-md-3 gallery" data-thumbnails="true" style="min-width: 30rem;">
-    <!--
+      <!--
   @for(image of images;track $index){
 
       <div class="col-8">
@@ -75,29 +75,29 @@
         'col-8': i === 0,
         'col-4': i === 1
       }">
-      <a class="gallery-item rounded rounded-md-3" href="javascript:void(0);" (click)="customOpen(i)">
-        <!-- Dynamically set the background image -->
-        <div [style.background-image]="'url(' + image + ')'">
-          <!-- Dynamically set the image source -->
-          <img [src]="image" alt="Gallery thumbnail">
-        </div>
-      </a>
-    </div>
-    
-
-    <div *ngIf="images.length > 3" class="col-12">
-      <div class="row g-2 g-md-3">
-        <div *ngFor="let image of images.slice(4); let j = index" class="col">
-          <a class="gallery-item rounded-1 rounded-md-2" href="javascript:void(0);" (click)="open(j)">
-              <img [src]="image" alt="Gallery thumbnail">
-          
-
-               <div [style.background-image]="'url(' + image + ')'">
-                 <img [src]="image" alt="Gallery thumbnail">  
-                </div>      
-             </a>
+        <a class="gallery-item rounded rounded-md-3" href="javascript:void(0);" (click)="customOpen(i)">
+          <!-- Dynamically set the background image -->
+          <div [style.background-image]="'url(' + image + ')'">
+            <!-- Dynamically set the image source -->
+            <img [src]="image" alt="Gallery thumbnail">
           </div>
-          
+        </a>
+      </div>
+
+
+      <div *ngIf="images.length > 3" class="col-12">
+        <div class="row g-2 g-md-3">
+          <div *ngFor="let image of images.slice(4); let j = index" class="col">
+            <a class="gallery-item rounded-1 rounded-md-2" href="javascript:void(0);" (click)="open(j)">
+              <img [src]="image" alt="Gallery thumbnail">
+
+
+              <div [style.background-image]="'url(' + image + ')'">
+                <img [src]="image" alt="Gallery thumbnail">
+              </div>
+            </a>
+          </div>
+
         </div>
       </div>
     </div>
@@ -150,7 +150,7 @@
             <!-- <li class="me-3 pe-3">Views: <b>48</b></li> -->
           </ul>
         </div>
-        
+
       </div>
       <!-- Sidebar-->
       <aside class="col-lg-4 col-md-5 ms-lg-auto pb-1">
@@ -194,10 +194,12 @@
               </div>
               <input class="form-control mb-3" formControlName="phoneNumber" type="tel" placeholder="Phone">
 
-              <input class="form-control mb-3" formControlName="date" type="text" id="pr-birth-date" altFormat="d M,Y" dateFomate="d M,Y"
-                placeholder="Choose date" mwlFlatpickr [altInput]="true" [convertModelValue]="true" />
+              <input class="form-control mb-3" formControlName="date" type="text" id="pr-birth-date" altFormat="d M,Y"
+                dateFomate="d M,Y" placeholder="Choose date" mwlFlatpickr [altInput]="true"
+                [convertModelValue]="true" />
 
-              <textarea class="form-control mb-3" formControlName="message" rows="3" placeholder="Message" style="resize: none;"></textarea>
+              <textarea class="form-control mb-3" formControlName="message" rows="3" placeholder="Message"
+                style="resize: none;"></textarea>
               <div class="form-check mb-4">
                 <input class="form-check-input" id="form-submit" type="checkbox" checked>
                 <label class="form-check-label fs-sm" for="form-submit">Send news, tips and promos from Finder to my
@@ -225,7 +227,7 @@
   <!-- Recently viewed-->
   <section class="container mb-5 pb-2 pb-lg-4">
     <div class="d-flex align-items-center justify-content-between mb-3">
-      <h2 class="h3">Recently viewed</h2><a class="btn btn-link fw-normal p-0" routerLink="/catalog/rent">View all<i
+      <h2 class="h3">Similar Properties</h2><a class="btn btn-link fw-normal p-0" routerLink="/catalog/sale">View all<i
           class="fi-arrow-long-right ms-2"></i></a>
     </div>
     <div class="swiper default-swiper rounded">
@@ -234,25 +236,29 @@
         <div class="swiper-slide" ngxSlickItem>
           <div class="col p-2">
             <div class="card shadow-sm card-hover border-0 h-100">
-              <div class="card-img-top card-img-hover"><a class="img-overlay" routerLink="/catalog/single-v1"></a>
-                <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
-                    class="d-table badge bg-success mb-1">{{data.verified_btn}}</span><span
-                    class="d-table badge {{data.btn_color}}">{{data.btn}}</span></div>
+              <div class="card-img-top card-img-hover"><a class="img-overlay" [routerLink]="['/properties', data.id]"></a>
+                <div class="position-absolute start-0 top-0 pt-3 ps-3">
+
+                  <span class="d-table badge mb-1"
+                    [ngClass]="{'bg-success': data.status === 'VERIFIED', 'bg-danger': data.status !== 'VERIFIED'}">
+                    {{data.verified_btn}}
+                  </span>
+                </div>
                 <div class="content-overlay end-0 top-0 pt-3 pe-3">
                   <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                     placement="left" ngbTooltip="Add to Wishlist"><i class="fi-heart"></i></button>
-                </div><img src="{{data.image}}" alt="Image">
+                </div><img src="{{data.image}}" class="fixed-image" alt="Image" [routerLink]="['/properties', data.id]">
               </div>
               <div class="card-body position-relative pb-3">
                 <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary">{{data.sale}}</h4>
                 <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link"
-                    routerLink="/catalog/single-v1">{{data.title}}</a></h3>
+                  [routerLink]="['/properties', data.id]">{{data.title}}</a></h3>
                 <p class="mb-2 fs-sm text-muted">{{data.content}}</p>
                 <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>{{data.price}}
                 </div>
               </div>
               <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap"><span
-                  class="d-inline-block mx-1 px-2 fs-sm">{{data.bad}}<i
+                  class="d-inline-block mx-1 px-2 fs-sm">{{data.bed}}<i
                     class="fi-bed ms-1 mt-n1 fs-lg text-muted"></i></span><span
                   class="d-inline-block mx-1 px-2 fs-sm">{{data.bath}}<i
                     class="fi-bath ms-1 mt-n1 fs-lg text-muted"></i></span><span
