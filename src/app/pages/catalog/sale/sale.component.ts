@@ -146,7 +146,7 @@ export class SaleComponent implements OnInit {
       location: item.city,
       property: item.propertyType,
       sale: item.category,
-      price: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
+      price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',

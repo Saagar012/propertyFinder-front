@@ -46,7 +46,7 @@ export interface propertyById {
   latitude: string;
   longitude: string;
   images: string[];  // Assuming it's an array of image URLs
-  priceAmountPerAnnum?: string | null;
+  totalPrice?: string | null;
   status: string;
   userId: number;
   propertyTypeId: number;

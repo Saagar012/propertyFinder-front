@@ -78,10 +78,7 @@ export class AddPropertyComponent implements OnInit {
         email: ["", [Validators.required]],
         phoneNumber: ["", Validators.required]
       }),
-      price: this.fb.group({
-        amount: ["", [Validators.required, Validators.min(0)]],
-        timeDuration: ['ANNUALLY']
-      })
+      amount: ["", [Validators.required, Validators.min(1)]],
     });
     this.initializeMap();
     var map = L.map('map').setView([48.3809, -89.2477], 13);

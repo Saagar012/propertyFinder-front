@@ -272,7 +272,9 @@ export class HeaderComponent implements OnInit {
     // Call the login service
     this.authService.login(formData).subscribe({
       next: (response) => {
-        this.authService.setUser(response.user.firstName); // Save user data
+        console.log(response);
+        this.authService.setUser(response.user.firstName,response.user.email); // Save user data
+
         localStorage.setItem('authToken', response.token);
 
         Swal.fire({

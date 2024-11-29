@@ -19,6 +19,8 @@ export class PropertiesComponent implements OnInit {
   // bread crumb items
   breadCrumbItems!: Array<{}>;
   propertiesData!: properties[];
+  username: string | null = null;
+  email: string | null = null;
 
   constructor(private propertyService: PropertyService,private authService: AuthService, private staticDataService: StaticDataService) { }
 
@@ -34,6 +36,7 @@ export class PropertiesComponent implements OnInit {
 
     // Chat Data Get Function
     this._fetchData();
+    this.fetchUserData();
   }
 
   // Chat Data Fetch
@@ -47,6 +50,16 @@ export class PropertiesComponent implements OnInit {
     }));
 
   }
+  private fetchUserData(){
+    if(localStorage.getItem('user')){
+      this.username = localStorage.getItem('user');
+    }
+    if(localStorage.getItem('email')){
+      this.email = localStorage.getItem('email');
+    }
+
+  }
+
   logout() {
     this.authService.logout();
   }
@@ -64,7 +77,7 @@ export class PropertiesComponent implements OnInit {
       btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'success' : 'danger',
       category: item.category,
       streetAddress: item.streetAddress,
-      priceAmountPerAnnum: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
+      totalPrice: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
       bedrooms: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bathrooms: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       parkingSpots: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',

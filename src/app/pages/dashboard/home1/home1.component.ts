@@ -33,7 +33,7 @@ export class Home1Component implements OnInit {
   // topOfferDatas: any;
   dataCount: any;
   propertyStatus: string = '';
-  selectedType: string = 'RENT'; 
+  selectedType: string = 'SALE'; 
   selectedLocation: string = ''; 
   selectedPropertyType: string = ''; 
 
@@ -336,7 +336,7 @@ export class Home1Component implements OnInit {
       property: item.propertyType,
       sale: item.category,
       content:item.description,
-      price: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
+      price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',

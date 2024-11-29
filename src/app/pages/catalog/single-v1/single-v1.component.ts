@@ -203,7 +203,7 @@ export class SingleV1Component implements OnInit {
       btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'danger' : 'danger',
       title: item.title,
       sale: item.category,
-      price: item.priceAmountPerAnnum ? `$${item.priceAmountPerAnnum} per annum` : 'N/A',
+      price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',

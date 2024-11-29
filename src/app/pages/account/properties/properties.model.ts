@@ -19,7 +19,7 @@
   btn_color?: string;
   category?: string;
   streetAddress?:string;
-  priceAmountPerAnnum?:string;
+  totalPrice?:string;
   bedrooms?:string;
   bathrooms?:string;
   parkingSpots?:string;
