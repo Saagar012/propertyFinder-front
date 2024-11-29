@@ -82,4 +82,17 @@ export class PropertyService {
     });
     return this.http.get(`${baseUrl}property/${id}`, { headers });
   } 
+  calculateMortgage(data: any): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json' // Set content type as JSON
+    });
+  
+    // Make POST request with the data (city, area, propertyType) to calculate mortgage
+    return this.http.post(`${baseUrl}property/approx-mortgage-price`, data, { headers });
+  }
+  
+
 }

@@ -102,7 +102,7 @@
  const cityData = [
   {
       image: "assets/img/real-estate/city/thunderbay.jpg",
-      title: "Thunder Bay",
+      title: "   Bay",
       sale_progressbar: 30,
       sale_count: "893",
       rent_progressbar: 85,
