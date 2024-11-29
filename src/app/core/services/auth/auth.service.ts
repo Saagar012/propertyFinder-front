@@ -16,10 +16,12 @@ export class AuthService {
 
   user$ = this.currentUserSubject.asObservable();
 
-  setUser(user: any) {
-    localStorage.setItem('user', user);
-    this.currentUserSubject.next(user); // Notify all subscribers about the new user
-    
+  setUser(userName: string, email: string) {
+    localStorage.setItem('user', userName);
+    localStorage.setItem('email', email);
+
+    this.currentUserSubject.next(userName); // Notify all subscribers about the new user
+
   }
 
   getUser() {

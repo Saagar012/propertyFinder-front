@@ -13,19 +13,10 @@
  * Top Offer List
  */
  export interface topOffer {
-  // verified_btn: string;
-  // btn?: string;
-  // btn_color?: string;
-  // image?: string;
-  // sale?: string;
-  // title?: string;
-  // price?: string;
-  // bad?: string;
-  // bath?: string;
-  // car?: string;
   id?:string;
   verified_btn: string;
   btn?: string;
+  status?:string;
   btn_color?: string;
   image?:string;
   sale?: string;

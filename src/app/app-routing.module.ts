@@ -8,6 +8,11 @@ const routes: Routes = [
     component: SingleV1Component,
     pathMatch: 'full'
   },
+  {
+    path: 'properties/:id',
+    component: SingleV1Component,
+    pathMatch: 'full'
+  },
   { path: '', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)  },
 
@@ -18,7 +23,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'enabled'})
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

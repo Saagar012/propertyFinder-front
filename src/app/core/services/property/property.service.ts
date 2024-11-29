@@ -39,6 +39,9 @@ export class PropertyService {
   
     return this.http.get(`${baseUrl}property`, { headers });
   } 
+
+
+
   getFilteredProperties(filters: any, page: number = 1, limit: number = 10): Observable<any> {
     let params = new HttpParams();
 
@@ -60,9 +63,17 @@ export class PropertyService {
   params = params.append('page', page.toString());
   params = params.append('limit', limit.toString());
 
-    return this.http.get(`${baseUrl}filteredProperty`, { params });
+    return this.http.get(`${baseUrl}property/filtered`, { params });
   }
 
+  fetchMyPropertyById(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${baseUrl}property/details/${id}`, { headers });
+  } 
   fetchPropertyById(id: string): Observable<any> {
     const token = localStorage.getItem('authToken');
 
@@ -70,7 +81,5 @@ export class PropertyService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(`${baseUrl}property/${id}`, { headers });
-  }
-
-
+  } 
 }

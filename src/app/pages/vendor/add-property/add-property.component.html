@@ -231,12 +231,8 @@
               <select class="form-select w-25 me-2 mb-2">
                 <option value="CAD">&#36;</option>
               </select>
-              <input formControlName="amount" class="form-control w-100 me-2 mb-2" type="number" id="ap-price" min="200"
+              <input formControlName="amount" class="form-control w-100 me-2 mb-2" type="number" id="ap-price" min="1"
                 step="50" required>
-              <select formControlName="timeDuration" class="form-select w-50 mb-2">
-                <option value="MONTHLY" selected>per month</option>
-                <option value="ANNUALLY">per year</option>
-              </select>
             </div>
           </section>
           <!-- Photos / video-->
@@ -302,10 +298,10 @@
           <!-- Action buttons -->
           <!-- <section class="d-sm-flex justify-content-between pt-2"><a class="btn btn-outline-primary btn-lg d-block mb-3 mb-sm-2" href="javascript:void(0);" data-bs-toggle="modal" (click)="openReviewModal(reviewContent)"><i class="fi-eye-on ms-n1 me-2"></i>Preview</a><a class="btn btn-primary btn-lg d-block mb-2" onclick="addProperty()"  routerLink="/vendor/property-promotion">Save and continue</a></section> -->
 
-          <section class="d-sm-flex justify-content-between pt-2"><a
+          <section class="d-sm-flex justify-content-between pt-2"><button
               class="btn btn-outline-primary btn-lg d-block mb-3 mb-sm-2" href="javascript:void(0);"
-              data-bs-toggle="modal" (click)="openReviewModal(reviewContent)"><i
-                class="fi-eye-on ms-n1 me-2"></i>Preview</a>
+              data-bs-toggle="modal" (click)="openReviewModal(reviewContent)" [disabled] = 'true'><i
+                class="fi-eye-on ms-n1 me-2"></i>Preview</button>
 
             <button class="btn btn-primary btn-lg d-block mb-2" type="submit" [disabled]="propertyForm.invalid">Create
               Property</button>
