@@ -26,17 +26,13 @@ import { SimplebarAngularModule } from 'simplebar-angular';
 // Component
 import { CatalogRoutingModule } from "./catalog-routing.module";
 import { SharedModule } from "../../shared/shared.module";
-import { RentComponent } from './rent/rent.component';
 import { SingleV1Component } from './single-v1/single-v1.component';
-import { SingleV2Component } from './single-v2/single-v2.component';
 import { SaleComponent } from './sale/sale.component';
 import { SortByPipe } from '../catalog/sort-by.pipe';
 
 @NgModule({
   declarations: [
-    RentComponent,
     SingleV1Component,
-    SingleV2Component,
     SaleComponent,
     SortByPipe
   ],

@@ -19,9 +19,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { VendorRoutingModule } from "./vendor-routing.module";
 import { SharedModule } from "../../shared/shared.module";
 import { AddPropertyComponent } from './add-property/add-property.component';
-import { PropertyPromotionComponent } from './property-promotion/property-promotion.component';
 import { PropertiesComponent } from './properties/properties.component';
-import { ReviewsComponent } from './reviews/reviews.component';
 
 import { SortByVendorPipe } from '../vendor/sort-by.pipe';
 import { NgxDropzoneModule } from 'ngx-dropzone';
@@ -36,9 +34,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 @NgModule({
   declarations: [
     AddPropertyComponent,
-    PropertyPromotionComponent,
     PropertiesComponent,
-    ReviewsComponent,
     SortByVendorPipe
   ],
   imports: [
