@@ -53,9 +53,9 @@
                 
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Price per month</h3>
-                  <div class="range-slider" data-start-min="1100" data-start-max="3000" data-min="200" data-max="5000"
-                    data-step="100">
-                    <ngx-slider [enableVirtualization]="true" [step]="1000" [(value)]="minValue"
+                  <div class="range-slider" data-start-min="50000" data-start-max="100000000" data-min="50000" data-max="100000000"
+                    data-step="10000">
+                    <ngx-slider [enableVirtualization]="true" [step]="10000" [(value)]="minValue"
                       [(highValue)]="maxValue" [options]="options" (valueChange)="valueChange($event,true)"
                       (highValueChange)="valueChange($event,false)"></ngx-slider>
                     <div class="d-flex align-items-center">
@@ -251,15 +251,17 @@
                     [ngClass]="{'bg-success': data.status === 'VERIFIED', 'bg-danger': data.status !== 'VERIFIED'}">
                     {{data.verified_btn}}
                   </span>
-                    
-                    
                     </div>
 
                   <div class="content-overlay end-0 top-0 pt-3 pe-3">
-                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
-                      placement="left" ngbTooltip="Add to Wishlist"><i class="fi-heart"></i></button>
-                  </div>
-                  <!-- </ngx-slick-carousel> -->
+                    <button
+                    class="btn btn-light btn-sm w-100"
+                    type="button"
+                    placement="left"
+                    ngbTooltip="Add to Wishlist">
+                    {{ data.location }}
+                  </button>
+                                    </div>
                   <ngx-slick-carousel [config]="config">
                     <div class="swiper-slide" ngxSlickItem>
                       <a [style.backgroundImage]="'url(' + data.image + ')'" class="image-link">
@@ -271,7 +273,7 @@
                   <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary">{{data.sale}}</h4>
                   <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link"
                       routerLink="/catalog/single-v1">{{data.title}}</a></h3>
-                  <p class="mb-2 fs-sm text-muted">{{data.address}}</p>
+                  <p class="mb-2 fs-sm text-muted">{{data.streetAddress}}</p>
                   <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>{{data.price}}
                   </div>
                 </div>

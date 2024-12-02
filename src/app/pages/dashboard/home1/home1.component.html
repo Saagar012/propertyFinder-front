@@ -131,16 +131,25 @@
               </div>
               
               <div class="content-overlay end-0 top-0 pt-3 pe-3">
-                <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fi-heart"></i></button>
-              </div><img src="{{data.image}}" alt="Image" class="fixed-image">
+                <button
+                class="btn btn-light btn-sm w-100"
+                type="button"
+                placement="left"
+                ngbTooltip="Add to Wishlist">
+                {{ data.location }}
+              </button>              </div><img src="{{data.image}}" alt="Image" class="fixed-image">
             </div>
             <div class="card-body position-relative pb-3">
               <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary">{{data.sale}}</h4>
               <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" [routerLink]="['/properties', data.id]">{{data.title}}</a></h3>
               <p class="mb-2 fs-sm text-muted">{{data.content | slice:0:50}}</p>
+              <p class="mb-md-4 mb-3 fs-sm">{{data.streetAddress}}</p>
               <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>{{data.price}}</div>
+              
             </div>
-            <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap"><span class="d-inline-block mx-1 px-2 fs-sm">{{data.bed}}<i class="fi-bed ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block mx-1 px-2 fs-sm">{{data.bath}}<i class="fi-bath ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block mx-1 px-2 fs-sm">{{data.car}}<i class="fi-car ms-1 mt-n1 fs-lg text-muted"></i></span></div>
+            <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+              <span class="d-inline-block mx-1 px-2 fs-sm">{{data.bed}}<i class="fi-bed ms-1 mt-n1 fs-lg text-muted"></i></span>
+              <span class="d-inline-block mx-1 px-2 fs-sm">{{data.bath}}<i class="fi-bath ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block mx-1 px-2 fs-sm">{{data.car}}<i class="fi-car ms-1 mt-n1 fs-lg text-muted"></i></span></div>
           </div>
         </div>
       </div>

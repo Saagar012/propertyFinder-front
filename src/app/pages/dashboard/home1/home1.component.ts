@@ -375,7 +375,7 @@ onSubmit() {
       property: item.propertyType,
       sale: item.category,
       content: item.description,
-      price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
+      price: item.totalPrice ? `$${item.totalPrice}` : 'N/A',
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',

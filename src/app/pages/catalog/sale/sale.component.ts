@@ -146,7 +146,7 @@ export class SaleComponent implements OnInit {
       location: item.city,
       property: item.propertyType,
       sale: item.category,
-      price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
+      price: item.totalPrice ? `$${item.totalPrice}` : 'N/A',
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
@@ -254,12 +254,14 @@ export class SaleComponent implements OnInit {
   * Range Slider Wise Data Filter
   */
   // Range Slider
-  minValue: number = 750;
-  maxValue: number = 2500;
+  minValue: number = 10000; // Minimum value for the slider
+  maxValue: number = 2000000; // Maximum value for the slider
   options: Options = {
-    floor: 300,
-    ceil: 5000
-  };
+    floor: 10000, // Minimum value displayed
+    ceil: 2000000, // Maximum value displayed
+    step: 10000, // Step interval
+    translate: (value: number): string => `$${value}` // Format tooltip to show currency
+  }
 
 
   valueChange(value: number, boundary: boolean): void {

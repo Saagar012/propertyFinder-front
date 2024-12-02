@@ -99,6 +99,11 @@ export class AddPropertyComponent implements OnInit {
         if (data.length > 0) {
           const lat = data[0].lat;
           const lon = data[0].lon;
+          // Update the form with latitude and longitude
+          this.propertyForm.patchValue({
+            latitude: lat,
+            longitude: lon
+          });
 
           // Remove the existing marker, if any
           if (this.marker) {
