@@ -16,7 +16,7 @@
           <h1 class="h2 mb-0">Add property</h1>
         </div>
         <!-- Basic info-->
-        <!-- <form [formGroup]="propertyForm" (ngSubmit)="propertySubmit()"> -->
+        <form [formGroup]="propertyForm" (ngSubmit)="propertySubmit()">
 
           <section class="card card-body border-0 shadow-sm p-4 mb-4" id="basic-info" #basicinfo>
             <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Basic info</h2>
@@ -227,7 +227,7 @@
           <section class="card card-body border-0 shadow-sm p-4 mb-4" id="price" #price>
             <h2 class="h4 mb-4"><i class="fi-cash text-primary fs-5 mt-n1 me-2"></i>Price</h2>
             <label class="form-label" for="ap-price">Price <span class="text-danger">*</span></label>
-            <div class="d-sm-flex" formGroupName="price">
+            <div class="d-sm-flex">
               <select class="form-select w-25 me-2 mb-2">
                 <option value="CAD">&#36;</option>
               </select>
@@ -307,7 +307,7 @@
               Property</button>
           </section>
 
-        <!-- </form> -->
+        </form>
       </div>
       <!-- Progress of completion-->
     </div>

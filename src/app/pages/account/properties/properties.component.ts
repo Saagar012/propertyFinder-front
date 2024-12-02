@@ -44,6 +44,7 @@ export class PropertiesComponent implements OnInit {
      (this.propertyService.fetchProperties().subscribe(response =>{
       if (response && response.data) { // Check if response has data property
         this.propertiesData = response.data.map((item: any) => this.transformProperty(item));
+        console.log('properties data', this.propertiesData);
       } else {
         console.error("No data found in response");
       }

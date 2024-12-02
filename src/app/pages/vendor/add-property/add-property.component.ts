@@ -70,6 +70,7 @@ export class AddPropertyComponent implements OnInit {
       latitude: [""],
       longitude: [""],
       status: ['AVAILABLE'],
+      amount: ["", [Validators.required, Validators.min(1)]],
       totalArea: ["", Validators.required],
       userId: [1], // Set this dynamically as needed
       contactInfo: this.fb.group({
@@ -78,7 +79,6 @@ export class AddPropertyComponent implements OnInit {
         email: ["", [Validators.required]],
         phoneNumber: ["", Validators.required]
       }),
-      amount: ["", [Validators.required, Validators.min(1)]],
     });
     this.initializeMap();
     var map = L.map('map').setView([48.3809, -89.2477], 13);
@@ -133,7 +133,9 @@ export class AddPropertyComponent implements OnInit {
   }
 
   propertySubmit() {
+
     // Call the signup service
+    console.log(this.propertyForm.value);
     if (this.propertyForm.invalid) {
       return;
     }

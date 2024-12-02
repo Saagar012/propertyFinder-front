@@ -200,7 +200,7 @@ export class SingleV1Component implements OnInit {
       image: item.images ? item.images[0] : '',
       status: item.status,
       verified_btn: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'Available' : 'Not Available',
-      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'danger' : 'danger',
+      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'success' : 'danger',
       title: item.title,
       sale: item.category,
       price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',

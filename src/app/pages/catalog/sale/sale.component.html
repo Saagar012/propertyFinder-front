@@ -185,13 +185,11 @@
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Additional options</h3>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="verified"
-                      (click)="additionalOptions($event,'Verified')">
+                    <input class="form-check-input" type="checkbox" id="verified">
                     <label class="form-check-label fs-sm" for="verified">Verified</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="featured"
-                      (click)="additionalOptions($event,'Featured')">
+                    <input class="form-check-input" type="checkbox" id="featured">
                     <label class="form-check-label fs-sm" for="featured">Featured</label>
                   </div>
                 </div>
@@ -247,9 +245,16 @@
               <div class="card shadow-sm card-hover border-0 h-100">
                 <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"
                      [routerLink]="['/properties', data.id]"> </a>
-                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class=""
-                      [ngClass]="{'d-table badge bg-success mb-1': data.verified_btn}">{{data.verified_btn}}</span><span
-                      class="d-table badge {{data.btn_color}}">{{data.btn}}</span></div>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3">
+                  
+                      <span class="d-table badge mb-1"
+                    [ngClass]="{'bg-success': data.status === 'VERIFIED', 'bg-danger': data.status !== 'VERIFIED'}">
+                    {{data.verified_btn}}
+                  </span>
+                    
+                    
+                    </div>
+
                   <div class="content-overlay end-0 top-0 pt-3 pe-3">
                     <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                       placement="left" ngbTooltip="Add to Wishlist"><i class="fi-heart"></i></button>

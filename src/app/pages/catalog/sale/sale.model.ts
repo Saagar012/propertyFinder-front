@@ -4,6 +4,7 @@
  export interface topOffer {
   id?:string;
   verified_btn: string;
+  status: string;
   btn?: string;
   btn_color?: string;
   image?:string;

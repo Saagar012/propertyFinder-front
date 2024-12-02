@@ -8,6 +8,7 @@ import { topOfferData } from './data';
 import { PropertyService } from 'src/app/core/services/property/property.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { StaticDataService } from 'src/app/core/services/static-data.service';
 
 @Component({
   selector: 'app-sale',
@@ -46,7 +47,7 @@ export class SaleComponent implements OnInit {
   ];
 
 
-  constructor(private propertyService: PropertyService, private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private propertyService: PropertyService, private fb: FormBuilder, private route: ActivatedRoute, private staticDataService: StaticDataService) {
     this.filterForm = this.fb.group({
       city: [''],
       country: [''],
@@ -107,6 +108,7 @@ export class SaleComponent implements OnInit {
       }
       this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
         if (response && response.data) {
+          console.log(response.data);
           this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
           this.topOfferDatas = Object.assign([], this.topOfferData);
           this.dataCount = response.pagination.totalItems;
@@ -121,7 +123,7 @@ export class SaleComponent implements OnInit {
   private _fetchData() {
     (this.propertyService.fetchProperties().subscribe(response => {
       if (response && response.data) { // Check if response has data property
-        console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
+        console.log("consoliing the tr  ansformed data", response.data.map((item: any) => this.transformProperty(item)));
         this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
         this.topOfferDatas = Object.assign([], this.topOfferData);
         this.dataCount = response.pagination.totalItems;
@@ -137,10 +139,8 @@ export class SaleComponent implements OnInit {
     return {
       id: item.id,
       image: item.images ? item.images[0] : '',
-      
-      verified_btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
-      btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',
-      
+      verified_btn: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED  ? 'Available' : 'Not Available',
+      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED  ? 'success' : 'danger',
       title: item.title,
       streetAddress: item.streetAddress,
       location: item.city,
@@ -150,7 +150,8 @@ export class SaleComponent implements OnInit {
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
-      metres: item.totalAreaInMeterSq
+      metres: item.totalAreaInMeterSq,
+      status:item.status
     };
   }
   /**
