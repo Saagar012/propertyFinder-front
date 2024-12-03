@@ -42,12 +42,12 @@ export const MENU: MenuItem[] = [
       id: 7,
       label: 'Account',
       subItems: [
-        {
-            id: 8,
-            label: 'Personal Info',
-            link: '/account/info',
-            parentId: 7
-        },
+        // {
+        //     id: 8,
+        //     label: 'Personal Info',
+        //     link: '/account/info',
+        //     parentId: 7
+        // },
         {
             id: 9,
             label: 'Password & Security',

@@ -315,10 +315,12 @@
         <i class="fi-calculator me-2"></i>Calculate
       </button>
     </form>
-        <!-- Display the calculated total approximate cost below the button -->
-        <div *ngIf="totalApproxCost !== null" class="mt-4 text-center">
-          <p><strong>Total Approximate Cost: </strong> {{ totalApproxCost }} </p>
-        </div>
+    <div *ngIf="totalApproxCost !== null" class="mt-4 text-center premium-cost-display">
+      <div class="p-4 shadow rounded bg-light">
+        <h4 class="text-primary fw-bold mb-2">Estimated Property Value</h4>
+        <p class="display-6 text-success mb-0">{{ totalApproxCost | currency:'USD' }}</p>
+      </div>
+    </div>
     
   </div>
 </ng-template>

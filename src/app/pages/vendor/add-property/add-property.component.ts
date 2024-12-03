@@ -72,7 +72,6 @@ export class AddPropertyComponent implements OnInit {
       status: ['AVAILABLE'],
       amount: ["", [Validators.required, Validators.min(1)]],
       totalArea: ["", Validators.required],
-      userId: [1], // Set this dynamically as needed
       contactInfo: this.fb.group({
         firstName: ["", Validators.required],
         lastName: ["", Validators.required],
@@ -123,11 +122,22 @@ export class AddPropertyComponent implements OnInit {
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.selectedImages.push(...Array.from(input.files));
-      console.log('Selected files:', this.selectedImages);
+      // Check if adding these files would exceed the limit of 6
+      const totalFiles = this.selectedImages.length + input.files.length;
+  
+      if (totalFiles <= 6) {
+        this.selectedImages.push(...Array.from(input.files));
+      } 
+      console.log("while selecting the image", this.selectedImages);
+
     }
   }
-
+  
+  removeFile(index: number) {
+    this.selectedImages.splice(index, 1); // Remove the file at the specified index
+    console.log("after removing the image", this.selectedImages);
+  }
+  
   initializeMap(): void {
     this.map = L.map('map').setView([48.3809, -89.2477], 13);
 
