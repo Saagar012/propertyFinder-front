@@ -21,7 +21,10 @@ export class PropertiesComponent implements OnInit {
   propertiesData!: properties[];
   username: string | null = null;
   email: string | null = null;
-
+  dataCount: any;
+  currentPage: any;
+  totalPages: any;
+  pageNumbers:any;
   constructor(private propertyService: PropertyService,private authService: AuthService, private staticDataService: StaticDataService) { }
 
   ngOnInit(): void {
@@ -40,16 +43,28 @@ export class PropertiesComponent implements OnInit {
   }
 
   // Chat Data Fetch
-  private _fetchData() {
-     (this.propertyService.fetchProperties().subscribe(response =>{
+  private _fetchData(page:number = 1) {
+     (this.propertyService.fetchProperties(page).subscribe(response =>{
       if (response && response.data) { // Check if response has data property
         this.propertiesData = response.data.map((item: any) => this.transformProperty(item));
-        console.log('properties data', this.propertiesData);
-      } else {
+        this.dataCount = response.pagination.pageSize;
+        this.currentPage = response.pagination.currentPage;
+        this.totalPages = response.pagination.totalPages;
+      // Generate the page numbers for navigation
+      this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+      console.log(this.pageNumbers);
+    } else {
         console.error("No data found in response");
       }
     }));
 
+  }
+  goToPage(page: number) {
+    console.log("page", page);
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this._fetchData(page); // Refetch data for the selected page
+    }
   }
   private fetchUserData(){
     if(localStorage.getItem('user')){

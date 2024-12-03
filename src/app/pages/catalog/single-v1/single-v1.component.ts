@@ -272,7 +272,6 @@ export class SingleV1Component implements OnInit {
       };
       (this.emailService.propertyRequest(formData).subscribe(response => {
         if (response && response.data) {
-          console.log("response data", response.data);
           Swal.fire({
             title: response.data.info,
             icon: 'success',
