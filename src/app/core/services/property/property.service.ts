@@ -42,7 +42,7 @@ export class PropertyService {
 
 
 
-  getFilteredProperties(filters: any, page: number = 1, limit: number = 10): Observable<any> {
+  getFilteredProperties(filters: any, page: number = 1, limit: number = 9): Observable<any> {
     let params = new HttpParams();
 
     // Add each filter to query params

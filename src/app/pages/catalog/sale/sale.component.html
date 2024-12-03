@@ -37,39 +37,40 @@
                   <h3 class="h6">Property type</h3>
                   <ngx-simplebar style="height: 6rem;" class="overflow-auto">
                     <div class="form-check">
-                      <input class="form-check-input" value="HOUSE" type="checkbox" id="house" (change)="changeProperty($event, 'HOUSE')" />
+                      <input class="form-check-input" value="HOUSE" type="checkbox" id="house"
+                        (change)="changeProperty($event, 'HOUSE')" />
                       <label class="form-check-label fs-sm" for="house">House</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" value="APARTMENT" type="checkbox" id="apartment" (change)="changeProperty($event, 'APARTMENT')" />
+                      <input class="form-check-input" value="APARTMENT" type="checkbox" id="apartment"
+                        (change)="changeProperty($event, 'APARTMENT')" />
                       <label class="form-check-label fs-sm" for="apartment">Apartment</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" value="COMMERCIAL" type="checkbox" id="commercial" (change)="changeProperty($event, 'COMMERCIAL')" />
+                      <input class="form-check-input" value="COMMERCIAL" type="checkbox" id="commercial"
+                        (change)="changeProperty($event, 'COMMERCIAL')" />
                       <label class="form-check-label fs-sm" for="commercial">Commercial</label>
                     </div>
                   </ngx-simplebar>
                 </div>
-                
+
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Price per month</h3>
-                  <div class="range-slider" data-start-min="50000" data-start-max="100000000" data-min="50000" data-max="100000000"
-                    data-step="10000">
+                  <div class="range-slider" data-start-min="50000" data-start-max="100000000" data-min="50000"
+                    data-max="100000000" data-step="10000">
                     <ngx-slider [enableVirtualization]="true" [step]="10000" [(value)]="minValue"
                       [(highValue)]="maxValue" [options]="options" (valueChange)="valueChange($event,true)"
                       (highValueChange)="valueChange($event,false)"></ngx-slider>
                     <div class="d-flex align-items-center">
                       <div class="w-50 pe-2">
                         <div class="input-group"><span class="input-group-text fs-base">$</span>
-                          <input class="form-control range-slider-value-min" type="text"
-                            formControlName="minPrice">
+                          <input class="form-control range-slider-value-min" type="text" formControlName="minPrice">
                         </div>
                       </div>
                       <div class="text-muted">&mdash;</div>
                       <div class="w-50 ps-2">
                         <div class="input-group"><span class="input-group-text fs-base">$</span>
-                          <input class="form-control range-slider-value-max" type="text"
-                            formControlName="maxPrice">
+                          <input class="form-control range-slider-value-max" type="text" formControlName="maxPrice">
                         </div>
                       </div>
                     </div>
@@ -84,22 +85,29 @@
                     <input class="btn-check" type="radio" id="bedrooms-1" formControlName="bedrooms" name="bedrooms"
                       (change)="onRoomsSelection('1', true)">
                     <label class="btn btn-outline-secondary fw-normal" for="bedrooms-1">1</label>
-                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-2" (change)="onRoomsSelection('2', true)" name="bedrooms">
+                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-2"
+                      (change)="onRoomsSelection('2', true)" name="bedrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bedrooms-2">2</label>
-                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-3"  (change)="onRoomsSelection('3', true)" name="bedrooms">
+                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-3"
+                      (change)="onRoomsSelection('3', true)" name="bedrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bedrooms-3">3</label>
-                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-4" (change)="onRoomsSelection('4', true)" name="bedrooms">
+                    <input class="btn-check" formControlName="bedrooms" type="radio" id="bedrooms-4"
+                      (change)="onRoomsSelection('4', true)" name="bedrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bedrooms-4">4+</label>
                   </div>
                   <label class="d-block fs-sm pt-2 my-1">Bathrooms</label>
                   <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of bathrooms">
-                    <input class="btn-check" type="radio" id="bathrooms-1" (change)="onRoomsSelection('1', false)" name="bathrooms">
+                    <input class="btn-check" type="radio" id="bathrooms-1" (change)="onRoomsSelection('1', false)"
+                      name="bathrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bathrooms-1">1</label>
-                    <input class="btn-check" type="radio" id="bathrooms-2" (change)="onRoomsSelection('2', false)" name="bathrooms">
+                    <input class="btn-check" type="radio" id="bathrooms-2" (change)="onRoomsSelection('2', false)"
+                      name="bathrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bathrooms-2">2</label>
-                    <input class="btn-check" type="radio" id="bathrooms-3" (change)="onRoomsSelection('3', false)" name="bathrooms">
+                    <input class="btn-check" type="radio" id="bathrooms-3" (change)="onRoomsSelection('3', false)"
+                      name="bathrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bathrooms-3">3</label>
-                    <input class="btn-check" type="radio" id="bathrooms-4" (change)="onRoomsSelection('4', false)" name="bathrooms">
+                    <input class="btn-check" type="radio" id="bathrooms-4" (change)="onRoomsSelection('4', false)"
+                      name="bathrooms">
                     <label class="btn btn-outline-secondary fw-normal" for="bathrooms-4">4</label>
                   </div>
                 </div>
@@ -107,31 +115,27 @@
                   <h3 class="h6 pt-1">Square metres</h3>
                   <div class="d-flex align-items-center">
                     <input class="form-control w-100" type="number" min="20" max="500" step="10" placeholder="Min"
-                      id="minValue" (keyup)="metresSearch()" formControlName="minArea" >
+                      id="minValue" (keyup)="metresSearch()" formControlName="minArea">
                     <div class="mx-2">&mdash;</div>
-                    <input class="form-control w-100" type="number" min="20" max="500" step="10" placeholder="Max" formControlName="maxArea" 
-
-                      id="maxValue" (keyup)="metresSearch()">
+                    <input class="form-control w-100" type="number" min="20" max="500" step="10" placeholder="Max"
+                      formControlName="maxArea" id="maxValue" (keyup)="metresSearch()">
                   </div>
                 </div>
-                
+
                 <div class="pb-4 mb-2 simplebar-scroll-show">
                   <h3 class="h6">Amenities</h3>
                   <ngx-simplebar style="height: 11rem;" class="overflow-auto">
                     <div class="form-check" *ngFor="let amenity of amenityKeys">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
+                      <input class="form-check-input" type="checkbox"
                         [checked]="filterForm.get('amenities.' + amenity.key)?.value"
-                        (change)="onAmenityChange(amenity.key,$event)"          
-                      />
+                        (change)="onAmenityChange(amenity.key,$event)" />
                       <label class="form-check-label fs-sm" [for]="amenity.key">{{ amenity.label }}</label>
                     </div>
                   </ngx-simplebar>
                 </div>
-                  
-               
-                    <!-- <ngx-simplebar style="height: 11rem;" class="overflow-auto">
+
+
+                <!-- <ngx-simplebar style="height: 11rem;" class="overflow-auto">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="air-condition"
                           (click)="AmenitiesFilter($event,'air-condition')">
@@ -244,24 +248,21 @@
             <div class="col-sm-6 col-xl-4">
               <div class="card shadow-sm card-hover border-0 h-100">
                 <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"
-                     [routerLink]="['/properties', data.id]"> </a>
+                    [routerLink]="['/properties', data.id]"> </a>
                   <div class="position-absolute start-0 top-0 pt-3 ps-3">
-                  
-                      <span class="d-table badge mb-1"
-                    [ngClass]="{'bg-success': data.status === 'VERIFIED', 'bg-danger': data.status !== 'VERIFIED'}">
-                    {{data.verified_btn}}
-                  </span>
-                    </div>
+
+                    <span class="d-table badge mb-1"
+                      [ngClass]="{'bg-success': data.status === 'VERIFIED', 'bg-danger': data.status !== 'VERIFIED'}">
+                      {{data.verified_btn}}
+                    </span>
+                  </div>
 
                   <div class="content-overlay end-0 top-0 pt-3 pe-3">
-                    <button
-                    class="btn btn-light btn-sm w-100"
-                    type="button"
-                    placement="left"
-                    ngbTooltip="Add to Wishlist">
-                    {{ data.location }}
-                  </button>
-                                    </div>
+                    <button class="btn btn-light btn-sm w-100" type="button" placement="left"
+                      ngbTooltip="Add to Wishlist">
+                      {{ data.location }}
+                    </button>
+                  </div>
                   <ngx-slick-carousel [config]="config">
                     <div class="swiper-slide" ngxSlickItem>
                       <a [style.backgroundImage]="'url(' + data.image + ')'" class="image-link">
@@ -289,19 +290,30 @@
             }
           </div>
           <!-- Pagination-->
+   
           <nav class="border-top pb-md-4 pt-4 mt-2" aria-label="Pagination">
             <ul class="pagination mb-1">
-              <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>
-              <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span
-                    class="visually-hidden">(current)</span></span></li>
-              <li class="page-item d-none d-sm-block"><a class="page-link" href="javascript:void(0);">2</a></li>
-              <li class="page-item d-none d-sm-block"><a class="page-link" href="javascript:void(0);">3</a></li>
-              <li class="page-item d-none d-sm-block">...</li>
-              <li class="page-item d-none d-sm-block"><a class="page-link" href="javascript:void(0);">8</a></li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0);" aria-label="Next"><i
-                    class="fi-chevron-right"></i></a></li>
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" href="javascript:void(0);" (click)="goToPage(currentPage - 1)"
+                  aria-label="Previous">
+                  <i class="fi-chevron-left"></i>
+                </a>
+              </li>
+
+              <!-- Dynamically generate page numbers -->
+              <li *ngFor="let page of pageNumbers" class="page-item" [class.active]="page === currentPage">
+                <a class="page-link" href="javascript:void(0);" (click)="goToPage(page)">{{ page }}</a>
+              </li>
+
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" href="javascript:void(0);" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                  <i class="fi-chevron-right"></i>
+                </a>
+              </li>
             </ul>
           </nav>
+
+
         </div>
 
       </div>

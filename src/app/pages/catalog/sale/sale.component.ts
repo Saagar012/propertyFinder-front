@@ -27,6 +27,10 @@ export class SaleComponent implements OnInit {
   longitude = 20.728218;
   latitude = 52.128973;
   dataCount: any;
+  currentPage: any;
+  totalPages: any;
+  pageNumbers:any;
+
   checkedVal: any[] = [];
   filterForm: FormGroup;
   category: string | null = null;
@@ -91,7 +95,7 @@ export class SaleComponent implements OnInit {
     this._fetchDataFromParams();
 
   }
-  private _fetchDataFromParams() {
+  private _fetchDataFromParams(page:number = 1) {
     // Get the category query parameter
     this.route.queryParams.subscribe((params) => {
       const propertyType = params['propertyType'] || null;
@@ -106,12 +110,16 @@ export class SaleComponent implements OnInit {
        if (city) {
         this.filterForm.patchValue({ city: city }); // Add category to the form        
       }
-      this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
+      this.propertyService.getFilteredProperties(this.filterForm.value, page).subscribe((response) => {
         if (response && response.data) {
           console.log(response.data);
           this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
           this.topOfferDatas = Object.assign([], this.topOfferData);
-          this.dataCount = response.pagination.totalItems;
+          this.dataCount = response.pagination.pageSize;
+          this.currentPage = response.pagination.currentPage;
+          this.totalPages = response.pagination.totalPages;
+        // Generate the page numbers for navigation
+        this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
         } else {
           console.error("No data found in response");
         }
@@ -134,7 +142,15 @@ export class SaleComponent implements OnInit {
     }));
   }
 
-
+  goToPage(page: number) {
+    console.log("clicked");
+    console.log("page", page);
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this._fetchDataFromParams(page); // Refetch data for the selected page
+    }
+  }
+  
   private transformProperty(item: any): topOffer {
     return {
       id: item.id,
@@ -247,9 +263,6 @@ export class SaleComponent implements OnInit {
 
 
   }
-
-
-
   /**
   * Range Slider Wise Data Filter
   */
@@ -278,6 +291,7 @@ export class SaleComponent implements OnInit {
           this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
           this.topOfferDatas = [...this.topOfferData];
           this.dataCount = response.pagination.totalItems;
+        
 
         } else {
           console.error("No data found in response");
