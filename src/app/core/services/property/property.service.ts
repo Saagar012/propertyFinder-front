@@ -30,14 +30,17 @@ export class PropertyService {
 
   }
   // Fetch properties method
-  fetchProperties(): Observable<any> {
+  fetchProperties(page: number = 1, limit: number = 4): Observable<any> {
+    let params = new HttpParams();
     const token = localStorage.getItem('authToken');
-
+    params = params.append('page', page.toString());
+    params = params.append('limit', limit.toString());
+  
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.get(`${baseUrl}property`, { headers });
+    return this.http.get(`${baseUrl}property`, { headers, params });
   } 
 
 
