@@ -8,6 +8,7 @@ import { topOfferData } from './data';
 import { PropertyService } from 'src/app/core/services/property/property.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { StaticDataService } from 'src/app/core/services/static-data.service';
 
 @Component({
   selector: 'app-sale',
@@ -26,6 +27,10 @@ export class SaleComponent implements OnInit {
   longitude = 20.728218;
   latitude = 52.128973;
   dataCount: any;
+  currentPage: any;
+  totalPages: any;
+  pageNumbers:any;
+
   checkedVal: any[] = [];
   filterForm: FormGroup;
   category: string | null = null;
@@ -46,7 +51,7 @@ export class SaleComponent implements OnInit {
   ];
 
 
-  constructor(private propertyService: PropertyService, private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private propertyService: PropertyService, private fb: FormBuilder, private route: ActivatedRoute, private staticDataService: StaticDataService) {
     this.filterForm = this.fb.group({
       city: [''],
       country: [''],
@@ -90,7 +95,7 @@ export class SaleComponent implements OnInit {
     this._fetchDataFromParams();
 
   }
-  private _fetchDataFromParams() {
+  private _fetchDataFromParams(page:number = 1) {
     // Get the category query parameter
     this.route.queryParams.subscribe((params) => {
       const propertyType = params['propertyType'] || null;
@@ -105,11 +110,16 @@ export class SaleComponent implements OnInit {
        if (city) {
         this.filterForm.patchValue({ city: city }); // Add category to the form        
       }
-      this.propertyService.getFilteredProperties(this.filterForm.value).subscribe((response) => {
+      this.propertyService.getFilteredProperties(this.filterForm.value, page).subscribe((response) => {
         if (response && response.data) {
+          console.log(response.data);
           this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
           this.topOfferDatas = Object.assign([], this.topOfferData);
-          this.dataCount = response.pagination.totalItems;
+          this.dataCount = response.pagination.pageSize;
+          this.currentPage = response.pagination.currentPage;
+          this.totalPages = response.pagination.totalPages;
+        // Generate the page numbers for navigation
+        this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
         } else {
           console.error("No data found in response");
         }
@@ -121,7 +131,7 @@ export class SaleComponent implements OnInit {
   private _fetchData() {
     (this.propertyService.fetchProperties().subscribe(response => {
       if (response && response.data) { // Check if response has data property
-        console.log("consoliing the transformed data", response.data.map((item: any) => this.transformProperty(item)));
+        console.log("consoliing the tr  ansformed data", response.data.map((item: any) => this.transformProperty(item)));
         this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
         this.topOfferDatas = Object.assign([], this.topOfferData);
         this.dataCount = response.pagination.totalItems;
@@ -132,25 +142,32 @@ export class SaleComponent implements OnInit {
     }));
   }
 
-
+  goToPage(page: number) {
+    console.log("clicked");
+    console.log("page", page);
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this._fetchDataFromParams(page); // Refetch data for the selected page
+    }
+  }
+  
   private transformProperty(item: any): topOffer {
     return {
       id: item.id,
       image: item.images ? item.images[0] : '',
-      
-      verified_btn: item.status === 'AVAILABLE' ? 'Available' : 'Not Available',
-      btn_color: item.status === 'AVAILABLE' ? 'green' : 'red',
-      
+      verified_btn: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED  ? 'Available' : 'Not Available',
+      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED  ? 'success' : 'danger',
       title: item.title,
       streetAddress: item.streetAddress,
       location: item.city,
       property: item.propertyType,
       sale: item.category,
-      price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
+      price: item.totalPrice ? `$${item.totalPrice}` : 'N/A',
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
-      metres: item.totalAreaInMeterSq
+      metres: item.totalAreaInMeterSq,
+      status:item.status
     };
   }
   /**
@@ -246,19 +263,18 @@ export class SaleComponent implements OnInit {
 
 
   }
-
-
-
   /**
   * Range Slider Wise Data Filter
   */
   // Range Slider
-  minValue: number = 750;
-  maxValue: number = 2500;
+  minValue: number = 10000; // Minimum value for the slider
+  maxValue: number = 2000000; // Maximum value for the slider
   options: Options = {
-    floor: 300,
-    ceil: 5000
-  };
+    floor: 10000, // Minimum value displayed
+    ceil: 2000000, // Maximum value displayed
+    step: 10000, // Step interval
+    translate: (value: number): string => `$${value}` // Format tooltip to show currency
+  }
 
 
   valueChange(value: number, boundary: boolean): void {
@@ -275,6 +291,7 @@ export class SaleComponent implements OnInit {
           this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
           this.topOfferDatas = [...this.topOfferData];
           this.dataCount = response.pagination.totalItems;
+        
 
         } else {
           console.error("No data found in response");

@@ -1,4 +1,4 @@
-  import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Range Slider
@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PropertyService } from 'src/app/core/services/property/property.service';
 import { StaticDataService } from 'src/app/core/services/static-data.service';
 import { Route, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-index',
@@ -33,11 +35,21 @@ export class Home1Component implements OnInit {
   // topOfferDatas: any;
   dataCount: any;
   propertyStatus: string = '';
-  selectedType: string = 'SALE'; 
-  selectedLocation: string = ''; 
-  selectedPropertyType: string = ''; 
+  selectedType: string = 'SALE';
+  selectedLocation: string = '';
+  selectedPropertyType: string = '';
+  calculateMortageForm!: FormGroup;
+  totalApproxCost: string | null = null; 
 
-  constructor(private modalService: NgbModal, private authService: AuthService, private router: Router, private propertyService: PropertyService, private staticDataService: StaticDataService) { }
+  constructor(private modalService: NgbModal, private fb: FormBuilder, private authService: AuthService, private router: Router, private propertyService: PropertyService, private staticDataService: StaticDataService) {
+
+    this.calculateMortageForm = this.fb.group({
+      city: ['', Validators.required],
+      propertyType: ['', Validators.required],
+      area: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], // Only numbers allowed
+    });
+
+  }
 
   ngOnInit(): void {
     // Chat Data Get Function
@@ -74,14 +86,41 @@ export class Home1Component implements OnInit {
     this.agentsData = agentsData;
     this.servicesData = servicesData;
     this.companiesData = companiesData;
+
   }
+// Method to submit the form and send the data to the backend
+onSubmit() {
+  if (this.calculateMortageForm.valid) {
+    const formData = this.calculateMortageForm.value; // Data from the form
+
+    // Call the calculateMortgage method and subscribe to the response
+    this.propertyService.calculateMortgage(formData).subscribe(
+      (response) => {
+        // Handle the response when mortgage is calculated
+        this.totalApproxCost = response.totalApproxCost;
+      },
+      (error) => {
+        // Handle the error, maybe show an error message
+        Swal.fire({
+          title: 'No Properties Found!',
+          text: 'No properties found with the specified area to calculate the approximate price.',
+          icon: 'info',
+          confirmButtonText: 'Try Again'
+        });
+      }
+    );
+  } else {
+    console.error("Form is invalid, cannot submit.");
+  }
+}
+
 
   /**
    * Swiper setting
    */
   config = {
     infinite: true,        // Optional: Enables infinite loop
-    dots:true,
+    dots: true,
     slidesToShow: 4,       // Number of slides to show initially
     slidesToScroll: 1,     // Number of slides to scroll at a time
     variableWidth: false,  // Optional: Set to true if slides have varying widths
@@ -190,7 +229,7 @@ export class Home1Component implements OnInit {
   /**
   * Portfolio Modern Data
   */
-  filterredImages: { id: string ; image: string; verified_btn?: string; btn: string; btn_color: string; sale: string; title: string; streetAddress: string; price: string; status: string; category: string; }[] | undefined;
+  filterredImages: { id: string; image: string; verified_btn?: string; btn: string; btn_color: string; sale: string; title: string; streetAddress: string; price: string; status: string; category: string; }[] | undefined;
   galleryFilter = 'Houses';
   list = [{
     image: 'assets/img/real-estate/recent/01.jpg',
@@ -238,7 +277,7 @@ export class Home1Component implements OnInit {
   },
   {
     image: 'assets/img/real-estate/recent/02.jpg',
-    verified_btn: '', 
+    verified_btn: '',
     btn: "New",
     btn_color: "bg-info",
     sale: 'For sale',
@@ -266,8 +305,8 @@ export class Home1Component implements OnInit {
   */
   activeCategory(type: string) {
     this.galleryFilter = type;
-    const filters = { propertyType: [type], latestProperty: true  };
-    (this.propertyService.getFilteredProperties(filters,1,4).subscribe(response => {
+    const filters = { propertyType: [type], latestProperty: true };
+    (this.propertyService.getFilteredProperties(filters, 1, 4).subscribe(response => {
       if (response && response.data) { // Check if response has data property
         this.filterredImages = response.data.map((item: any) => this.transformProperty(item));
 
@@ -289,7 +328,7 @@ export class Home1Component implements OnInit {
     }
   }
 
-  
+
   onSearch(): void {
     // Prepare query parameters
     const queryParams = {
@@ -311,7 +350,7 @@ export class Home1Component implements OnInit {
   private fetchTopofferData() {
     const filterData = { topOffer: true };
 
-    (this.propertyService.getFilteredProperties(filterData,1,4).subscribe(response => {
+    (this.propertyService.getFilteredProperties(filterData, 1, 4).subscribe(response => {
       if (response && response.data) { // Check if response has data property
         this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
         this.dataCount = response.pagination.totalItems;
@@ -335,8 +374,8 @@ export class Home1Component implements OnInit {
       location: item.city,
       property: item.propertyType,
       sale: item.category,
-      content:item.description,
-      price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
+      content: item.description,
+      price: item.totalPrice ? `$${item.totalPrice}` : 'N/A',
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',

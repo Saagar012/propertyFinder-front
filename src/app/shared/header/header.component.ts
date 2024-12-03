@@ -278,16 +278,36 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem('authToken', response.token);
 
         Swal.fire({
-          title: 'Login Successful!',
+          title: '<strong>Welcome Back!</strong>',
+          html: '<p style="font-size: 1.1rem; color: #6c757d;">You have successfully logged in.</p>',
           icon: 'success',
-          confirmButtonText: 'OK'
+          confirmButtonText: '<span style="font-size: 1rem; padding: 0.5rem 1.5rem;">Proceed</span>',
+          customClass: {
+            popup: 'custom-swal-popup',
+            title: 'custom-swal-title',
+            confirmButton: 'custom-swal-confirm-button',
+            icon: 'custom-swal-icon'
+          }
         });
         this.modalService.dismissAll('Login Successful');
-
+        
       },
       error: (error) => {
         this.errorMessage = 'Login failed. Please try again.';
-        alert(this.errorMessage);
+        this.errorMessage = 'Login failed. Please try again.';
+        Swal.fire({
+          title: '<strong>Login Failed</strong>',
+          html: '<p style="font-size: 1.1rem; color: #dc3545;">Please check your credentials and try again.</p>',
+          icon: 'error',
+          confirmButtonText: '<span style="font-size: 1rem; padding: 0.5rem 1.5rem;">Retry</span>',
+          customClass: {
+            popup: 'custom-swal-error-popup',
+            title: 'custom-swal-error-title',
+            confirmButton: 'custom-swal-error-confirm-button',
+            icon: 'custom-swal-error-icon'
+          }
+        });
+      
       }
     });
     }

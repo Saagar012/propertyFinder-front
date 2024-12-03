@@ -200,10 +200,10 @@ export class SingleV1Component implements OnInit {
       image: item.images ? item.images[0] : '',
       status: item.status,
       verified_btn: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'Available' : 'Not Available',
-      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'danger' : 'danger',
+      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'success' : 'danger',
       title: item.title,
       sale: item.category,
-      price: item.totalPrice ? `$${item.totalPrice} per annum` : 'N/A',
+      price: item.totalPrice ? `$${item.totalPrice}` : 'N/A',
       bed: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',
       bath: item.bathrooms ? `${item.bathrooms} Bath` : 'N/A',
       car: item.parkingSpots ? `${item.parkingSpots} Parking` : 'N/A',
@@ -268,10 +268,8 @@ export class SingleV1Component implements OnInit {
     if (this.validationform.valid) {
       const formData = {
         ...this.validationform.value,
-        ownerEmail: this.propertiesData.contactInfo?.email// Replace with the actual owner's email
+        ownerEmail: this.propertiesData.contactInfo?.email
       };
-
-      console.log("consoling the form data value", formData);
       (this.emailService.propertyRequest(formData).subscribe(response => {
         if (response && response.data) {
           console.log("response data", response.data);
