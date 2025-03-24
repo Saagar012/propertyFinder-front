@@ -30,6 +30,8 @@ export class SaleComponent implements OnInit {
   currentPage: any;
   totalPages: any;
   pageNumbers:any;
+  limit: number = 4;
+  page: number = 1;
 
   checkedVal: any[] = [];
   filterForm: FormGroup;
@@ -129,9 +131,8 @@ export class SaleComponent implements OnInit {
   }
   // Data Fetch
   private _fetchData() {
-    (this.propertyService.fetchProperties().subscribe(response => {
+    (this.propertyService.fetchProperties(this.page, this.limit, this.staticDataService.PROPERTY_STATUS.ALL_STATUS).subscribe(response => {
       if (response && response.data) { // Check if response has data property
-        console.log("consoliing the tr  ansformed data", response.data.map((item: any) => this.transformProperty(item)));
         this.topOfferData = response.data.map((item: any) => this.transformProperty(item));
         this.topOfferDatas = Object.assign([], this.topOfferData);
         this.dataCount = response.pagination.totalItems;

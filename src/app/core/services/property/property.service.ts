@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { filter } from 'lodash';
 import { Observable } from 'rxjs';
 import { baseUrl } from 'src/environments/environment';
 
@@ -30,15 +29,18 @@ export class PropertyService {
 
   }
   // Fetch properties method
-  fetchProperties(page: number = 1, limit: number = 4): Observable<any> {
+  fetchProperties(page: number = 1, limit: number = 4, status: string): Observable<any> {
     let params = new HttpParams();
     const token = localStorage.getItem('authToken');
     params = params.append('page', page.toString());
     params = params.append('limit', limit.toString());
-  
+    params = params.append('status', status);
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+
+    console.log("consoling the property status", status)
   
     return this.http.get(`${baseUrl}property`, { headers, params });
   } 

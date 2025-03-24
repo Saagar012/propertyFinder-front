@@ -26,6 +26,7 @@ export class PropertiesComponent implements OnInit {
   totalPages: any;
   pageNumbers:any;
   constructor(private propertyService: PropertyService,private authService: AuthService, private staticDataService: StaticDataService) { }
+  limit: number = 4;
 
   ngOnInit(): void {
     /**
@@ -38,13 +39,13 @@ export class PropertiesComponent implements OnInit {
     ];
 
     // Chat Data Get Function
-    this._fetchData();
+    this._fetchData(1, this.staticDataService.PROPERTY_STATUS.ALL_STATUS);
     this.fetchUserData();
   }
 
   // Chat Data Fetch
-  private _fetchData(page:number = 1) {
-     (this.propertyService.fetchProperties(page).subscribe(response =>{
+  public _fetchData(page:number = 1, status: string) {
+     (this.propertyService.fetchProperties(page, this.limit, status).subscribe(response =>{
       if (response && response.data) { // Check if response has data property
         this.propertiesData = response.data.map((item: any) => this.transformProperty(item));
         this.dataCount = response.pagination.pageSize;
@@ -52,18 +53,17 @@ export class PropertiesComponent implements OnInit {
         this.totalPages = response.pagination.totalPages;
       // Generate the page numbers for navigation
       this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-      console.log(this.pageNumbers);
     } else {
         console.error("No data found in response");
       }
     }));
 
   }
+
   goToPage(page: number) {
-    console.log("page", page);
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this._fetchData(page); // Refetch data for the selected page
+      this._fetchData(page,this.staticDataService.PROPERTY_STATUS.ALL_STATUS ); // Refetch data for the selected page
     }
   }
   private fetchUserData(){

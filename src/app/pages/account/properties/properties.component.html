@@ -41,9 +41,16 @@
       <!-- Nav tabs-->
       <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs border-bottom mb-4">
         <li [ngbNavItem]="1" class="nav-item mb-3">
-          <a ngbNavLink>
-            <i class="fi-file fs-base me-2"></i>Published
-          </a>
+          <div style="display: flex; gap: 10px;">
+            <a  style="cursor: pointer;" (click)="_fetchData(1, 'ALL')">
+              <i class="fi-file fs-base me-2"></i>Published
+            </a>
+            <a  style="cursor: pointer;" (click)="_fetchData(1, 'REJECTED')">
+              <i class="fi-file fs-base me-2"></i>Rejected
+            </a>
+          </div>
+          
+      
           <ng-template ngbNavContent>
             <!-- Item-->
             @for(data of propertiesData;track $index){
