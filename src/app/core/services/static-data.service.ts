@@ -17,6 +17,9 @@ export class StaticDataService {
     VERIFIED: 'VERIFIED',
     SOLD_OUT: 'SOLD',
     EXPIRED: 'EXPIRED',
+    REJECTED: 'REJECTED',
+    ALL_STATUS: 'ALL',
+
   };
 
 }
