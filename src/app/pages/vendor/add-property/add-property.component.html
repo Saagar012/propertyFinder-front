@@ -1,0 +1,443 @@
+<main class="page-wrapper">
+  <!-- Header-->
+  <app-header id="top"></app-header>
+
+  <!-- Page container-->
+
+  <div class="container mt-5 mb-md-4 py-5">
+    <div class="row">
+      <!-- Page content-->
+      <div class="col-lg-8">
+        <!-- Breadcrumb-->
+        <app-breadcrumbs [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+        <!-- Title-->
+
+        <div class="mb-4">
+          <h1 class="h2 mb-0">Add property</h1>
+        </div>
+        <!-- Basic info-->
+        <form [formGroup]="propertyForm" (ngSubmit)="propertySubmit()">
+
+          <section class="card card-body border-0 shadow-sm p-4 mb-4" id="basic-info" #basicinfo>
+            <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Basic info</h2>
+            <div class="mb-3">
+              <label class="form-label" for="ap-title">Title <span class="text-danger">*</span></label>
+              <input class="form-control" formControlName="title" type="text" id="ap-title"
+                placeholder="Title for your property" required><span class="form-text">48 characters left</span>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-category">Category <span class="text-danger">*</span></label>
+                <select formControlName="category" class="form-select" id="ap-category" required>
+                  <option value="" disabled hidden>Choose category</option>
+                  <!-- <option value="RENT">For rent</option> -->
+                  <option value="SALE">For sale</option>
+                </select>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-type">Property type <span class="text-danger">*</span></label>
+                <select formControlName="propertyType" class="form-select" id="ap-type" required>
+                  <option value="" disabled hidden>Choose property type</option>
+                  <option value="APARTMENT">Apartment</option>
+                  <option value="HOUSE">House</option>
+                  <option value="COMMERCIAL">Commercial</option>
+
+                </select>
+              </div>
+            </div>
+          </section>
+          <!-- Location-->
+          <section class="card card-body border-0 shadow-sm p-4 mb-4" id="location" #location>
+            <h2 class="h4 mb-4"><i class="fi-map-pin text-primary fs-5 mt-n1 me-2"></i>Location</h2>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-country">Country / region <span class="text-danger">*</span></label>
+                <select formControlName="country" class="form-select" id="ap-country" required>
+                  <option value="" disabled>Choose country</option>
+                  <option value="Canada">Canada</option>
+                </select>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-city">City <span class="text-danger">*</span></label>
+                <select formControlName="city" class="form-select" id="ap-city" required>
+                  <option value="" disabled>Choose city</option>
+                  <option value="Thunder Bay" selected>Thunder Bay</option>
+                  <option value="Toronto">Toronto</option>
+                  <option value="British Colombia">British Colombia</option>
+                  <option value="Vancouver">Vancouver</option>
+                  <option value="Calgary">Calgary</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-zip">Zip code <span class="text-danger">*</span></label>
+                <input formControlName="zipCode" class="form-control" type="text" id="ap-zip"
+                  placeholder="Enter Zip code" required>
+              </div>
+            </div>
+
+
+            <div class="col-sm-12 mb-3">
+              <label for="location-input">Enter Location:</label>
+              <div class="input-group mb-3">
+                <input type="text" formControlName = "streetAddress" id="location-input" placeholder="Enter a location" class="form-control">
+                <button (click)="searchLocation()" class="btn btn-outline-secondary btn-sm">
+                  <i class="fas fa-search"></i>
+                </button>
+                
+              </div>
+              <div id="map" style="height: 350px;"></div>
+            </div>
+
+
+
+          </section>
+          <!-- Property details-->
+          <section class="card card-body border-0 shadow-sm p-4 mb-4" id="details" #details>
+            <h2 class="h4 mb-4"><i class="fi-edit text-primary fs-5 mt-n1 me-2"></i>Property details</h2>
+            <div class="mb-4" style="max-width: 25rem;">
+              <label class="form-label" for="ap-area">Total area, sq.m</label>
+              <input formControlName="totalArea" class="form-control" type="number" id="ap-area"
+                placeholder="Enter your area" required>
+            </div>
+            <div class="mb-4">
+              <label class="form-label d-block fw-bold mb-2 pb-1">Bedrooms</label>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of bedrooms">
+                <input class="btn-check" type="radio" id="studio" name="bedrooms">
+                <label class="btn btn-outline-secondary fw-normal" for="studio">Studio</label>
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="1" id="bedrooms-1"
+                  name="bedrooms">
+                <label class="btn btn-outline-secondary fw-normal" for="bedrooms-1">1</label>
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="2" id="bedrooms-2"
+                  name="bedrooms">
+                <label class="btn btn-outline-secondary fw-normal" for="bedrooms-2">2</label>
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="3" id="bedrooms-3"
+                  name="bedrooms">
+                <label class="btn btn-outline-secondary fw-normal" for="bedrooms-3">3</label>
+                <input class="btn-check" formControlName="bedrooms" type="radio" value="4" id="bedrooms-4"
+                  name="bedrooms" checked>
+                <label class="btn btn-outline-secondary fw-normal" for="bedrooms-4">4+</label>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label d-block fw-bold mb-2 pb-1">Bathrooms</label>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of bathrooms">
+                <input class="btn-check" type="radio" formControlName="bathrooms" value="1" id="bathrooms-1"
+                  name="bathrooms">
+                <label class="btn btn-outline-secondary fw-normal" for="bathrooms-1">1</label>
+                <input class="btn-check" type="radio" id="bathrooms-2" formControlName="bathrooms" value="2"
+                  name="bathrooms" checked>
+                <label class="btn btn-outline-secondary fw-normal" for="bathrooms-2">2</label>
+                <input class="btn-check" type="radio" id="bathrooms-3" formControlName="bathrooms" value="3"
+                  name="bathrooms">
+                <label class="btn btn-outline-secondary fw-normal" for="bathrooms-3">3</label>
+                <input class="btn-check" type="radio" id="bathrooms-4" formControlName="bathrooms" value="4"
+                  name="bathrooms">
+                <label class="btn btn-outline-secondary fw-normal" for="bathrooms-4">4</label>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label d-block fw-bold mb-2 pb-1">Parking spots</label>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of parking spots">
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-1" value="1"
+                  name="parking">
+                <label class="btn btn-outline-secondary fw-normal" for="parking-1">1</label>
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-2" value="2"
+                  name="parking" checked>
+                <label class="btn btn-outline-secondary fw-normal" for="parking-2">2</label>
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-3" value="3"
+                  name="parking">
+                <label class="btn btn-outline-secondary fw-normal" for="parking-3">3</label>
+                <input formControlName="parkingSpots" class="btn-check" type="radio" id="parking-4" value="4"
+                  name="parking">
+                <label class="btn btn-outline-secondary fw-normal" for="parking-4">4</label>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label d-block fw-bold mb-2 pb-1">Amenities</label>
+              <div class="row" formGroupName="amenities">
+                <div class="col-sm-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="wifi" formControlName="wifi" checked>
+                    <label class="form-check-label" for="wifi">WiFi</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="  form-check-input" type="checkbox" id="air-condition"
+                      formControlName="airConditioning" checked>
+                    <label class="form-check-label" for="air-condition">Air conditioning</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="balcony" id="balcony">
+                    <label class="form-check-label" for="balcony">Balcony</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="garage" id="garage">
+                    <label class="form-check-label" for="garage">Garage</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="gym" id="gym">
+                    <label class="form-check-label" for="gym">Gym</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="parking" id="parking" checked>
+                    <label class="form-check-label" for="parking">Parking</label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="pets-friendly">
+                    <label class="form-check-label" for="pets-friendly">Pets-friendly</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="pool" type="checkbox" id="pool">
+                    <label class="form-check-label" for="pool">Pool</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="bar" type="checkbox" id="bar">
+                    <label class="form-check-label" for="bar">Bar</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="heating" type="checkbox" id="heating" checked>
+                    <label class="form-check-label" for="heating">Heating</label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="dishwasher" type="checkbox" id="dishwasher">
+                    <label class="form-check-label" for="dishwasher">Dishwasher</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" formControlName="kitchen" type="checkbox" id="kitchen" checked>
+                    <label class="form-check-label" for="kitchen">Kitchen</label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="securityCameras" class="form-check-input" type="checkbox"
+                      id="security-cameras">
+                    <label class="form-check-label" for="security-cameras">Security cameras</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label class="form-label" for="ap-description">Description </label>
+            <textarea class="form-control" formControlName="description" id="ap-description" rows="5"
+              placeholder="Describe your property"></textarea><span class="form-text">1500 characters left</span>
+          </section>
+          <!-- Price-->
+          <section class="card card-body border-0 shadow-sm p-4 mb-4" id="price" #price>
+            <h2 class="h4 mb-4"><i class="fi-cash text-primary fs-5 mt-n1 me-2"></i>Price</h2>
+            <label class="form-label" for="ap-price">Price <span class="text-danger">*</span></label>
+            <div class="d-sm-flex">
+              <select class="form-select w-25 me-2 mb-2">
+                <option value="CAD">&#36;</option>
+              </select>
+              <input formControlName="amount" class="form-control w-100 me-2 mb-2" type="number" id="ap-price" min="1"
+                step="50" required>
+            </div>
+          </section>
+          <!-- Photos / video-->
+          <section class="card card-body border-0 shadow-sm p-4 mb-4" id="photos" #photos>
+            <h2 class="h4 mb-4">
+              <i class="fi-image text-primary fs-5 mt-n1 me-2"></i>Photos / video
+            </h2>
+            <div class="alert alert-info mb-4" role="alert">
+              <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
+                <p class="fs-sm mb-1">The maximum photo size is 5 MB and only 6 pictures are allowed. Formats: jpeg, jpg, png. Put the main picture
+                  first.<br>
+              </div>
+            </div>
+          
+            <div class="file-uploader-wrapper">
+              <!-- Conditionally disable the file input if 6 images are already selected -->
+              <input 
+                class="file-uploader" 
+                id="fileInput" 
+                type="file" 
+                (change)="onFileSelected($event)" 
+                accept="image/*"
+                multiple 
+                [disabled]="selectedImages.length >= 6" 
+              />
+              <label for="fileInput" class="file-uploader-label">
+                <span class="file-uploader-text">
+                  Click or drag images here to upload
+                </span>
+              </label>
+              
+              <!-- Display message when the user cannot add more images -->
+              <div *ngIf="selectedImages.length >= 6" class="alert alert-danger mt-2">
+                <i class="fi-alert-circle me-2"></i> You cannot add more than 6 images.
+              </div>
+              
+              <div class="uploaded-files" *ngIf="selectedImages.length > 0">
+                <h4>Uploaded Files:</h4>
+                <ul>
+                  <li *ngFor="let file of selectedImages; let i = index">
+                    {{ file.name }}
+                    <!-- Remove icon next to each file -->
+                    <button 
+                      type="button" 
+                      class="btn btn-link btn-sm text-danger ms-2" 
+                      (click)="removeFile(i)">
+                      <i class="fi-x-circle"></i> <!-- You can replace this icon with any icon of your choice -->
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Contacts-->
+          <section class="card card-body border-0 shadow-sm p-4 mb-4" id="contacts" formGroupName="contactInfo"
+            #contacts>
+            <h2 class="h4 mb-4"><i class="fi-phone text-primary fs-5 mt-n1 me-2"></i>Contacts</h2>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-fn">First name <span class="text-danger">*</span></label>
+                <input class="form-control" formControlName="firstName" type="text" id="ap-fn"
+                  placeholder="Enter your first name" required>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-sn">Second name <span class="text-danger">*</span></label>
+                <input class="form-control" formControlName="lastName" type="text" id="ap-sn"
+                  placeholder="Enter your second name" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-email">Email<span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="email" id="ap-email"
+                  placeholder="Enter your email">
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label class="form-label" for="ap-phone">Phone number <span class="text-danger">*</span></label>
+                <input class="form-control" formControlName="phoneNumber" type="tel" id="ap-phone" data-format="custom"
+                  data-delimiter="-" data-blocks="3 3 4" placeholder="000-000-0000">
+              </div>
+            </div>
+          </section>
+          <!-- Action buttons -->
+          <!-- <section class="d-sm-flex justify-content-between pt-2"><a class="btn btn-outline-primary btn-lg d-block mb-3 mb-sm-2" href="javascript:void(0);" data-bs-toggle="modal" (click)="openReviewModal(reviewContent)"><i class="fi-eye-on ms-n1 me-2"></i>Preview</a><a class="btn btn-primary btn-lg d-block mb-2" onclick="addProperty()"  routerLink="/vendor/property-promotion">Save and continue</a></section> -->
+
+          <section class="d-sm-flex justify-content-between pt-2"><button
+              class="btn btn-outline-primary btn-lg d-block mb-3 mb-sm-2" href="javascript:void(0);"
+              data-bs-toggle="modal" (click)="openReviewModal(reviewContent)" [disabled] = 'true'><i
+                class="fi-eye-on ms-n1 me-2"></i>Preview</button>
+
+            <button class="btn btn-primary btn-lg d-block mb-2" type="submit" [disabled]="propertyForm.invalid">Create
+              Property</button>
+          </section>
+
+        </form>
+      </div>
+      <!-- Progress of completion-->
+    </div>
+  </div>
+
+
+  <!-- Preview modal-->
+  <ng-template #reviewContent role="document" let-modal>
+    <div class="modal-header d-block d-sm-flex">
+      <h3 class="h5 text-muted fw-normal modal-title d-none d-sm-block">Property preview</h3>
+      <div class="d-flex align-items-center"><a class="btn btn-primary btn-sm me-4"
+          routerLink="/vendor/property-promotion" (click)="modal.dismiss('Cross click')">Save and continue</a><span
+          class="fs-xs text-muted ms-auto me-2">[ESC]</span>
+        <button class="btn-close ms-0" type="button" data-bs-dismiss="modal"
+          (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    </div>
+    <div class="modal-body p-0">
+      <div class="container mt-2 mt-sm-0 py-4 py-sm-5">
+        <h1 class="h2 mb-2">Pine Apartments</h1>
+        <p class="mb-2 pb-1 fs-lg">28 Jackson Ave Long Island City, NY 67234</p>
+        <ul class="d-flex mb-4 list-unstyled">
+          <li class="me-3 pe-3 border-end"><b class="me-1">4</b><i
+              class="fi-bed mt-n1 lead align-middle text-muted"></i></li>
+          <li class="me-3 pe-3 border-end"><b class="me-1">2</b><i
+              class="fi-bath mt-n1 lead align-middle text-muted"></i></li>
+          <li class="me-3 pe-3 border-end"><b class="me-1">2</b><i
+              class="fi-car mt-n1 lead align-middle text-muted"></i></li>
+          <li><b>56 </b>sq.m</li>
+        </ul>
+        <div class="overflow-auto pb-3 px-2 mx-n2 mb-4" data-simplebar>
+          <div class="row g-2 g-md-3" style="min-width: 30rem;">
+            <div class="col-8"><img class="rounded rounded-md-3" src="assets/img/real-estate/single/01.jpg"
+                alt="Gallery thumbnail"></div>
+            <div class="col-4"><img class="rounded rounded-md-3 mb-2 mb-md-3" src="assets/img/real-estate/single/02.jpg"
+                alt="Gallery thumbnail"><img class="rounded rounded-md-3" src="assets/img/real-estate/single/03.jpg"
+                alt="Gallery thumbnail"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-7 mb-md-0 mb-4"><span class="badge bg-success me-2 mb-3">Verified</span><span
+              class="badge bg-info me-2 mb-3">New</span>
+            <h2 class="h3 mb-4 pb-4 border-bottom">$2,000<span
+                class="d-inline-block ms-1 fs-base fw-normal text-body">/month</span></h2>
+            <!-- Overview-->
+            <div class="mb-4 pb-md-3">
+              <h3 class="h4">Overview</h3>
+              <p class="mb-1">Lorem tincidunt lectus vitae id vulputate diam quam. Imperdiet non scelerisque turpis sed
+                etiam ultrices. Blandit mollis dignissim egestas consectetur porttitor. Vulputate dolor pretium,
+                dignissim eu augue sit ut convallis. Lectus est, magna urna feugiat sed ultricies sed in lacinia. Fusce
+                potenti sit id pharetra vel ornare. Vestibulum sed tellus ullamcorper arcu.</p>
+              <div class="collapse" id="seeMoreOverview" #overviewcollapse="ngbCollapse"
+                [(ngbCollapse)]="overviewColleaps">
+                <p class="mb-1">Asperiores eos molestias, aspernatur assumenda vel corporis ex, magni excepturi totam
+                  exercitationem quia inventore quod amet labore impedit quae distinctio? Officiis blanditiis
+                  consequatur alias, atque, sed est incidunt accusamus repudiandae tempora repellendus obcaecati
+                  delectus ducimus inventore tempore harum numquam autem eligendi culpa.</p>
+              </div><a class="collapse-label collapsed" href="javascript:void(0);" (click)="overviewcollapse.toggle()"
+                [attr.aria-expanded]="!overviewColleaps" data-bs-toggle="collapse" data-bs-label-collapsed="Show more"
+                data-bs-label-expanded="Show less" role="button" aria-expanded="false"
+                aria-controls="seeMoreOverview"></a>
+            </div>
+            <!-- Property Details-->
+            <div class="mb-4 pb-md-3">
+              <h3 class="h4">Property Details</h3>
+              <ul class="list-unstyled mb-0">
+                <li><b>Type: </b>apartment</li>
+                <li><b>Apartment area: </b>56 sq.m</li>
+                <li><b>Built: </b>2015</li>
+                <li><b>Bedrooms: </b>4</li>
+                <li><b>Bathrooms: </b>2</li>
+                <li><b>Parking places: </b>2</li>
+                <li><b>Pets allowed: </b>No</li>
+              </ul>
+            </div>
+            <!-- Amenities-->
+            <div class="mb-sm-3">
+              <h3 class="h4">Amenities</h3>
+              <ul class="list-unstyled row row-cols-lg-3 row-cols-md-2 row-cols-1 gy-1 mb-1 text-nowrap">
+                <li class="col"><i class="fi-wifi mt-n1 me-2 fs-lg align-middle"></i>WiFi</li>
+                <li class="col"><i class="fi-thermometer mt-n1 me-2 fs-lg align-middle"></i>Heating</li>
+                <li class="col"><i class="fi-dish mt-n1 me-2 fs-lg align-middle"></i>Dishwasher</li>
+                <li class="col"><i class="fi-parking mt-n1 me-2 fs-lg align-middle"></i>Parking place</li>
+                <li class="col"><i class="fi-snowflake mt-n1 me-2 fs-lg align-middle"></i>Air conditioning</li>
+                <li class="col"><i class="fi-iron mt-n1 me-2 fs-lg align-middle"></i>Iron</li>
+                <li class="col"><i class="fi-tv mt-n1 me-2 fs-lg align-middle"></i>TV</li>
+                <li class="col"><i class="fi-laundry mt-n1 me-2 fs-lg align-middle"></i>Laundry</li>
+                <li class="col"><i class="fi-cctv mt-n1 me-2 fs-lg align-middle"></i>Security cameras</li>
+              </ul>
+              <div class="collapse" id="seeMoreAmenities" #amenitiescollapse="ngbCollapse"
+                [(ngbCollapse)]="amenitiesColleaps">
+                <ul class="list-unstyled row row-cols-lg-3 row-cols-md-2 row-cols-1 gy-1 mb-1 text-nowrap">
+                  <li class="col"><i class="fi-no-smoke mt-n1 me-2 fs-lg align-middle"></i>No smocking</li>
+                  <li class="col"><i class="fi-pet mt-n1 me-2 fs-lg align-middle"></i>Cats</li>
+                  <li class="col"><i class="fi-swimming-pool mt-n1 me-2 fs-lg align-middle"></i>Swimming pool</li>
+                  <li class="col"><i class="fi-double-bed mt-n1 me-2 fs-lg align-middle"></i>Double bed</li>
+                  <li class="col"><i class="fi-bed mt-n1 me-2 fs-lg align-middle"></i>Single bed</li>
+                </ul>
+              </div><a class="collapse-label collapsed" href="javascript:void(0);" (click)="amenitiescollapse.toggle()"
+                [attr.aria-expanded]="!amenitiesColleaps" data-bs-toggle="collapse" data-bs-label-collapsed="Show more"
+                data-bs-label-expanded="Show less" role="button" aria-expanded="false"
+                aria-controls="seeMoreAmenities"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</main>
+
+<!-- Footer-->
+<app-footer></app-footer>

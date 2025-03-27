@@ -1,0 +1,168 @@
+<main class="page-wrapper">
+  <!-- Header-->
+  <app-header id="top"></app-header>
+
+  <!-- Page container-->
+  <div class="container mt-5 mb-md-4 py-5">
+
+    <!-- Title + Breadcrumb-->
+    <app-breadcrumbs [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+    <div class="row">
+      <!-- Sidebar (Agent's info)-->
+      <aside class="col-lg-3 col-md-4 mb-5">
+        <div class="pe-lg-3"><img class="d-block rounded-circle mx-auto mx-md-0 mb-3" src="assets/img/avatars/31.jpg" width="120" alt="Floyd Miles">
+          <h2 class="h4 text-center text-md-start mb-1">Floyd Miles</h2>
+          <p class="text-center text-md-start mb-2 pb-1">Imperial Property Group Agent</p>
+          <div class="d-flex justify-content-center justify-content-md-start border-bottom pb-4 mb-4"><span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i></span><a class="ms-2" routerLink="/vendor/reviews">45 reviews</a>
+          </div>
+          <div class="border-bottom pb-4 mb-4">
+            <p class="fs-sm mb-0">Hello! I will select the best accommodation for you. Amet libero morbi venenatis ut
+              est. Iaculis leo ultricies nunc id ante adipiscing. Vel metus odio at faucibus ac. Neque id placerat et id
+              ut acultricies commodo.</p>
+            <div class="collapse" id="seeMore" #overviewcollapse="ngbCollapse" [(ngbCollapse)]="overviewColleaps">
+              <p class="fs-sm mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor
+                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+            </div>
+            <div class="text-center text-md-start"><a class="collapse-label collapsed fs-sm" href="javascript:void(0);" (click)="overviewcollapse.toggle()" [attr.aria-expanded]="!overviewColleaps" data-bs-toggle="collapse" data-bs-label-collapsed="Show more" data-bs-label-expanded="Show less" role="button" aria-expanded="false" aria-controls="seeMore"></a></div>
+          </div>
+          <ul class="d-table list-unstyled mx-auto mx-md-0 mb-3 mb-md-4">
+            <li class="mb-2"><a class="nav-link fw-normal p-0" href="tel:3025550107"><i class="fi-phone text-primary mt-n1 me-2 align-middle"></i>(302) 555-0107</a></li>
+            <li><a class="nav-link fw-normal p-0" href="mailto:floyd_miles@email.com"><i class="fi-mail text-primary mt-n1 me-2 align-middle"></i>floyd_miles&#64;email.com</a></li>
+          </ul>
+          <div class="text-center text-md-start"><a class="btn btn-icon btn-light-primary btn-xs rounded-circle shadow-sm me-2" href="javascript:void(0);"><i class="fi-facebook"></i></a><a class="btn btn-icon btn-light-primary btn-xs rounded-circle shadow-sm" href="javascript:void(0);"><i class="fi-linkedin"></i></a></div>
+          <div class="text-center text-md-start pt-md-2 mt-4"><a class="btn btn-primary" href="javascript:void(0);" data-bs-toggle="modal" (click)="openModal(content)"><i class="fi-chat-left fs-sm me-2"></i>Direct
+              message</a></div>
+        </div>
+      </aside>
+      <!-- Content-->
+      <div class="col-lg-9 col-md-8">
+        <h1 class="h2 text-center text-sm-start mb-4">Property offers</h1>
+        <!-- Nav tabs + Sorting-->
+        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between mb-4">
+          <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs flex-nowrap mb-sm-0">
+            <li [ngbNavItem]="1" class="nav-item me-sm-3 mb-3">
+              <a ngbNavLink>
+                For rent
+              </a>
+              <ng-template ngbNavContent>
+                <!-- For rent tab-->
+                <div class="tab-pane fade show active" id="for-rent" role="tabpanel">
+
+                  <div class="row g-4 g-md-3 g-lg-4 pt-2">
+                    <!-- Item-->
+                    @for(data of rentData | sortBy:sortBy:sortField;track $index){
+                    <div class="col-sm-6 col-lg-4">
+                      <ng-template [ngIf]="data.sale == 'For rent'">
+                        <div class="card shadow-sm card-hover border-0 h-100">
+                          <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" routerLink="/catalog/single-v1"></a>
+                            <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="" [ngClass]="{'bg-success d-table badge mb-1': data.verified_btn}">{{data.verified_btn}}</span><span class="d-table badge {{data.btn_color}}">{{data.btn}}</span></div>
+                            <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                              <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button" placement="left" ngbTooltip="Add to Wishlist"><i class="fi-heart"></i></button>
+                            </div>
+                            <ngx-slick-carousel [config]="config">
+                              @for(img of data.image;track $index){
+                              <div class="swiper-slide" ngxSlickItem>
+                                <img src="{{img.img}}" alt="Image" class="h-100">
+                              </div>
+                              }
+                            </ngx-slick-carousel>
+                          </div>
+                          <div class="card-body position-relative pb-3">
+                            <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary">{{data.sale}}</h4>
+                            <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" routerLink="/catalog/single-v1">{{data.title}}</a></h3>
+                            <p class="mb-2 fs-sm text-muted">{{data.content}}</p>
+                            <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>${{data.price}}</div>
+                          </div>
+                          <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                            <span class="d-inline-block mx-1 px-2 fs-sm">{{data.bath}}<i class="fi-bed ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block mx-1 px-2 fs-sm">{{data.bad}}<i class="fi-bath ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block mx-1 px-2 fs-sm">{{data.car}}<i class="fi-car ms-1 mt-n1 fs-lg text-muted"></i></span>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </div>
+                    }
+                  </div>
+                  <div class="text-center mt-1 pt-4"><a class="d-inline-block fw-bold text-decoration-none p-2 pb-0" href="javascript:void(0);"><i class="fi-refresh fs-sm me-2"></i>Load more</a></div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2" class="nav-item me-sm-3 mb-3">
+              <a ngbNavLink>
+                For sale
+              </a>
+              <ng-template ngbNavContent>
+                <!-- For sale tab-->
+                <div class="tab-pane fade show active" id="for-sale" role="tabpanel">
+                  <div class="row g-4 g-md-3 g-lg-4 py-2">
+                    <!-- Item-->
+                    @for(data of saleData | sortBy:sortBy:sortField;track $index){
+                    <div class="col-sm-6 col-lg-4">
+                      <div class="card shadow-sm card-hover border-0 h-100">
+                        <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" routerLink="/catalog/single-v1"></a>
+                          <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="" [ngClass]="{'bg-success d-table badge mb-1': data.verified_btn}">{{data.verified_btn}}</span><span class="d-table badge {{data.btn_color}}">{{data.btn}}</span></div>
+                          <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                            <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button" placement="left" ngbTooltip="Add to Wishlist"><i class="fi-heart"></i></button>
+                          </div>
+                          <ngx-slick-carousel [config]="saleSlider">
+                            @for(data of data.image;track $index){
+                            <div class="swiper-slide" ngxSlickItem>
+                              <img src="{{data.img}}" alt="Image" class="h-100">
+                            </div>
+                            }
+                          </ngx-slick-carousel>
+                        </div>
+                        <div class="card-body position-relative pb-3">
+                          <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary">{{data.sale}}</h4>
+                          <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" routerLink="/catalog/single-v1">{{data.title}}</a></h3>
+                          <p class="mb-2 fs-sm text-muted">{{data.content}}</p>
+                          <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>{{data.price}}</div>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                          <span class="d-inline-block mx-1 px-2 fs-sm">{{data.bath}}<i class="fi-bed ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block mx-1 px-2 fs-sm">{{data.bad}}<i class="fi-bath ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block mx-1 px-2 fs-sm">{{data.car}}<i class="fi-car ms-1 mt-n1 fs-lg text-muted"></i></span>
+                        </div>
+                      </div>
+                    </div>
+                    }
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center ms-sm-4">
+            <label class="fs-sm me-2 pe-1 text-nowrap" for="sortby"><i class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:</label>
+            <select class="form-select form-select-sm" id="sortby" (click)="SortFilter();">
+              <option>Newest</option>
+              <option value="Atitle">Popularity</option>
+              <option value="Aprice">Low - High Price</option>
+              <option value="Dprice">High - Low Price</option>
+              <option value="Abad">High rating</option>
+              <option value="Dbad">Average Rating</option>
+            </select>
+          </div>
+        </div>
+        <div class="tab-content">
+          <div [ngbNavOutlet]="nav"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Standard Modal -->
+  <ng-template #content role="document" let-modal>
+    <div class="modal-header">
+      <h3 class="fs-base modal-title">Message to Floyd Miles</h3>
+      <button class="btn-close ms-0" type="button" data-bs-dismiss="modal" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form class="modal-body needs-validation" novalidate (ngSubmit)="validSubmit()" [formGroup]="validationform">
+      <div class="mb-4">
+        <textarea class="form-control" rows="6" placeholder="Type your message here" required formControlName="message" [ngClass]="{'is-invalid': submit && form['message'].errors}"></textarea>
+        <div class="invalid-feedback">Please type your message before sending.</div>
+      </div>
+      <button class="btn btn-primary mb-2" type="submit"><i class="fi-send me-2"></i>Send message</button>
+    </form>
+  </ng-template>
+</main>
+
+<!-- Footer-->
+<app-footer></app-footer>
