@@ -92,8 +92,12 @@ export class PropertiesComponent implements OnInit {
       id:item.id,
       propertyImage: item.propertyImage?.[0] || '',
       btn: item.status,
-      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED ? 'success' : 'info',
-      category: item.category,
+      btn_color: item.status === this.staticDataService.PROPERTY_STATUS.VERIFIED 
+      ? 'success' 
+      : item.status === this.staticDataService.PROPERTY_STATUS.REJECTED 
+          ? 'danger' 
+          : 'info',
+        category: item.category,
       streetAddress: item.streetAddress,
       totalPrice: item.totalPrice ? `$${item.totalPrice}` : 'N/A',
       bedrooms: item.bedrooms ? `${item.bedrooms} Bed` : 'N/A',

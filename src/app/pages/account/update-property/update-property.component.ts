@@ -164,12 +164,12 @@ export class UpdatePropertyComponent {
   propertySubmit() {
 
     // Call the signup service
-    const propertyId = this.route.snapshot.paramMap.get('id');
-
-    if (this.propertyForm.invalid) {
+    const propertyId: string = this.route.snapshot.paramMap.get('id') ?? '';
+    if (!propertyId) {
+      console.error('Property ID is missing');
       return;
-    }
-    this.propertyService.updateProperty(this.propertyForm.value).subscribe({
+    }  
+    this.propertyService.updateProperty(propertyId, this.propertyForm.value).subscribe({
       next: (response) => {
         Swal.fire({
           title: 'Property Updated successfully!',
@@ -230,8 +230,8 @@ export class UpdatePropertyComponent {
             latitude: response.data.latitude,
             longitude: response.data.longitude,
             status: response.data.status || 'AVAILABLE',
-            amount: response.data.amount,
-            totalAreaInMeterSq: response.data.totalArea,
+            amount: response.data.totalPrice,
+            totalAreaInMeterSq: response.data.totalAreaInMeterSq,
             rejectionMessage:response.data.rejectionMessage,
             // Populate nested contact info
             contactInfo: {

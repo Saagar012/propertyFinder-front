@@ -28,7 +28,7 @@ export class PropertyService {
     return this.http.post(`${baseUrl}property`, formData, { headers });
 
   }
-  updateProperty(data: any): Observable<any> {
+  updateProperty(id: string,  data: any): Observable<any> {
     const formData = new FormData();
     // Retrieve the token from localStorage
     const token = localStorage.getItem('authToken');
@@ -37,7 +37,12 @@ export class PropertyService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`${baseUrl}property/${id}/update`, data, { headers });
+    console.log("FormData contents:");
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });   
+    
+    return this.http.post(`${baseUrl}property/update/${id}`, formData, { headers });
 
   }
 
