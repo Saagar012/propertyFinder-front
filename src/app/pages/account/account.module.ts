@@ -20,6 +20,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 
 import { SortByAccountPipe } from '../account/sort-by.pipe';
+import { UpdatePropertyComponent } from './update-property/update-property.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: 'https://httpbin.org/post',
@@ -35,7 +36,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     WishlistComponent,
     ReviewsComponent,
     NotificationsComponent,
-    SortByAccountPipe
+    SortByAccountPipe,
+    UpdatePropertyComponent
   ],
   imports: [
     CommonModule,

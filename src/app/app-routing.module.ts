@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SingleV1Component } from './pages/catalog/single-v1/single-v1.component';
+import { UpdatePropertyComponent } from './pages/account/update-property/update-property.component';
 
 const routes: Routes = [
   {
     path: 'my-properties/:id',
     component: SingleV1Component,
+    pathMatch: 'full'
+  },
+  {
+    path: 'update-property/:id',
+    component: UpdatePropertyComponent,
     pathMatch: 'full'
   },
   {

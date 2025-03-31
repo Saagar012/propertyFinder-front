@@ -13,21 +13,45 @@ export class PropertyService {
   createProperty(data: any, images: File[]): Observable<any> {
     const formData = new FormData();
     // Append the selected images
-   
+
     images.forEach((image) => {
       formData.append('images', image); // Only use 'images' as the key
     });
-    
-   // Retrieve the token from localStorage
+
+    // Retrieve the token from localStorage
     const token = localStorage.getItem('authToken');
 
     formData.append('data', JSON.stringify(data));
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
     return this.http.post(`${baseUrl}property`, formData, { headers });
 
   }
+  updateProperty(data: any): Observable<any> {
+    const formData = new FormData();
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('authToken');
+
+    formData.append('data', JSON.stringify(data));
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`${baseUrl}property/${id}/update`, data, { headers });
+
+  }
+
+
+  updateRejectionMessage(id: string, rejectionMessage: any): Observable<any> {
+
+    const token = localStorage.getItem('authToken');
+    const data = { rejectionMessage: rejectionMessage };
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`${baseUrl}property/${id}/rejection-message`, data, { headers });
+  } 
   // Fetch properties method
   fetchProperties(page: number = 1, limit: number = 4, status: string): Observable<any> {
     let params = new HttpParams();
@@ -41,9 +65,9 @@ export class PropertyService {
     });
 
     console.log("consoling the property status", status)
-  
+
     return this.http.get(`${baseUrl}property`, { headers, params });
-  } 
+  }
 
 
 
@@ -64,9 +88,9 @@ export class PropertyService {
         }
       }
     });
-      // Append page and limit
-  params = params.append('page', page.toString());
-  params = params.append('limit', limit.toString());
+    // Append page and limit
+    params = params.append('page', page.toString());
+    params = params.append('limit', limit.toString());
 
     return this.http.get(`${baseUrl}property/filtered`, { params });
   }
@@ -78,7 +102,7 @@ export class PropertyService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(`${baseUrl}property/details/${id}`, { headers });
-  } 
+  }
   fetchPropertyById(id: string): Observable<any> {
     const token = localStorage.getItem('authToken');
 
@@ -86,18 +110,18 @@ export class PropertyService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(`${baseUrl}property/${id}`, { headers });
-  } 
+  }
   calculateMortgage(data: any): Observable<any> {
     const token = localStorage.getItem('authToken');
-    
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json' // Set content type as JSON
     });
-  
+
     // Make POST request with the data (city, area, propertyType) to calculate mortgage
     return this.http.post(`${baseUrl}property/approx-mortgage-price`, data, { headers });
   }
-  
+
 
 }

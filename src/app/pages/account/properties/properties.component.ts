@@ -27,6 +27,7 @@ export class PropertiesComponent implements OnInit {
   pageNumbers:any;
   constructor(private propertyService: PropertyService,private authService: AuthService, private staticDataService: StaticDataService) { }
   limit: number = 4;
+  currentStatus: string = 'ALL'; // Default Published
 
   ngOnInit(): void {
     /**
@@ -45,6 +46,7 @@ export class PropertiesComponent implements OnInit {
 
   // Chat Data Fetch
   public _fetchData(page:number = 1, status: string) {
+    this.currentStatus = status;
      (this.propertyService.fetchProperties(page, this.limit, status).subscribe(response =>{
       if (response && response.data) { // Check if response has data property
         this.propertiesData = response.data.map((item: any) => this.transformProperty(item));

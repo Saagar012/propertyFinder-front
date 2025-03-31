@@ -10,7 +10,6 @@ import { aboutReviews, propertyById, recently } from './single-v1.model';
 import { aboutReviewData, recentlyData } from './data';
 import { PropertyService } from 'src/app/core/services/property/property.service';
 import { ActivatedRoute } from '@angular/router';
-import { properties } from '../../dashboard/home2/home2.model';
 import { HttpClient } from '@angular/common/http';
 import { EmailService } from 'src/app/core/services/email/email.service';
 import { StaticDataService } from 'src/app/core/services/static-data.service';

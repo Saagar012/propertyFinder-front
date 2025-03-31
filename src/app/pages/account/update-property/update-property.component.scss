@@ -1,0 +1,59 @@
+.custom-dialog {
+  width: 450px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #dc3545;
+  color: white;
+  padding: 15px;
+  font-size: 18px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.dialog-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.rejection-text {
+  font-size: 18px;
+  font-style: italic;
+  color: #333;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.close-button {
+  background: #333;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-button:hover {
+  background: #000;
+  transform: scale(1.05);
+}

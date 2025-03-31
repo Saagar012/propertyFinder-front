@@ -55,7 +55,7 @@
             <!-- Item-->
             @for(data of propertiesData;track $index){
             <div class="card card-hover card-horizontal border-0 shadow-sm mb-4">
-              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url('{{data.image}}');">
+              <a class="card-img-top"  [routerLink]="currentStatus === 'REJECTED' ? ['/update-property', data.id] : ['/my-properties', data.id]" style="background-image: url('{{data.image}}');">
                 <div class="position-absolute start-0 top-0 pt-3 ps-3">
                   <span class="d-table badge bg-{{data.btn_color}}">{{data.btn}}</span>
                 </div>
@@ -97,7 +97,7 @@
 
             @for(data of propertiesData;track $index){
             <div class="card card-hover card-horizontal border-0 shadow-sm mb-4">
-              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url('{{data.image}}');">
+              <a class="card-img-top"  [routerLink]="currentStatus === 'REJECTED' ? ['/update-property', data.id] : ['/my-properties', data.id]"  style="background-image: url('{{data.image}}');">
                 <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-{{data.btn_color}}">{{data.btn}}</span></div>
               </a>
               <div class="card-body position-relative pb-3">
@@ -136,7 +136,7 @@
             <!-- Item-->
             @for(data of propertiesData;track $index){
             <div class="card card-hover card-horizontal border-0 shadow-sm mb-4">
-              <a class="card-img-top" [routerLink]="['/my-properties', data.id]" style="background-image: url('{{data.image}}');">
+              <a class="card-img-top"  [routerLink]="currentStatus === 'REJECTED' ? ['/update-property', data.id] : ['/my-properties', data.id]"  style="background-image: url('{{data.image}}');">
                 <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-{{data.btn_color}}">{{data.btn}}</span></div>
               </a>
               <div class="card-body position-relative pb-3">
@@ -158,7 +158,7 @@
                   </ul>
                 </div>
                 <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary">{{data.category}}</h4>
-                <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" [routerLink]="['/my-properties', data.id]">{{data.title}}</a></h3>
+                <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link"  [routerLink]="currentStatus === 'REJECTED' ? ['/update-property', data.id] : ['/my-properties', data.id]" >{{data.title}}</a></h3>
                 <p class="mb-2 fs-sm text-muted">{{data.streetAddress}}</p>
                 <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>{{data.totalPrice}}</div>
                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start border-top pt-3 pb-2 mt-3 text-nowrap"><span class="d-inline-block me-4 fs-sm">{{data.bedrooms}}<i class="fi-bed ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block me-4 fs-sm">{{data.bathrooms}}<i class="fi-bath ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block fs-sm">{{data.parkingSpots}}<i class="fi-car ms-1 mt-n1 fs-lg text-muted"></i></span></div>

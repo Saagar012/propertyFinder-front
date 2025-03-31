@@ -55,6 +55,7 @@ export interface propertyById {
   createdAt: string;  // or Date, depending on how you want to handle dates
   updatedAt: string;  // or Date
   deletedAt?: string | null;
+  rejectionMessage?: Text;
 }
 
 export interface contactInfo {
