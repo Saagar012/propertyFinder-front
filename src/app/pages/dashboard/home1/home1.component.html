@@ -3,46 +3,65 @@
 
 <!-- Hero-->
 <section class="container-fluid my-5 pt-5 pb-lg-4 px-xxl-4">
-  <div class="jarallax card align-items-center justify-content-center border-0 p-md-5 p-4 bg-secondary overflow-hidden mt-n3" style="min-height: 65vh; background-image: url(assets/img/real-estate/hero-image-v2.jpg);background-position: bottom;background-size: cover;background-attachment: fixed;" data-jarallax data-speed="0.5"><span class="img-overlay opacity-40"></span>
+  <div
+    class="jarallax card align-items-center justify-content-center border-0 p-md-5 p-4 bg-secondary overflow-hidden mt-n3"
+    style="min-height: 65vh; background-image: url(assets/img/real-estate/hero-image-v2.jpg);background-position: bottom;background-size: cover;background-attachment: fixed;"
+    data-jarallax data-speed="0.5"><span class="img-overlay opacity-40"></span>
     <div class="content-overlay" style="max-width: 856px;">
       <h1 class="display-5 mb-5 pb-md-3 px-md-3 text-white text-center">Easy way to find a perfect property</h1>
       <form class="form-group d-block">
         <div class="row g-0">
           <div class="col-md-10 d-sm-flex align-items-center">
             <div class="dropdown w-sm-50 border-end-sm" data-bs-toggle="select" ngbDropdown>
-              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown" ngbDropdownToggle><i class="fi-home me-2"></i><span class="dropdown-toggle-label sale">For Sale</span></button>
+              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"
+                ngbDropdownToggle><i class="fi-home me-2"></i><span class="dropdown-toggle-label sale">For
+                  Sale</span></button>
               <input type="hidden">
               <ul class="dropdown-menu" ngbDropdownMenu id="sale-content">
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label" (click)="updateFilter('SALE', 'type')">For Sale</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('SALE', 'type')">For Sale</span></a></li>
               </ul>
             </div>
             <hr class="d-sm-none my-2">
             <div class="dropdown w-sm-50 border-end-sm" data-bs-toggle="select" ngbDropdown>
-              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown" ngbDropdownToggle><i class="fi-map-pin me-2"></i><span class="dropdown-toggle-label location">Location</span></button>
+              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"
+                ngbDropdownToggle><i class="fi-map-pin me-2"></i><span
+                  class="dropdown-toggle-label location">Location</span></button>
               <input type="hidden">
               <ul class="dropdown-menu" ngbDropdownMenu id="location-content">
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label" (click)="updateFilter('Thunder Bay', 'location')">Thunder Bay</span></a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"  (click)="updateFilter('Toronto', 'location')">Toronto</span></a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"  (click)="updateFilter('British Columbia', 'location')">British Columbia</span></a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"  (click)="updateFilter('Vancouver', 'location')">Vancouver</span></a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"  (click)="updateFilter('Calgary', 'location')">Calgary</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('Thunder Bay', 'location')">Thunder Bay</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('Toronto', 'location')">Toronto</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('British Columbia', 'location')">British Columbia</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('Vancouver', 'location')">Vancouver</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('Calgary', 'location')">Calgary</span></a></li>
 
               </ul>
             </div>
             <hr class="d-sm-none my-2">
             <div class="dropdown w-sm-50" data-bs-toggle="select" ngbDropdown>
-              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown" ngbDropdownToggle><i class="fi-list me-2"></i><span class="dropdown-toggle-label property">Property type</span></button>
+              <button class="btn btn-lg btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"
+                ngbDropdownToggle><i class="fi-list me-2"></i><span class="dropdown-toggle-label property">Property
+                  type</span></button>
               <input type="hidden">
               <ul class="dropdown-menu" ngbDropdownMenu id="property-content">
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label" (click)="updateFilter('HOUSE', 'propertyType')" >Houses</span></a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label" (click)="updateFilter('APARTMENT', 'propertyType')" >Apartments</span></a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label" (click)="updateFilter('COMMERCIAL', 'propertyType')" >Commercial</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('HOUSE', 'propertyType')">Houses</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('APARTMENT', 'propertyType')">Apartments</span></a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label"
+                      (click)="updateFilter('COMMERCIAL', 'propertyType')">Commercial</span></a></li>
               </ul>
             </div>
           </div>
           <hr class="d-md-none mt-2">
           <div class="col-md-2 d-sm-flex align-items-center pt-3 pt-md-0">
-            <button class="btn btn-lg btn-icon btn-primary px-3 w-100" type="button" (click)="onSearch()">Search</button>
+            <button class="btn btn-lg btn-icon btn-primary px-3 w-100" type="button"
+              (click)="onSearch()">Search</button>
           </div>
         </div>
       </form>
@@ -53,38 +72,48 @@
 <!-- Property categories-->
 <section class="container mb-5">
   <div class="row row-cols-lg-6 row-cols-sm-3 row-cols-2 g-3 g-xl-4">
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/sale"[queryParams]="{ propertyType: 'HOUSE' }"
-      >
-        <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-real-estate-house"></i></div>
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center"
+        routerLink="/catalog/sale" [queryParams]="{ propertyType: 'HOUSE' }">
+        <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i
+            class="fi-real-estate-house"></i></div>
         <h3 class="icon-box-title fs-base mb-0">Houses</h3>
       </a></div>
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/sale"[queryParams]="{ propertyType: 'APARTMENT' }"
-      >
-        <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-apartment"></i></div>
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center"
+        routerLink="/catalog/sale" [queryParams]="{ propertyType: 'APARTMENT' }">
+        <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i
+            class="fi-apartment"></i></div>
         <h3 class="icon-box-title fs-base mb-0">Apartments</h3>
       </a></div>
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="/catalog/sale" [queryParams]="{ propertyType: 'COMMERCIAL' }"
-      >
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center"
+        routerLink="/catalog/sale" [queryParams]="{ propertyType: 'COMMERCIAL' }">
         <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-shop"></i>
         </div>
         <h3 class="icon-box-title fs-base mb-0">Commercial</h3>
       </a></div>
-      <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="#">
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center"
+        routerLink="#">
         <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-rent"></i>
         </div>
         <h3 class="icon-box-title fs-base mb-0">Daily rental</h3>
       </a></div>
-    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center" routerLink="#">
-        <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-house-chosen"></i></div>
+    <div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover h-100 text-center"
+        routerLink="#">
+        <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i
+            class="fi-house-chosen"></i></div>
         <h3 class="icon-box-title fs-base mb-0">New buildings</h3>
       </a></div>
 
     <div class="col">
-      <div class="dropdown h-100" ngbDropdown><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center" href="javascript: void(0);" data-bs-toggle="dropdown">
-          <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto arrow-none" ngbDropdownToggle><i class="fi-dots-horisontal"></i></div>
+      <div class="dropdown h-100" ngbDropdown><a
+          class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center" href="javascript: void(0);"
+          data-bs-toggle="dropdown">
+          <div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto arrow-none"
+            ngbDropdownToggle><i class="fi-dots-horisontal"></i></div>
           <h3 class="icon-box-title fs-base mb-0">More</h3>
         </a>
-        <div class="dropdown-menu dropdown-menu-end my-1" ngbDropdownMenu><a class="dropdown-item fw-bold" routerLink="#"><i class="fi-computer fs-base opacity-60 me-2"></i>Rooms</a><a class="dropdown-item fw-bold" routerLink="#"><i class="fi-real-estate-buy fs-base opacity-60 me-2"></i>Land</a></div>
+        <div class="dropdown-menu dropdown-menu-end my-1" ngbDropdownMenu><a class="dropdown-item fw-bold"
+            routerLink="#"><i class="fi-computer fs-base opacity-60 me-2"></i>Rooms</a><a class="dropdown-item fw-bold"
+            routerLink="#"><i class="fi-real-estate-buy fs-base opacity-60 me-2"></i>Land</a></div>
       </div>
     </div>
   </div>
@@ -96,12 +125,14 @@
     @for(data of servicesData;track $index){
     <div ngxSlickItem>
       <div class="col">
-        <div class="card card-hover border-0 h-100 pb-2 pb-sm-3 px-sm-3 text-center"><img class="d-block mx-auto my-3" src="{{data.image}}" width="256" alt="Illustration">
+        <div class="card card-hover border-0 h-100 pb-2 pb-sm-3 px-sm-3 text-center"><img class="d-block mx-auto my-3"
+            src="{{data.image}}" width="256" alt="Illustration">
           <div class="card-body">
             <h2 class="h4 card-title">{{data.title}}</h2>
             <p class="card-text fs-sm">{{data.content}}</p>
           </div>
-          <div class="card-footer pt-0 border-0"><a class="btn btn-outline-primary stretched-link" routerLink="{{data.link}}">{{data.btn}}</a></div>
+          <div class="card-footer pt-0 border-0"><a class="btn btn-outline-primary stretched-link"
+              routerLink="{{data.link}}">{{data.btn}}</a></div>
         </div>
       </div>
     </div>
@@ -112,7 +143,8 @@
 <!-- Top offers (carousel)-->
 <section class="container mb-5 pb-md-4">
   <div class="d-flex align-items-center justify-content-between mb-3">
-    <h2 class="h3 mb-0">Top offers</h2><a class="btn btn-link fw-normal p-0" routerLink="/catalog/sale">View all<i class="fi-arrow-long-right ms-2"></i></a>
+    <h2 class="h3 mb-0">Top offers</h2><a class="btn btn-link fw-normal p-0" routerLink="/catalog/sale">View all<i
+        class="fi-arrow-long-right ms-2"></i></a>
   </div>
   <div class="swiper default-swiper rounded">
     <ngx-slick-carousel [config]="config" class="slickSwiper">
@@ -121,35 +153,37 @@
         <div class="col p-2">
           <div class="card shadow-sm card-hover border-0 h-100">
             <div class="card-img-top card-img-hover"><a class="img-overlay" [routerLink]="['/properties', data.id]"></a>
-          
+
               <div class="position-absolute start-0 top-0 pt-3 ps-3">
-                <span 
-                  class="d-table badge mb-1" 
+                <span class="d-table badge mb-1"
                   [ngClass]="{'bg-success': data.status === 'VERIFIED', 'bg-danger': data.status !== 'VERIFIED'}">
                   {{data.verified_btn}}
                 </span>
               </div>
-              
+
               <div class="content-overlay end-0 top-0 pt-3 pe-3">
-                <button
-                class="btn btn-light btn-sm w-100"
-                type="button"
-                placement="left"
-                ngbTooltip="Add to Wishlist">
-                {{ data.location }}
-              </button>              </div><img src="{{data.image}}" alt="Image" class="fixed-image">
+                <button class="btn btn-light btn-sm w-100" type="button" placement="left" ngbTooltip="Add to Wishlist">
+                  {{ data.location }}
+                </button>
+              </div><img src="{{data.image}}" alt="Image" class="fixed-image">
             </div>
             <div class="card-body position-relative pb-3">
               <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary">{{data.sale}}</h4>
-              <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" [routerLink]="['/properties', data.id]">{{data.title}}</a></h3>
+              <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link"
+                  [routerLink]="['/properties', data.id]">{{data.title}}</a></h3>
               <p class="mb-2 fs-sm text-muted">{{data.content | slice:0:50}}</p>
               <p class="mb-md-4 mb-3 fs-sm">{{data.streetAddress}}</p>
               <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>{{data.price}}</div>
-              
+
             </div>
             <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
-              <span class="d-inline-block mx-1 px-2 fs-sm">{{data.bed}}<i class="fi-bed ms-1 mt-n1 fs-lg text-muted"></i></span>
-              <span class="d-inline-block mx-1 px-2 fs-sm">{{data.bath}}<i class="fi-bath ms-1 mt-n1 fs-lg text-muted"></i></span><span class="d-inline-block mx-1 px-2 fs-sm">{{data.car}}<i class="fi-car ms-1 mt-n1 fs-lg text-muted"></i></span></div>
+              <span class="d-inline-block mx-1 px-2 fs-sm">{{data.bed}}<i
+                  class="fi-bed ms-1 mt-n1 fs-lg text-muted"></i></span>
+              <span class="d-inline-block mx-1 px-2 fs-sm">{{data.bath}}<i
+                  class="fi-bath ms-1 mt-n1 fs-lg text-muted"></i></span><span
+                class="d-inline-block mx-1 px-2 fs-sm">{{data.car}}<i
+                  class="fi-car ms-1 mt-n1 fs-lg text-muted"></i></span>
+            </div>
           </div>
         </div>
       </div>
@@ -169,36 +203,47 @@
         <div class="dropdown-menu"><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Apartments</span></a><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Houses</span></a><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Rooms</span></a><a class="dropdown-item" href="javascript:void(0);"><span class="dropdown-item-label">Commercial</span></a></div>
       </div> -->
       <ul class="nav nav-tabs d-none d-md-flex ps-lg-2 mb-0">
-        <li class="nav-item"><a class="nav-link fs-sm mb-2 mb-md-0" href="javascript: void(0);" (click)="activeCategory('APARTMENT')" [ngClass]="{'active': galleryFilter ==='APARTMENT'}">Apartments</a></li>
-        <li class="nav-item"><a class="nav-link fs-sm mb-2 mb-md-0" href="javascript: void(0);" (click)="activeCategory('HOUSE')" [ngClass]="{'active': galleryFilter ==='HOUSE'}" >Houses</a></li>
-        <li class="nav-item"><a class="nav-link fs-sm mb-2 mb-md-0" href="javascript: void(0);" (click)="activeCategory('COMMERCIAL')" [ngClass]="{'active': galleryFilter ==='COMMERCIAL'}">Commercial</a></li>
+        <li class="nav-item"><a class="nav-link fs-sm mb-2 mb-md-0" href="javascript: void(0);"
+            (click)="activeCategory('APARTMENT')" [ngClass]="{'active': galleryFilter ==='APARTMENT'}">Apartments</a>
+        </li>
+        <li class="nav-item"><a class="nav-link fs-sm mb-2 mb-md-0" href="javascript: void(0);"
+            (click)="activeCategory('HOUSE')" [ngClass]="{'active': galleryFilter ==='HOUSE'}">Houses</a></li>
+        <li class="nav-item"><a class="nav-link fs-sm mb-2 mb-md-0" href="javascript: void(0);"
+            (click)="activeCategory('COMMERCIAL')" [ngClass]="{'active': galleryFilter ==='COMMERCIAL'}">Commercial</a>
+        </li>
         <!-- <li class="nav-item"><a class="nav-link fs-sm mb-2 mb-md-0" href="javascript: void(0);" (click)="activeCategory('Commercial')" [ngClass]="{'active': galleryFilter ==='Commercial'}">Commercial</a> -->
         <!-- </li> -->
       </ul>
-    </div><a class="btn btn-link fw-normal d-none d-lg-block p-0" routerLink="/catalog/sale">View all<i class="fi-arrow-long-right ms-2"></i></a>
+    </div><a class="btn btn-link fw-normal d-none d-lg-block p-0" routerLink="/catalog/sale">View all<i
+        class="fi-arrow-long-right ms-2"></i></a>
   </div>
   <div class="row g-4" data-groups='["branding"]'>
     @for(item of filterredImages;track $index){
     <div class="col-md-6">
       <div class="card bg-size-cover bg-position-center border-0 overflow-hidden h-100"
-       style="background-image: url({{item.image}});" [routerLink]="['/properties', item.id]">
-       <span class="img-gradient-overlay"></span>
-        
+        style="background-image: url({{item.image}});" [routerLink]="['/properties', item.id]">
+        <span class="img-gradient-overlay"></span>
+
         <div class="card-body content-overlay pb-0">
           <div class="d-flex">
-            <span class="badge bg-success fs-sm me-2" [ngClass]="{'bg-success': item.status === 'VERIFIED', 'bg-danger': item.status !== 'VERIFIED'}">
+            <span class="badge bg-success fs-sm me-2"
+              [ngClass]="{'bg-success': item.status === 'VERIFIED', 'bg-danger': item.status !== 'VERIFIED'}">
               {{item.verified_btn}}
             </span>
-            <span class="badge fs-sm {{item.btn_color}}">{{item.btn}}</span></div>
+            <span class="badge fs-sm {{item.btn_color}}">{{item.btn}}</span>
+          </div>
         </div>
         <div class="card-footer content-overlay border-0 pt-0 pb-4">
-          <div class="d-sm-flex justify-content-between align-items-end pt-5 mt-2 mt-sm-5"><a class="text-decoration-none text-light pe-2" [routerLink]="['/properties', item.id]">
+          <div class="d-sm-flex justify-content-between align-items-end pt-5 mt-2 mt-sm-5"><a
+              class="text-decoration-none text-light pe-2" [routerLink]="['/properties', item.id]">
               <div class="fs-sm text-uppercase pt-2 mb-1">{{item.sale}}</div>
               <h3 class="h5 text-light mb-1">{{item.title}}</h3>
               <div class="fs-sm opacity-70"><i class="fi-map-pin me-1"></i>{{item.streetAddress}}</div>
             </a>
-            <div class="btn-group ms-n2 ms-sm-0 mt-3"><a class="btn btn-primary px-3" routerLink="/catalog/single-v1" style="height: 2.75rem;">From {{item.price}}</a>
-              <button class="btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm" type="button"><i class="fi-heart"></i></button>
+            <div class="btn-group ms-n2 ms-sm-0 mt-3"><a class="btn btn-primary px-3" routerLink="/catalog/single-v1"
+                style="height: 2.75rem;">From {{item.price}}</a>
+              <button class="btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
+                type="button"><i class="fi-heart"></i></button>
             </div>
           </div>
         </div>
@@ -211,12 +256,14 @@
 <!-- Property cost calculator-->
 <section class="container mb-5 pb-2 pb-lg-4">
   <div class="row align-items-center">
-    <div class="col-md-5"><img class="d-block mx-md-0 mx-auto mb-md-0 mb-4" src="assets/img/real-estate/illustrations/calculator.svg" width="416" alt="Illustration"></div>
+    <div class="col-md-5"><img class="d-block mx-md-0 mx-auto mb-md-0 mb-4"
+        src="assets/img/real-estate/illustrations/calculator.svg" width="416" alt="Illustration"></div>
     <div class="col-xxl-6 col-md-7 text-md-start text-center">
       <h2>Сalculate the cost of your property</h2>
       <p class="pb-3 fs-lg">Real estate appraisal is a procedure that allows you to determine the average market value
         of real estate (apartment, house, land, etc.). Сalculate the cost of your property with our new Calculation
-        Service.</p><a class="btn btn-lg btn-primary" href="javascript:void(0);" (click)="openModal(content)" data-bs-toggle="modal"><i class="fi-calculator me-2"></i>Calculate</a>
+        Service.</p><a class="btn btn-lg btn-primary" href="javascript:void(0);" (click)="openModal(content)"
+        data-bs-toggle="modal"><i class="fi-calculator me-2"></i>Calculate</a>
     </div>
   </div>
 </section>
@@ -224,14 +271,17 @@
 <!-- Cities (carousel)-->
 <section class="container mb-5 pb-2">
   <div class="d-flex align-items-center justify-content-between mb-3">
-    <h2 class="h3 mb-0">Search property by city</h2><a class="btn btn-link fw-normal ms-md-3 pb-0"  routerLink="/catalog/sale">View all <i class="fi-arrow-long-right ms-2"></i></a>
+    <h2 class="h3 mb-0">Search property by city</h2><a class="btn btn-link fw-normal ms-md-3 pb-0"
+      routerLink="/catalog/sale">View all <i class="fi-arrow-long-right ms-2"></i></a>
   </div>
 
   <ngx-slick-carousel [config]="config" class="carousel slickSwiper">
     @for(data of cityData;track $index){
     <div class="swiper-slide" ngxSlickItem>
-      <div class="col p-2"><a class="card shadow-sm card-hover border-0" routerLink="/catalog/sale" [queryParams]="{ city: data.title }">        >
-          <div class="card-img-top card-img-hover"><span class="img-overlay opacity-65"></span><img src="{{data.image}}" class="fixed-image" alt="New York">
+      <div class="col p-2"><a class="card shadow-sm card-hover border-0" routerLink="/catalog/sale"
+          [queryParams]="{ city: data.title }"> >
+          <div class="card-img-top card-img-hover"><span class="img-overlay opacity-65"></span><img src="{{data.image}}"
+              class="fixed-image" alt="New York">
             <div class="content-overlay start-0 top-0 d-flex align-items-center justify-content-center w-100 h-100 p-3">
               <div class="w-100 p-1">
                 <div class="mb-2">
@@ -246,7 +296,7 @@
                   <!-- <h4 class="mb-2 fs-xs fw-normal text-light"><i class="fi-home mt-n1 me-2 fs-sm align-middle"></i>Property for rent</h4> -->
                   <div class="d-flex align-items-center">
                     <!-- <div class="progress progress-light w-100"> -->
-                      <!-- <div class="progress-bar bg-success" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div> -->
+                    <!-- <div class="progress-bar bg-success" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div> -->
                     <!-- </div> -->
                     <!-- <span class="text-light fs-sm ps-1 ms-2">{{data.rent_count}}</span> -->
                   </div>
@@ -280,48 +330,66 @@
 <ng-template #content role="document" let-modal>
   <div class="modal-header d-block position-relative border-0 px-sm-5 px-4">
     <h3 class="h4 modal-title mt-4 text-center">Explore your property’s value</h3>
-    <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"
+      aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body px-sm-5 px-4">
     <form [formGroup]="calculateMortageForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
-      <div class="mb-3">
-        <label class="form-label fw-bold mb-2" for="property-city">Property location</label>
-        <select class="form-control form-select" id="property-city" formControlName="city" required>
-          <option value="" selected disabled hidden>Choose city</option>
-          <option value="Thunder Bay">Thunder Bay</option>
-          <option value="Toronto">Toronto</option>
-          <option value="British Columbia">British Columbia</option>
-          <option value="Vancouver">Vancouver</option>
-          <option value="Calgary">Calgary</option>
-        </select>
-        <div class="invalid-feedback">Please choose the city.</div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label fw-bold mb-2" for="property-type">Property Type</label>
-        <select class="form-control form-select" id="property-type" formControlName="propertyType" required>
-          <option value="" selected disabled hidden>Choose Property Type</option>
-          <option value="HOUSE">House</option>
-          <option value="APARTMENT">Apartment</option>
-          <option value="COMMERCIAL">Commercial</option>
-        </select>
-        <div class="invalid-feedback">Please choose the Property Type.</div>
+      <div class="pt-2 mb-4">
+        <label class="form-label fw-bold mb-2" for="property-price">Property Price</label>
+        <input class="form-control" type="text" id="property-area" formControlName="propertyPrice"
+          placeholder="Enter the price" required>
+        <div class="invalid-feedback">Please enter the price.</div>
       </div>
       <div class="pt-2 mb-4">
-        <label class="form-label fw-bold mb-2" for="property-area">Total area, sq.m.</label>
-        <input class="form-control" type="text" id="property-area" formControlName="area" placeholder="Enter your area" required>
-        <div class="invalid-feedback">Please enter your property's area.</div>
+        <label class="form-label fw-bold mb-2" for="property-down-payment">Down Payment</label>
+        <input class="form-control" type="text" id="property-down-payment" formControlName="downPayment"
+          placeholder="Enter the down payment" required>
+        <div class="invalid-feedback">Please enter the down payment.</div>
+      </div>
+
+      <div class="pt-2 mb-4">
+        <label class="form-label fw-bold mb-2" for="annual-interest-rate">Annual Interest Rate ( % )</label>
+        <input class="form-control" type="text" id="annual-interest-rate" formControlName="interestRate"
+          placeholder="Enter the annual interest rate" required>
+        <div class="invalid-feedback">Please enter the annual interest rate.</div>
+      </div>
+
+      <div class="pt-2 mb-4">
+        <label class="form-label fw-bold mb-2" for="loan-term">Loan Term ( Years )</label>
+        <input class="form-control" type="text" id="loan-term" formControlName="loanTerm"
+          placeholder="Enter the loan term" required>
+        <div class="invalid-feedback">Please enter the loan term.</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-bold mb-2" for="payment-frequency">Payment Frequency</label>
+        <select class="form-control form-select" id="payment-frequency" formControlName="paymentFrequency" required>
+          <option value="" selected disabled hidden>Monthly</option>
+          <option value="MONTHLY">Monthly</option>
+          <option value="WEEKLY">Weekly</option>
+        </select>
+        <div class="invalid-feedback">Please choose the Payment frequency.</div>
       </div>
       <button class="btn btn-primary d-block w-100 mb-4" type="submit" [disabled]="calculateMortageForm.invalid">
         <i class="fi-calculator me-2"></i>Calculate
       </button>
     </form>
-    <div *ngIf="totalApproxCost !== null" class="mt-4 text-center premium-cost-display">
+    <div *ngIf="monthlyPayment !== null" class="mt-4 text-center premium-cost-display">
       <div class="p-4 shadow rounded bg-light">
-        <h4 class="text-primary fw-bold mb-2">Estimated Property Value</h4>
-        <p class="display-6 text-success mb-0">{{ totalApproxCost | currency:'USD' }}</p>
+        <h4 class="text-primary fw-bold mb-2">Estimated Mortgage Details</h4>
+    
+        <p class="mb-1"><strong>Loan Amount:</strong></p>
+        <p class="display-6 text-dark mb-3">{{ loanAmount | currency:'USD' }}</p>
+    
+        <p class="mb-1"><strong>Monthly Payment:</strong></p>
+        <p class="display-6 text-success mb-3">{{ monthlyPayment | currency:'USD' }}</p>
+    
+        <p class="mb-1"><strong>Annual Payment:</strong></p>
+        <p class="display-6 text-info">{{ annualPayment | currency:'USD' }}</p>
       </div>
     </div>
     
+
   </div>
 </ng-template>
 <!-- Footer-->

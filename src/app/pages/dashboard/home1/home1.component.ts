@@ -39,14 +39,18 @@ export class Home1Component implements OnInit {
   selectedLocation: string = '';
   selectedPropertyType: string = '';
   calculateMortageForm!: FormGroup;
-  totalApproxCost: string | null = null; 
+  monthlyPayment: string | null = null; 
+  annualPayment: string | null = null; 
+  loanAmount: string | null = null; 
 
   constructor(private modalService: NgbModal, private fb: FormBuilder, private authService: AuthService, private router: Router, private propertyService: PropertyService, private staticDataService: StaticDataService) {
 
     this.calculateMortageForm = this.fb.group({
-      city: ['', Validators.required],
-      propertyType: ['', Validators.required],
-      area: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], // Only numbers allowed
+      propertyPrice: ['', Validators.required],
+      downPayment: ['', Validators.required],
+      interestRate: ['', Validators.required],
+      loanTerm: ['', Validators.required],
+      paymentFrequency: ['', Validators.required]
     });
 
   }
@@ -97,8 +101,11 @@ onSubmit() {
     this.propertyService.calculateMortgage(formData).subscribe(
       (response) => {
         // Handle the response when mortgage is calculated
-        this.totalApproxCost = response.totalApproxCost;
-      },
+        this.monthlyPayment = response.monthlyPayment;
+        this.annualPayment = response.annualPayment;
+        this.loanAmount = response.loanAmount;
+    
+          },
       (error) => {
         // Handle the error, maybe show an error message
         Swal.fire({
