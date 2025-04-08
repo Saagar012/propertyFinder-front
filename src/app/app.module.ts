@@ -11,16 +11,20 @@ import { OrderByPipe } from './order-by.pipe';
 import { CatalogModule } from './pages/catalog/catalog.module';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ChatbotComponent } from './pages/account/chatbot/chatbot.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderByPipe,
+    ChatbotComponent
   ],
   imports: [
     BrowserModule,
     CatalogModule,
     AppRoutingModule,
+    FormsModule,
     PagesModule,
     HttpClientModule,
     DropzoneModule,

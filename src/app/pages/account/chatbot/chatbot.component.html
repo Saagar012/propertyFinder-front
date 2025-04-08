@@ -1,0 +1,33 @@
+<div class="chatbot-container">
+    <div class="chatbot-toggle" (click)="toggleChat()">
+      <i class="fas fa-comment"></i>
+    </div>
+  
+    <div class="chat-window" *ngIf="isChatOpen">
+      <div class="chat-messages">
+        <div *ngFor="let message of messages" 
+             [class.user-message]="message.sender === 'user'"
+             [class.bot-message]="message.sender === 'bot'">
+          <span *ngIf="!isSafeHtml(message.text)">{{ message.text }}</span>
+          <span *ngIf="isSafeHtml(message.text)" [innerHTML]="message.text"></span>
+        </div>
+  
+        <div class="predefined-questions" *ngIf="showPredefinedQuestions">
+          <div *ngFor="let question of predefinedQuestions" 
+               class="question-option"
+               (click)="selectQuestion(question.question)">
+            {{ question.question }}
+          </div>
+        </div>
+      </div>
+      <div class="chat-controls">
+        <button class="clear-chat-btn" (click)="clearChat()">Clear Chat</button>
+      </div>
+      <div class="chat-input">
+        <input [(ngModel)]="userInput" 
+               placeholder="Type your message..." 
+               (keyup.enter)="sendMessage()">
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
