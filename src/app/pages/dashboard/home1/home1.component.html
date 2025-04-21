@@ -240,8 +240,11 @@
               <h3 class="h5 text-light mb-1">{{item.title}}</h3>
               <div class="fs-sm opacity-70"><i class="fi-map-pin me-1"></i>{{item.streetAddress}}</div>
             </a>
-            <div class="btn-group ms-n2 ms-sm-0 mt-3"><a class="btn btn-primary px-3" routerLink="/catalog/single-v1"
-                style="height: 2.75rem;">From {{item.price}}</a>
+            <div class="btn-group ms-n2 ms-sm-0 mt-3">
+              <a class="btn btn-primary px-3" routerLink="/catalog/single-v1" style="height: 2.75rem;">
+                From ${{ item.price }}
+              </a>
+              
               <button class="btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
                 type="button"><i class="fi-heart"></i></button>
             </div>

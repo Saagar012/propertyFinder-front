@@ -79,6 +79,7 @@ export class AddPropertyComponent implements OnInit {
         phoneNumber: ["", Validators.required]
       }),
     });
+    // this.setUserDetails();
     this.initializeMap();
     var map = L.map('map').setView([48.3809, -89.2477], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -87,7 +88,16 @@ export class AddPropertyComponent implements OnInit {
     }).addTo(map);
 
 
+  }
 
+  setUserDetails(): void {
+    this.propertyForm.get('contactInfo')?.patchValue({
+      firstName: localStorage.getItem('user') || '',
+      lastName: localStorage.getItem('lastName') || '',
+      email: localStorage.getItem('email') || '',
+      phoneNumber: localStorage.getItem('phoneNumber') || ''
+
+    });
   }
   searchLocation(): void {
     const location = (document.getElementById('location-input') as HTMLInputElement).value;
@@ -124,20 +134,20 @@ export class AddPropertyComponent implements OnInit {
     if (input.files) {
       // Check if adding these files would exceed the limit of 6
       const totalFiles = this.selectedImages.length + input.files.length;
-  
+
       if (totalFiles <= 6) {
         this.selectedImages.push(...Array.from(input.files));
-      } 
+      }
       console.log("while selecting the image", this.selectedImages);
 
     }
   }
-  
+
   removeFile(index: number) {
     this.selectedImages.splice(index, 1); // Remove the file at the specified index
     console.log("after removing the image", this.selectedImages);
   }
-  
+
   initializeMap(): void {
     this.map = L.map('map').setView([48.3809, -89.2477], 13);
 
@@ -173,6 +183,28 @@ export class AddPropertyComponent implements OnInit {
       }
     });
   }
+  onUseOwnInfoChange(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    const contactInfo = this.propertyForm.get('contactInfo');
+
+    if (checked) {
+      contactInfo?.patchValue({
+        firstName: localStorage.getItem('user') || '',
+        lastName: localStorage.getItem('lastName') || '',
+        email: localStorage.getItem('email') || '',
+        phoneNumber: localStorage.getItem('phoneNumber') || ''
+      });
+    } else {
+      contactInfo?.patchValue({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: ''
+      });
+    }
+  }
+  
+
   inView(ele: any) {
     ele.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
   }

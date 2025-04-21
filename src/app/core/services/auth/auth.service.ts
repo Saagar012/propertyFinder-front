@@ -16,9 +16,11 @@ export class AuthService {
 
   user$ = this.currentUserSubject.asObservable();
 
-  setUser(userName: string, email: string) {
+  setUser(userName: string, lastName:string,email: string, phoneNumber: string) {
     localStorage.setItem('user', userName);
+    localStorage.setItem('lastName', lastName);
     localStorage.setItem('email', email);
+    localStorage.setItem('phoneNumber', phoneNumber);
 
     this.currentUserSubject.next(userName); // Notify all subscribers about the new user
 
@@ -53,7 +55,7 @@ export class AuthService {
   // Signup method to send data to backend
   signup(data: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+    console.log('Signup data:', data);
     return this.http.post(`${baseUrl}auth/signup`, data, { headers });
 
   }

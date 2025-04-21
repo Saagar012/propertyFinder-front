@@ -97,6 +97,13 @@ export class SaleComponent implements OnInit {
     this._fetchDataFromParams();
 
   }
+  resetFilters() {
+    // Reset the whole form
+    this.filterForm.reset();
+
+    this._fetchDataFromParams();
+    }
+  
   private _fetchDataFromParams(page:number = 1) {
     // Get the category query parameter
     this.route.queryParams.subscribe((params) => {

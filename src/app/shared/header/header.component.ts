@@ -65,6 +65,7 @@ export class HeaderComponent implements OnInit {
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
         email: ['', [Validators.required]],
+        phoneNumber: ['', [Validators.required]],
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]],
 
@@ -84,7 +85,7 @@ export class HeaderComponent implements OnInit {
   checkUserInLocalStorage(){
     if(localStorage.getItem('user')){
       this.username = localStorage.getItem('user');
-    }
+    }``
   }
 
    /**
@@ -273,7 +274,7 @@ export class HeaderComponent implements OnInit {
     this.authService.login(formData).subscribe({
       next: (response) => {
         console.log(response);
-        this.authService.setUser(response.user.firstName,response.user.email); // Save user data
+        this.authService.setUser(response.user.firstName,response.user.lastName,response.user.email,response.user.phoneNumber); // Save user data
 
         localStorage.setItem('authToken', response.token);
 

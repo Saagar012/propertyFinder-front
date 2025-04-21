@@ -34,6 +34,7 @@ export class SignupComponent implements OnInit {
         email: ['', [Validators.required]],
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]],
+        phoneNumber:['', [Validators.required]]
     });
 
     document.body.classList.add('bg-secondary');

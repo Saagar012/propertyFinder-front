@@ -32,6 +32,10 @@
               <input class="form-control" type="email" id="signup-email" placeholder="Enter your email" required formControlName="email" [ngClass]="{'is-invalid': submit && form['email'].errors}">
             </div>
             <div class="mb-4">
+              <label class="form-label" for="phone-number">Phone Number</label>
+              <input class="form-control" type="text" id="phone-number" placeholder="Enter your phoneNumber" required formControlName="phoneNumber" [ngClass]="{'is-invalid': submit && form['phoneNumber'].errors}">
+            </div>
+            <div class="mb-4">
               <label class="form-label" for="signup-password">Password <span class='fs-sm text-muted'>min. 8 char</span></label>
               <div class="password-toggle">
                 <input class="form-control" [type]="passTextType ? 'text' : 'password'" id="signup-password" minlength="8" required formControlName="password" [ngClass]="{'is-invalid': submit && form['password'].errors}">
